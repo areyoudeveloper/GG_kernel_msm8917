@@ -101,6 +101,7 @@ obj-$(CONFIG_MSM_SECURE_BUFFER) += secure_buffer.o
 obj-$(CONFIG_TRACER_PKT) += tracer_pkt.o
 obj-$(CONFIG_MSM_BAM_DMUX) += bam_dmux.o
 obj-$(CONFIG_MSM_SERVICE_LOCATOR) += service-locator.o
+obj-$(CONFIG_MSM_HOTPLUG) += msm_hotplug.o
 obj-$(CONFIG_MSM_QBT1000) += qbt1000.o
 obj-$(CONFIG_MSM_SCM_XPU) += scm-xpu.o
 obj-$(CONFIG_MSM_KERNEL_PROTECT) += kernel_protect.o
