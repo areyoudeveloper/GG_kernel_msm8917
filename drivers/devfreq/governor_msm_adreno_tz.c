@@ -162,6 +162,11 @@ void compute_work_load(struct devfreq_dev_status *stats,
 	spin_unlock(&sample_lock);
 }
 
+#ifdef CONFIG_ADRENO_IDLER
+extern int adreno_idler(struct devfreq_dev_status stats, struct devfreq *devfreq,
+		 unsigned long *freq);
+#endif
+
 /* Trap into the TrustZone, and call funcs there. */
 static int __secure_tz_reset_entry2(unsigned int *scm_data, u32 size_scm_data,
 					bool is_64)
@@ -338,6 +343,12 @@ static int tz_init(struct devfreq_msm_adreno_tz_data *priv,
 	return ret;
 }
 
+#ifdef CONFIG_SIMPLE_GPU_ALGORITHM
+extern int simple_gpu_active;
+extern int simple_gpu_algorithm(int level, int *val,
+				struct devfreq_msm_adreno_tz_data *priv);
+#endif
+
 static int tz_get_target_freq(struct devfreq *devfreq, unsigned long *freq,
 				u32 *flag)
 {
@@ -355,14 +366,37 @@ static int tz_get_target_freq(struct devfreq *devfreq, unsigned long *freq,
 		return result;
 	}
 
-	*freq = stats.current_frequency;
-	priv->bin.total_time += stats.total_time;
-	priv->bin.busy_time += stats.busy_time;
+        /* Prevent overflow */
+	if (stats.busy_time >= (1 << 24) || stats.total_time >= (1 << 24)) {
+		stats.busy_time >>= 7;
+		stats.total_time >>= 7;
 
-	if (stats.private_data)
+	}
+
+	*freq = stats.current_frequency;
+	
+#ifdef CONFIG_ADRENO_IDLER
+ 	if (adreno_idler(stats, devfreq, freq)) {
+ 		/* adreno_idler has asked to bail out now */
+ 		return 0;
+ 	}
+#endif
+
+	/*
+	* Force to use & record as min freq when system has
+	*entered pm-suspend or screen-off state.
+	*/
+	if (suspended || !display_on) {
+		*freq = devfreq->profile->freq_table[devfreq->profile->max_state - 1];
+		return 0;
+	}
+
+ 	priv->bin.total_time += stats.total_time;
+ 	priv->bin.busy_time += stats.busy_time;
+
+        if (stats.private_data)
 		context_count =  *((int *)stats.private_data);
 
-	/* Update the GPU load statistics */
 	compute_work_load(&stats, priv, devfreq);
 	/*
 	 * Do not waste CPU cycles running this algorithm if
@@ -390,6 +424,18 @@ static int tz_get_target_freq(struct devfreq *devfreq, unsigned long *freq,
 			priv->bin.busy_time > CEILING) {
 		val = -1 * level;
 	} else {
+#ifdef CONFIG_SIMPLE_GPU_ALGORITHM
+		if (simple_gpu_active) {
+			simple_gpu_algorithm(level, &val, priv);
+		} else {
+			scm_data[0] = level;
+			scm_data[1] = priv->bin.total_time;
+			scm_data[2] = priv->bin.busy_time;
+			scm_data[3] = context_count;
+			__secure_tz_update_entry3(scm_data, sizeof(scm_data),
+						&val, sizeof(val), priv);
+		}
+#else
 
 		scm_data[0] = level;
 		scm_data[1] = priv->bin.total_time;
