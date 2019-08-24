@@ -328,8 +328,8 @@ gpio-leds {
 		qcom,cold-bat-decidegc = <0>;
 		qcom,warm-bat-ma = <600>;
 
-		qcom,cool-normal-bat-ma = <600>;
-		qcom,cool-cold-bat-ma = <300>;
+		qcom,cool-normal-bat-ma = <800>;
+		qcom,cool-cold-bat-ma = <400>;
 		qcom,iterm-ma = <150>;
 		qcom,warm-bat-mv = <4100>;
 		qcom,cool-bat-mv = <4400>;
