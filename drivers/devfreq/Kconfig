@@ -237,4 +237,14 @@ config DEVFREQ_SPDM
 	  This driver allows any SPDM based client to vote for bandwidth.
 	  Used with the MSM SPDM Hypervisor Governor.
 
+config ADRENO_IDLER
+	tristate "MSM Adreno idler"
+	depends on DEVFREQ_GOV_MSM_ADRENO_TZ
+	default y
+	help
+	  Uses a different calculation method on top of Adreno TZ
+	  just for calculating frequency for idle to reduce the
+	  wasted power coming from stock Adreno TZ while
+	  maintaining high-performance.
+
 endif # PM_DEVFREQ
