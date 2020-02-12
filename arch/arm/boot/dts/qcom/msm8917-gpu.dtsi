@@ -57,7 +57,7 @@
 		qcom,idle-timeout = <64>; //msecs
 		qcom,deep-nap-timeout = <100>; //msecs
 		qcom,strtstp-sleepwake;
-		qcom,gpu-bimc-interface-clk-freq = <6500000000>; //In Hz
+		qcom,gpu-bimc-interface-clk-freq = <650000000>; //In Hz
 
 		clocks = <&clock_gcc clk_gcc_oxili_gfx3d_clk>,
 			<&clock_gcc clk_gcc_oxili_ahb_clk>,
