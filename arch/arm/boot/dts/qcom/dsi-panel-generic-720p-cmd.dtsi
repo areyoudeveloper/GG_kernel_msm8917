@@ -14,7 +14,7 @@
 	dsi_generic_720p_cmd: qcom,mdss_dsi_generic_720p_cmd {
 		qcom,mdss-dsi-panel-name = "generic 720p cmd mode dsi panel";
 		qcom,mdss-dsi-panel-type = "dsi_cmd_mode";
-		qcom,mdss-dsi-panel-framerate = <60>;
+		qcom,mdss-dsi-panel-framerate = <65>;
 		qcom,mdss-dsi-stream = <0>;
 		qcom,mdss-dsi-panel-width = <768>;
 		qcom,mdss-dsi-panel-height = <1280>;
