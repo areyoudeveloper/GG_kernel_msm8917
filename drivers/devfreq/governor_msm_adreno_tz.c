@@ -57,7 +57,9 @@ static DEFINE_SPINLOCK(suspend_lock);
 #define TZ_V2_UPDATE_WITH_CA_ID_64 0xD
 
 #define TAG "msm_adreno_tz: "
-
+#if 1
+static unsigned int adrenoboost = 1;
+#endif
 static u64 suspend_time;
 static u64 suspend_start;
 static unsigned long acc_total, acc_relative_busy;
@@ -87,6 +89,32 @@ u64 suspend_time_ms(void)
 	suspend_start = suspend_sampling_time;
 	return time_diff;
 }
+
+
+#if 1
+static ssize_t adrenoboost_show(struct device *dev,
+		struct device_attribute *attr, char *buf)
+{
+	size_t count = 0;
+	count += sprintf(buf, "%d\n", adrenoboost);
+
+	return count;
+}
+
+static ssize_t adrenoboost_save(struct device *dev,
+		struct device_attribute *attr, const char *buf, size_t count)
+{
+	int input;
+	sscanf(buf, "%d ", &input);
+	if (input < 0 || input > 3) {
+		adrenoboost = 0;
+	} else {
+		adrenoboost = input;
+	}
+
+	return count;
+}
+#endif
 
 static ssize_t gpu_load_show(struct device *dev,
 		struct device_attribute *attr,
@@ -134,6 +162,10 @@ static ssize_t suspend_time_show(struct device *dev,
 	return snprintf(buf, PAGE_SIZE, "%llu\n", time_diff);
 }
 
+#if 1
+static DEVICE_ATTR(adrenoboost, 0644,
+		adrenoboost_show, adrenoboost_save);
+#endif
 static DEVICE_ATTR(gpu_load, 0444, gpu_load_show, NULL);
 
 static DEVICE_ATTR(suspend_time, 0444,
@@ -143,6 +175,10 @@ static DEVICE_ATTR(suspend_time, 0444,
 static const struct device_attribute *adreno_tz_attr_list[] = {
 		&dev_attr_gpu_load,
 		&dev_attr_suspend_time,
+#if 1
+		&dev_attr_adrenoboost,
+#endif
+	
 		NULL
 };
 
@@ -161,11 +197,6 @@ void compute_work_load(struct devfreq_dev_status *stats,
 				devfreq->profile->freq_table[0];
 	spin_unlock(&sample_lock);
 }
-
-#ifdef CONFIG_ADRENO_IDLER
-extern int adreno_idler(struct devfreq_dev_status stats, struct devfreq *devfreq,
-		 unsigned long *freq);
-#endif
 
 /* Trap into the TrustZone, and call funcs there. */
 static int __secure_tz_reset_entry2(unsigned int *scm_data, u32 size_scm_data,
@@ -349,6 +380,11 @@ extern int simple_gpu_algorithm(int level, int *val,
 				struct devfreq_msm_adreno_tz_data *priv);
 #endif
 
+#ifdef CONFIG_ADRENO_IDLER
+extern int adreno_idler(struct devfreq_dev_status stats, struct devfreq *devfreq,
+		 unsigned long *freq);
+#endif
+
 static int tz_get_target_freq(struct devfreq *devfreq, unsigned long *freq,
 				u32 *flag)
 {
@@ -366,37 +402,34 @@ static int tz_get_target_freq(struct devfreq *devfreq, unsigned long *freq,
 		return result;
 	}
 
-        /* Prevent overflow */
+	/* Prevent overflow */
 	if (stats.busy_time >= (1 << 24) || stats.total_time >= (1 << 24)) {
 		stats.busy_time >>= 7;
 		stats.total_time >>= 7;
-
 	}
 
 	*freq = stats.current_frequency;
-	
 #ifdef CONFIG_ADRENO_IDLER
- 	if (adreno_idler(stats, devfreq, freq)) {
- 		/* adreno_idler has asked to bail out now */
- 		return 0;
- 	}
-#endif
-
-	/*
-	* Force to use & record as min freq when system has
-	*entered pm-suspend or screen-off state.
-	*/
-	if (suspended || !display_on) {
-		*freq = devfreq->profile->freq_table[devfreq->profile->max_state - 1];
+	if (adreno_idler(stats, devfreq, freq)) {
+		/* adreno_idler has asked to bail out now */
 		return 0;
 	}
-
- 	priv->bin.total_time += stats.total_time;
- 	priv->bin.busy_time += stats.busy_time;
-
-        if (stats.private_data)
+#endif
+	priv->bin.total_time += stats.total_time;
+	#if 1
+	// scale busy time up based on adrenoboost parameter, only if MIN_BUSY exceeded...
+	if ((unsigned int)(priv->bin.busy_time + stats.busy_time) >= MIN_BUSY) {
+		priv->bin.busy_time += stats.busy_time * (1 + (adrenoboost*3)/2);
+	} else {
+		priv->bin.busy_time += stats.busy_time;
+	}
+#else
+	priv->bin.busy_time += stats.busy_time;
+#endif
+	if (stats.private_data)
 		context_count =  *((int *)stats.private_data);
 
+	/* Update the GPU load statistics */
 	compute_work_load(&stats, priv, devfreq);
 	/*
 	 * Do not waste CPU cycles running this algorithm if
@@ -424,18 +457,6 @@ static int tz_get_target_freq(struct devfreq *devfreq, unsigned long *freq,
 			priv->bin.busy_time > CEILING) {
 		val = -1 * level;
 	} else {
-#ifdef CONFIG_SIMPLE_GPU_ALGORITHM
-		if (simple_gpu_active) {
-			simple_gpu_algorithm(level, &val, priv);
-		} else {
-			scm_data[0] = level;
-			scm_data[1] = priv->bin.total_time;
-			scm_data[2] = priv->bin.busy_time;
-			scm_data[3] = context_count;
-			__secure_tz_update_entry3(scm_data, sizeof(scm_data),
-						&val, sizeof(val), priv);
-		}
-#else
 
 		scm_data[0] = level;
 		scm_data[1] = priv->bin.total_time;
