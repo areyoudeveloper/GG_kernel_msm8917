@@ -5807,8 +5807,7 @@ static void msm8x16_wcd_configure_cap(struct snd_soc_codec *codec,
 	}
 }
 
-<<<<<<< HEAD
-=======
+
 #ifdef CONFIG_SOUND_CONTROL
 static struct snd_soc_codec *sound_control_codec_ptr;
 
@@ -5913,7 +5912,7 @@ static struct attribute_group sound_control_attr_group = {
 static struct kobject *sound_control_kobj;
 #endif
 
->>>>>>> 7a5efc78824d... Added Sound Control.
+
 static int msm8x16_wcd_codec_probe(struct snd_soc_codec *codec)
 {
 	struct msm8x16_wcd_priv *msm8x16_wcd_priv;
@@ -5924,12 +5923,11 @@ static int msm8x16_wcd_codec_probe(struct snd_soc_codec *codec)
 
 	dev_dbg(codec->dev, "%s()\n", __func__);
 
-<<<<<<< HEAD
-=======
+
 #ifdef CONFIG_SOUND_CONTROL
 	sound_control_codec_ptr = codec;
 #endif
->>>>>>> 7a5efc78824d... Added Sound Control.
+
 	msm8x16_wcd_priv = kzalloc(sizeof(struct msm8x16_wcd_priv), GFP_KERNEL);
 	if (!msm8x16_wcd_priv)
 		return -ENOMEM;
@@ -6466,8 +6464,6 @@ static int msm8x16_wcd_spmi_probe(struct spmi_device *spmi)
 	}
 	dev_set_drvdata(&spmi->dev, msm8x16);
 	spmi_dev_registered_cnt++;
-<<<<<<< HEAD
-=======
 
 
 #ifdef CONFIG_SOUND_CONTROL
@@ -6482,7 +6478,7 @@ static int msm8x16_wcd_spmi_probe(struct spmi_device *spmi)
 	}
 #endif
 
->>>>>>> 7a5efc78824d... Added Sound Control.
+
 register_codec:
 	if ((spmi_dev_registered_cnt == MAX_MSM8X16_WCD_DEVICE) && (!ret)) {
 		if (msm8x16_wcd_modules[0].spmi) {
