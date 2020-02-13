@@ -38,11 +38,9 @@
    Any workload higher than this will be treated as a non-idle workload.
    Adreno idler will more actively try to ramp down the frequency
    if this is set to a higher value. */
-<<<<<<< HEAD
+
 static unsigned long idleworkload = 7000;
-=======
 static unsigned long idleworkload = 5000;
->>>>>>> e5f8a2678025... Added Adreno Idler, Simple GPU Algorithm and fixed faulty governor declarations.
 module_param_named(adreno_idler_idleworkload, idleworkload, ulong, 0664);
 
 /* Number of events to wait before ramping down the frequency.
@@ -51,11 +49,11 @@ module_param_named(adreno_idler_idleworkload, idleworkload, ulong, 0664);
    This implementation is to prevent micro-lags on scrolling or playing games.
    Adreno idler will more actively try to ramp down the frequency
    if this is set to a lower value. */
-<<<<<<< HEAD
+
 static unsigned int idlewait = 15;
-=======
+
 static unsigned int idlewait = 20;
->>>>>>> e5f8a2678025... Added Adreno Idler, Simple GPU Algorithm and fixed faulty governor declarations.
+
 module_param_named(adreno_idler_idlewait, idlewait, uint, 0664);
 
 /* Taken from ondemand */
@@ -119,7 +117,3 @@ MODULE_AUTHOR("Park Ju Hyung <qkrwngud825@gmail.com>");
 MODULE_DESCRIPTION("'adreno_idler - A powersaver for Adreno TZ"
 	"Control idle algorithm for Adreno GPU series");
 MODULE_LICENSE("GPL");
-<<<<<<< HEAD
- 
-=======
->>>>>>> e5f8a2678025... Added Adreno Idler, Simple GPU Algorithm and fixed faulty governor declarations.
