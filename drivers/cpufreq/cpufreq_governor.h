@@ -38,6 +38,7 @@
 
 /* Ondemand Sampling types */
 enum {OD_NORMAL_SAMPLE, OD_SUB_SAMPLE};
+enum {tea_NORMAL_SAMPLE, tea_SUB_SAMPLE};
 
 /*
  * Macro for creating governors sysfs routines
@@ -152,6 +153,16 @@ struct cpu_dbs_common_info {
 	ktime_t time_stamp;
 };
 
+struct tea_cpu_dbs_info_s {
+	struct cpu_dbs_common_info cdbs;
+	struct cpufreq_frequency_table *freq_table;
+	unsigned int freq_lo;
+	unsigned int freq_lo_jiffies;
+	unsigned int freq_hi_jiffies;
+	unsigned int rate_mult;
+	unsigned int sample_type:1;
+};
+
 struct od_cpu_dbs_info_s {
 	struct cpu_dbs_common_info cdbs;
 	struct cpufreq_frequency_table *freq_table;
@@ -170,6 +181,15 @@ struct cs_cpu_dbs_info_s {
 };
 
 /* Per policy Governors sysfs tunables */
+struct tea_dbs_tuners {
+	unsigned int ignore_nice_load;
+	unsigned int sampling_rate;
+	unsigned int sampling_down_factor;
+	unsigned int up_threshold;
+	unsigned int powersave_bias;
+	unsigned int io_is_busy;
+};
+
 struct od_dbs_tuners {
 	unsigned int ignore_nice_load;
 	unsigned int sampling_rate;
@@ -192,6 +212,7 @@ struct cs_dbs_tuners {
 struct dbs_data;
 struct common_dbs_data {
 	/* Common across governors */
+    #define GOV_SAD_TEA		2
 	#define GOV_ONDEMAND		0
 	#define GOV_CONSERVATIVE	1
 	int governor;
@@ -228,6 +249,13 @@ struct dbs_data {
 
 /* Governor specific ops, will be passed to dbs_data->gov_ops */
 struct od_ops {
+	void (*powersave_bias_init_cpu)(int cpu);
+	unsigned int (*powersave_bias_target)(struct cpufreq_policy *policy,
+			unsigned int freq_next, unsigned int relation);
+	void (*freq_increase)(struct cpufreq_policy *policy, unsigned int freq);
+};
+
+struct tea_ops {
 	void (*powersave_bias_init_cpu)(int cpu);
 	unsigned int (*powersave_bias_target)(struct cpufreq_policy *policy,
 			unsigned int freq_next, unsigned int relation);
@@ -277,4 +305,8 @@ void od_register_powersave_bias_handler(unsigned int (*f)
 		(struct cpufreq_policy *, unsigned int, unsigned int),
 		unsigned int powersave_bias);
 void od_unregister_powersave_bias_handler(void);
+void tea_register_powersave_bias_handler(unsigned int (*f)
+		(struct cpufreq_policy *, unsigned int, unsigned int),
+		unsigned int powersave_bias);
+void tea_unregister_powersave_bias_handler(void);
 #endif /* _CPUFREQ_GOVERNOR_H */
