@@ -75,6 +75,8 @@ config CPU_FREQ_DEFAULT_GOV_SAD_TEA
 	bool "sad_tea"
 	select CPU_FREQ_GOV_SAD_TEA
 	help
+          What's Sad_tea
+          Its a governor based on ondenmand with little optimization
 
 config CPU_FREQ_DEFAULT_GOV_POWERSAVE
 	bool "powersave"
@@ -232,9 +234,8 @@ config CPU_FREQ_GOV_CONSERVATIVE
 config CPU_FREQ_GOV_SAD_TEA
 	tristate "'sad_tea' cpufreq policy governor"
 	help
-	  'impulse' - This driver adds a dynamic cpufreq policy governor
-	  designed for latency-sensitive workloads.
-
+	  What's Sad_tea
+          Its a governor based on ondenmand with little optimization
 	  If in doubt, say N.
 
 config CPU_FREQ_GOV_SCHED
