@@ -1,3 +1,6 @@
+#ifndef __LINUX_MSM_ION_H__
+#define __LINUX_MSM_ION_H__
+#endif /* __LINUX_MSM_ION_H__ */
 #ifndef _MSM_MSM_ION_H
 #define _MSM_MSM_ION_H
 
