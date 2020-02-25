@@ -52,19 +52,7 @@ static void sad_tea_powersave_bias_init_cpu(int cpu)
  * Because of this, whitelist specific known (series) of CPUs by default, and
  * leave all others up to the user.
  */
-static int should_io_be_busy(void)
-{
-#if defined(CONFIG_X86)
-	/*
-	 * For Intel, Core 2 (model 15) and later have an efficient idle.
-	 */
-	if (boot_cpu_data.x86_vendor == X86_VENDOR_INTEL &&
-			boot_cpu_data.x86 == 6 &&
-			boot_cpu_data.x86_model >= 15)
-		return 1;
-#endif
-	return 0;
-}
+
 
 /*
  * Find right freq to be set now with powersave_bias on.
@@ -92,7 +80,7 @@ static unsigned int generic_powersave_bias_target(struct cpufreq_policy *policy,
 	cpufreq_frequency_table_target(policy, dbs_info->freq_table, freq_next,
 			relation, &index);
 	freq_req = dbs_info->freq_table[index].frequency;
-	freq_reduc = freq_req * tea_tuners->powersave_bias / 1000;
+	freq_reduc = freq_req * tea_tuners->powersave_bias / 500;
 	freq_avg = freq_req - freq_reduc;
 
 	/* Find freq bounds for freq_avg in freq_table */
@@ -113,7 +101,7 @@ static unsigned int generic_powersave_bias_target(struct cpufreq_policy *policy,
 	}
 	jiffies_total = usecs_to_jiffies(tea_tuners->sampling_rate);
 	jiffies_hi = (freq_avg - freq_lo) * jiffies_total;
-	jiffies_hi += ((freq_hi - freq_lo) / 2);
+	jiffies_hi += ((freq_hi - freq_lo) / 1);
 	jiffies_hi /= (freq_hi - freq_lo);
 	jiffies_lo = jiffies_total - jiffies_hi;
 	dbs_info->freq_lo = freq_lo;
@@ -172,7 +160,7 @@ static void tea_check_cpu(int cpu, unsigned int load)
 
 		min_f = policy->cpuinfo.min_freq;
 		max_f = policy->cpuinfo.max_freq;
-		freq_next = min_f + load * (max_f - min_f) / 100;
+		freq_next = min_f + load * (max_f - min_f) / 50;
 
 		/* No longer fully busy, reset rate_mult */
 		dbs_info->rate_mult = 1;
@@ -415,8 +403,8 @@ static ssize_t store_powersave_bias(struct dbs_data *dbs_data, const char *buf,
 	if (ret != 1)
 		return -EINVAL;
 
-	if (input > 1000)
-		input = 1000;
+	if (input > 500)
+		input = 500;
 
 	tea_tuners->powersave_bias = input;
 	sad_tea_powersave_bias_init();
@@ -502,13 +490,13 @@ static int tea_init(struct dbs_data *dbs_data)
 
 		/* For correct statistics, we need 10 ticks for each measure */
 		dbs_data->min_sampling_rate = MIN_SAMPLING_RATE_RATIO *
-			jiffies_to_usecs(10);
+			jiffies_to_usecs(5);
 	}
 
 	tuners->sampling_down_factor = DEF_SAMPLING_DOWN_FACTOR;
 	tuners->ignore_nice_load = 0;
 	tuners->powersave_bias = default_powersave_bias;
-	tuners->io_is_busy = should_io_be_busy();
+	
 
 	dbs_data->tuners = tuners;
 	mutex_init(&dbs_data->mutex);

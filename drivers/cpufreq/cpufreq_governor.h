@@ -31,10 +31,10 @@
  * For CPUs with transition latency > 10ms (mostly drivers with CPUFREQ_ETERNAL)
  * this governor will not work. All times here are in us (micro seconds).
  */
-#define MIN_SAMPLING_RATE_RATIO			(2)
-#define LATENCY_MULTIPLIER			(1000)
-#define MIN_LATENCY_MULTIPLIER			(20)
-#define TRANSITION_LATENCY_LIMIT		(10 * 1000 * 1000)
+#define MIN_SAMPLING_RATE_RATIO			(1)
+#define LATENCY_MULTIPLIER			(500)
+#define MIN_LATENCY_MULTIPLIER			(10)
+#define TRANSITION_LATENCY_LIMIT		(5 * 500 * 500)
 
 /* Ondemand Sampling types */
 enum {OD_NORMAL_SAMPLE, OD_SUB_SAMPLE};
