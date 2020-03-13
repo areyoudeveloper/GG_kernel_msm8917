@@ -675,7 +675,7 @@ static int pp_pcc_cache_params_v1_7(struct mdp_pcc_cfg_data *config,
 			memcpy(&v17_usr_config, config->cfg_payload, sizeof(v17_usr_config));
 			ret = 0;
 #else
-                        pr_err("failed to copy v17 pcc\n");
+			pr_err("failed to copy v17 pcc\n");
 			ret = -EFAULT;
 			goto pcc_config_exit;
 #endif
@@ -1180,7 +1180,7 @@ static int pp_pa_cache_params_v1_7(struct mdp_pa_v2_cfg_data *config,
 		memcpy(&pa_usr_config, config->cfg_payload, sizeof(pa_usr_config));
 		ret = 0;
 #else
-                pr_err("Failed to copy v1_7 PA\n");
+		pr_err("Failed to copy v1_7 PA\n");
 		ret = -EFAULT;
 		goto pa_config_exit;
 #endif

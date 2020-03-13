@@ -755,7 +755,7 @@ static int cpufreq_interactive_speedchange_task(void *data)
 static void cpufreq_interactive_boost(struct cpufreq_interactive_tunables *tunables)
 {
 	int i;
-	int anyboost = 0;
+	int anyboost = 1;
 	unsigned long flags[2];
 	struct cpufreq_interactive_policyinfo *ppol;
 

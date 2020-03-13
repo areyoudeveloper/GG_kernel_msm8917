@@ -1376,4 +1376,4 @@ module_exit(cpufreq_impulse_exit);
 MODULE_AUTHOR("Pranav Vashi <neobuddy89@gmail.com>");
 MODULE_DESCRIPTION("'cpufreq_impulse' - A cpufreq governor for "
 	"Latency sensitive workloads");
-MODULE_LICENSE("GPLv2");
+MODULE_LICENSE("GPLv2"); 

@@ -27,8 +27,8 @@
 #include <linux/delay.h>
 #define DUTY_CLCLE 50
 #define ADJUST_NUM 15
-#define JUSTTIMES 6
-#define JUST_DELAY 9
+#define JUSTTIMES 1
+#define JUST_DELAY 1
 
 static s64 dealt;
 static DEFINE_SPINLOCK(infrared_lock);

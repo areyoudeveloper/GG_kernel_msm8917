@@ -491,7 +491,7 @@ config TCP_CONG_CUBIC
 
 config TCP_CONG_WESTWOOD
 	tristate "TCP Westwood+"
-	default m
+	default y
 	---help---
 	TCP Westwood+ is a sender-side only modification of the TCP Reno
 	protocol stack that optimizes the performance of TCP congestion
@@ -554,7 +554,7 @@ config TCP_CONG_SCALABLE
 
 config TCP_CONG_LP
 	tristate "TCP Low Priority"
-	default n
+	default y
 	---help---
 	TCP Low Priority (TCP-LP), a distributed algorithm whose goal is
 	to utilize only the excess network bandwidth as compared to the
@@ -563,7 +563,7 @@ config TCP_CONG_LP
 
 config TCP_CONG_VENO
 	tristate "TCP Veno"
-	default n
+	default y
 	---help---
 	TCP Veno is a sender-side only enhancement of TCP to obtain better
 	throughput over wireless networks. TCP Veno makes use of state
@@ -575,7 +575,7 @@ config TCP_CONG_VENO
 config TCP_CONG_YEAH
 	tristate "YeAH TCP"
 	select TCP_CONG_VEGAS
-	default n
+	default y
 	---help---
 	YeAH-TCP is a sender-side high-speed enabled TCP congestion control
 	algorithm, which uses a mixed loss/delay approach to compute the

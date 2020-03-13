@@ -451,4 +451,3 @@ module_exit(aw87319_pa_exit);
 MODULE_AUTHOR("<liweilei@awinic.com.cn>");
 MODULE_DESCRIPTION("AWINIC AW87319 PA driver");
 MODULE_LICENSE("GPL");
-
