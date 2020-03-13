@@ -346,6 +346,7 @@ static int kgsl_mem_entry_track_gpuaddr(struct kgsl_device *device,
 	/*
 	 * If SVM is enabled for this object then the address needs to be
 	 * assigned elsewhere
+<<<<<<< HEAD
 	 * Also do not proceed further in case of NoMMU.
 	 */
 	if (kgsl_memdesc_use_cpu_map(&entry->memdesc) ||
@@ -355,6 +356,15 @@ static int kgsl_mem_entry_track_gpuaddr(struct kgsl_device *device,
 	pagetable = kgsl_memdesc_is_secured(&entry->memdesc) ?
 		device->mmu.securepagetable : process->pagetable;
 
+=======
+	 */
+	if (kgsl_memdesc_use_cpu_map(&entry->memdesc))
+		return 0;
+
+	pagetable = kgsl_memdesc_is_secured(&entry->memdesc) ?
+		device->mmu.securepagetable : process->pagetable;
+
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 	return kgsl_mmu_get_gpuaddr(pagetable, &entry->memdesc);
 }
 
@@ -3992,6 +4002,14 @@ int kgsl_device_platform_probe(struct kgsl_device *device)
 	if (status != 0)
 		goto error_close_mmu;
 
+<<<<<<< HEAD
+=======
+	status = kgsl_allocate_global(device, &device->scratch,
+		PAGE_SIZE, 0, KGSL_MEMDESC_RANDOM, "scratch");
+	if (status != 0)
+		goto error_free_memstore;
+
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 	/*
 	 * The default request type PM_QOS_REQ_ALL_CORES is
 	 * applicable to all CPU cores that are online and

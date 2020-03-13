@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2012-2018, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2012-2017, The Linux Foundation. All rights reserved.
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -564,7 +568,11 @@ static int __ipa_add_hdr_proc_ctx(struct ipa_hdr_proc_ctx_add *proc_ctx,
 
 	hdr_entry = ipa_id_find(proc_ctx->hdr_hdl);
 	if (!hdr_entry || (hdr_entry->cookie != IPA_HDR_COOKIE)) {
+<<<<<<< HEAD
 		IPAERR_RL("hdr_hdl is invalid\n");
+=======
+		IPAERR("hdr_hdl is invalid\n");
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 		return -EINVAL;
 	}
 
@@ -581,7 +589,10 @@ static int __ipa_add_hdr_proc_ctx(struct ipa_hdr_proc_ctx_add *proc_ctx,
 	if (add_ref_hdr)
 		hdr_entry->ref_cnt++;
 	entry->cookie = IPA_PROC_HDR_COOKIE;
+<<<<<<< HEAD
 	entry->ipacm_installed = user_only;
+=======
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 
 	needed_len = (proc_ctx->type == IPA_HDR_PROC_NONE) ?
 			sizeof(struct ipa_hdr_proc_ctx_add_hdr_seq) :
@@ -652,7 +663,12 @@ static int __ipa_add_hdr_proc_ctx(struct ipa_hdr_proc_ctx_add *proc_ctx,
 	return 0;
 
 ipa_insert_failed:
+<<<<<<< HEAD
 	list_move(&offset->link,
+=======
+	if (offset)
+		list_move(&offset->link,
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 		&htbl->head_free_offset_list[offset->bin]);
 	entry->offset_entry = NULL;
 	list_del(&entry->link);
@@ -703,7 +719,10 @@ static int __ipa_add_hdr(struct ipa_hdr_add *hdr, bool user)
 	entry->is_eth2_ofst_valid = hdr->is_eth2_ofst_valid;
 	entry->eth2_ofst = hdr->eth2_ofst;
 	entry->cookie = IPA_HDR_COOKIE;
+<<<<<<< HEAD
 	entry->ipacm_installed = user;
+=======
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 
 	if (hdr->hdr_len <= ipa_hdr_bin_sz[IPA_HDR_BIN0])
 		bin = IPA_HDR_BIN0;
@@ -831,9 +850,12 @@ ipa_insert_failed:
 	}
 	htbl->hdr_cnt--;
 	list_del(&entry->link);
+<<<<<<< HEAD
 
 fail_dma_mapping:
 	entry->is_hdr_proc_ctx = false;
+=======
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 bad_hdr_len:
 	entry->cookie = 0;
 	kmem_cache_free(ipa_ctx->hdr_cache, entry);
@@ -849,7 +871,11 @@ static int __ipa_del_hdr_proc_ctx(u32 proc_ctx_hdl,
 
 	entry = ipa_id_find(proc_ctx_hdl);
 	if (!entry || (entry->cookie != IPA_PROC_HDR_COOKIE)) {
+<<<<<<< HEAD
 		IPAERR_RL("bad parm\n");
+=======
+		IPAERR("bad parm\n");
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 		return -EINVAL;
 	}
 
@@ -857,7 +883,11 @@ static int __ipa_del_hdr_proc_ctx(u32 proc_ctx_hdl,
 		htbl->proc_ctx_cnt, entry->offset_entry->offset);
 
 	if (by_user && entry->user_deleted) {
+<<<<<<< HEAD
 		IPAERR_RL("proc_ctx already deleted by user\n");
+=======
+		IPAERR("proc_ctx already deleted by user\n");
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 		return -EINVAL;
 	}
 
@@ -900,7 +930,11 @@ int __ipa_del_hdr(u32 hdr_hdl, bool by_user)
 	}
 
 	if (entry->cookie != IPA_HDR_COOKIE) {
+<<<<<<< HEAD
 		IPAERR_RL("bad parm\n");
+=======
+		IPAERR("bad parm\n");
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 		return -EINVAL;
 	}
 
@@ -912,7 +946,11 @@ int __ipa_del_hdr(u32 hdr_hdl, bool by_user)
 			htbl->hdr_cnt, entry->offset_entry->offset);
 
 	if (by_user && entry->user_deleted) {
+<<<<<<< HEAD
 		IPAERR_RL("hdr already deleted by user\n");
+=======
+		IPAERR("hdr already deleted by user\n");
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 		return -EINVAL;
 	}
 
@@ -1046,7 +1084,11 @@ int ipa2_del_hdr_by_user(struct ipa_ioc_del_hdr *hdls, bool by_user)
 	mutex_lock(&ipa_ctx->lock);
 	for (i = 0; i < hdls->num_hdls; i++) {
 		if (__ipa_del_hdr(hdls->hdl[i].hdl, by_user)) {
+<<<<<<< HEAD
 			IPAERR_RL("failed to del hdr %i\n", i);
+=======
+			IPAERR("failed to del hdr %i\n", i);
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 			hdls->hdl[i].status = -1;
 		} else {
 			hdls->hdl[i].status = 0;
@@ -1165,7 +1207,11 @@ int ipa2_del_hdr_proc_ctx_by_user(struct ipa_ioc_del_hdr_proc_ctx *hdls,
 	mutex_lock(&ipa_ctx->lock);
 	for (i = 0; i < hdls->num_hdls; i++) {
 		if (__ipa_del_hdr_proc_ctx(hdls->hdl[i].hdl, true, by_user)) {
+<<<<<<< HEAD
 			IPAERR_RL("failed to del hdr %i\n", i);
+=======
+			IPAERR("failed to del hdr %i\n", i);
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 			hdls->hdl[i].status = -1;
 		} else {
 			hdls->hdl[i].status = 0;
@@ -1538,7 +1584,11 @@ int ipa2_put_hdr(u32 hdr_hdl)
 	}
 
 	if (entry->cookie != IPA_HDR_COOKIE) {
+<<<<<<< HEAD
 		IPAERR_RL("invalid header entry\n");
+=======
+		IPAERR("invalid header entry\n");
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 		result = -EINVAL;
 		goto bail;
 	}

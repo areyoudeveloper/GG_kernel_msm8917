@@ -628,12 +628,15 @@ static void pil_clear_segment(struct pil_desc *desc)
 	/* Clear memory so that unauthorized ELF code is not left behind */
 	buf = desc->map_fw_mem(priv->region_start, (priv->region_end -
 					priv->region_start), map_data);
+<<<<<<< HEAD
 
 	if (!buf) {
 		pil_err(desc, "Failed to map memory\n");
 		return;
 	}
 
+=======
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 	pil_memset_io(buf, 0, (priv->region_end - priv->region_start));
 	desc->unmap_fw_mem(buf, (priv->region_end - priv->region_start),
 								map_data);
@@ -929,6 +932,8 @@ out:
 					&desc->attrs);
 			priv->region = NULL;
 		}
+		if (desc->clear_fw_region && priv->region_start)
+			pil_clear_segment(desc);
 		pil_release_mmap(desc);
 	}
 	return ret;

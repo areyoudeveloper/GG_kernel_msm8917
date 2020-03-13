@@ -3344,8 +3344,12 @@ static void tcp_send_challenge_ack(struct sock *sk)
 	/* unprotected vars, we dont care of overwrites */
 	static u32 challenge_timestamp;
 	static unsigned int challenge_count;
+<<<<<<< HEAD
 	u32 now = jiffies / HZ;
 	u32 count;
+=======
+	u32 count, now;
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 
 	/* Check host-wide RFC 5961 rate limit. */
 	now = jiffies / HZ;

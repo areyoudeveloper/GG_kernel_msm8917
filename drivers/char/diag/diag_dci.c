@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2012-2019, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2012-2017, 2019 The Linux Foundation. All rights reserved.
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -1460,7 +1464,10 @@ void diag_dci_notify_client(int peripheral_mask, int data, int proc)
 					DIAG_LOG(DIAG_DEBUG_PERIPHERALS,
 						"diag: dci client with pid = %d Exited..\n",
 						entry->tgid);
+<<<<<<< HEAD
 					put_pid(pid_struct);
+=======
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 					mutex_unlock(&driver->dci_mutex);
 					return;
 				}
@@ -1475,12 +1482,18 @@ void diag_dci_notify_client(int peripheral_mask, int data, int proc)
 					if (stat)
 						pr_err("diag: Err sending dci signal to client, signal data: 0x%x, stat: %d\n",
 							info.si_int, stat);
+<<<<<<< HEAD
 				} else {
 					pr_err("diag: client data is corrupted, signal data: 0x%x, stat: %d\n",
 						info.si_int, stat);
 				}
 				put_task_struct(dci_task);
 				put_pid(pid_struct);
+=======
+				} else
+					pr_err("diag: client data is corrupted, signal data: 0x%x, stat: %d\n",
+						info.si_int, stat);
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 			}
 		}
 	}
@@ -2267,6 +2280,7 @@ struct diag_dci_client_tbl *dci_lookup_client_entry_pid(int tgid)
 			DIAG_LOG(DIAG_DEBUG_DCI,
 				"diag: valid task doesn't exist for pid = %d\n",
 				entry->tgid);
+<<<<<<< HEAD
 			put_pid(pid_struct);
 			continue;
 		}
@@ -2279,6 +2293,13 @@ struct diag_dci_client_tbl *dci_lookup_client_entry_pid(int tgid)
 		}
 		put_task_struct(task_s);
 		put_pid(pid_struct);
+=======
+			continue;
+		}
+		if (task_s == entry->client)
+			if (entry->client->tgid == tgid)
+				return entry;
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 	}
 	return NULL;
 }

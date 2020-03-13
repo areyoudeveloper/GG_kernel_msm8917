@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 /* Copyright (c) 2013-2017, The Linux Foundation. All rights reserved.
  * Copyright (C) 2018 XiaoMi, Inc.
+=======
+/* Copyright (c) 2013-2019, The Linux Foundation. All rights reserved.
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -1245,7 +1249,11 @@ CSID_TG:
 		printk("read fusion id fail\n");
 	}
 
+<<<<<<< HEAD
 	printk("camera sensor probe %s succeeded\n", slave_info->sensor_name);
+=======
+	pr_err("%s probe succeeded", slave_info->sensor_name);
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 
 	/*
 	 * Update the subdevice id of flash-src based on availability in kernel.
@@ -1299,6 +1307,7 @@ CSID_TG:
 
 	msm_sensor_fill_sensor_info(s_ctrl, probed_info, entity_name);
 
+<<<<<<< HEAD
 	hardwareinfo_set_prop(probed_info->position == BACK_CAMERA_B
 		? HARDWARE_BACK_CAM:HARDWARE_FRONT_CAM, probed_info->sensor_name);
 	if (main_module_id > 0) {
@@ -1312,6 +1321,8 @@ CSID_TG:
 		hardwareinfo_set_prop(HARDWARE_FRONT_CAM_MOUDULE_ID, module_info[0]);
 	}
 
+=======
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 	/*
 	 * Set probe succeeded flag to 1 so that no other camera shall
 	 * probed on this slot

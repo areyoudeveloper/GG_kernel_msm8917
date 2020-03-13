@@ -2,7 +2,11 @@
  *
  * Copyright (C) 2008 Google, Inc.
  * Author: Brian Swetland <swetland@google.com>
+<<<<<<< HEAD
  * Copyright (c) 2009-2018, The Linux Foundation. All rights reserved.
+=======
+ * Copyright (c) 2009-2017, The Linux Foundation. All rights reserved.
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
  *
  * This software is licensed under the terms of the GNU General Public
  * License version 2, as published by the Free Software Foundation, and

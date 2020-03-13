@@ -223,8 +223,12 @@ dtb-$(CONFIG_ARCH_MSM8917) += msm8917-rumi.dtb \
 	msm8920-pmi8950-mtp.dtb \
 	msm8920-pmi8937-rcm.dtb \
 	msm8920-pmi8950-rcm.dtb \
+<<<<<<< HEAD
 	msm8920-pmi8940-qrd-sku7.dtb \
 	msm8920-pmi8950-ext-codec-cdp.dtb
+=======
+	msm8920-pmi8940-qrd-sku7.dtb
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 
 #dtb-$(CONFIG_ARCH_MSM8940) += msm8940-pmi8937-cdp.dtb \
 	msm8940-pmi8937-mtp.dtb \

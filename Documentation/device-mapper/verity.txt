@@ -102,6 +102,7 @@ fec_start <offset>
     This is the offset, in <data_block_size> blocks, from the start of the
     FEC device to the beginning of the encoding data.
 
+<<<<<<< HEAD
 check_at_most_once
     Verify data blocks only the first time they are read from the data device,
     rather than every time.  This reduces the overhead of dm-verity so that it
@@ -113,6 +114,8 @@ check_at_most_once
     since verification of hash blocks is less performance critical than data
     blocks, and a hash block will not be verified any more after all the data
     blocks it covers have been verified anyway.
+=======
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 
 Theory of operation
 ===================

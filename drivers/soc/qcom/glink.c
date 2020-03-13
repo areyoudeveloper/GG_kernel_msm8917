@@ -1207,7 +1207,10 @@ int ch_pop_remote_rx_intent(struct channel_ctx *ctx, size_t size,
 				best_intent->intent_size);
 		*riid_ptr = best_intent->id;
 		*intent_size = best_intent->intent_size;
+<<<<<<< HEAD
 		*cookie = best_intent->cookie;
+=======
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 		kfree(best_intent);
 		spin_unlock_irqrestore(
 			&ctx->rmt_rx_intent_lst_lock_lhc2, flags);
@@ -2903,10 +2906,15 @@ static int glink_tx_common(void *handle, void *pkt_priv,
 		tracer_pkt_log_event(data, GLINK_CORE_TX);
 	}
 
+<<<<<<< HEAD
 	scnprintf(glink_name, GLINK_CH_XPRT_NAME_SIZE, "%s_%s_%s", ctx->name,
 			ctx->transport_ptr->edge, ctx->transport_ptr->name);
 	/* find matching rx intent (first-fit algorithm for now) */
 	if (ch_pop_remote_rx_intent(ctx, size, &riid, &intent_size, &cookie)) {
+=======
+	/* find matching rx intent (best-fit algorithm for now) */
+	if (ch_pop_remote_rx_intent(ctx, size, &riid, &intent_size)) {
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 		if (!(tx_flags & GLINK_TX_REQ_INTENT)) {
 			/* no rx intent available */
 			GLINK_ERR(

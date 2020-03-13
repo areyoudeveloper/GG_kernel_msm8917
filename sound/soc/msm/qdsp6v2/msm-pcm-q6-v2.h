@@ -1,7 +1,11 @@
 /*
  * Copyright (C) 2008 Google, Inc.
  * Copyright (C) 2008 HTC Corporation
+<<<<<<< HEAD
  * Copyright (c) 2012-2017 The Linux Foundation. All rights reserved.
+=======
+ * Copyright (c) 2012-2017, 2019 The Linux Foundation. All rights reserved.
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
  *
  * This software is licensed under the terms of the GNU General Public
  * License version 2, as published by the Free Software Foundation, and
@@ -123,8 +127,12 @@ struct output_meta_data_st {
 
 struct msm_plat_data {
 	int perf_mode;
+<<<<<<< HEAD
 	int perf_mode_set;
 	struct snd_pcm *pcm;
+=======
+	struct mutex lock;
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 };
 
 #endif /*_MSM_PCM_H*/

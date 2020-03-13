@@ -426,6 +426,7 @@ static int msm_vidc_load_capability_version_table(
 	return 0;
 }
 
+<<<<<<< HEAD
 static void clock_override(struct platform_device *pdev,
 	struct msm_vidc_platform_resources *platform_res,
 	struct allowed_clock_rates_table *clk_table)
@@ -492,6 +493,8 @@ static void clock_override(struct platform_device *pdev,
 	}
 }
 
+=======
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 static int msm_vidc_load_allowed_clocks_table(
 		struct msm_vidc_platform_resources *res)
 {

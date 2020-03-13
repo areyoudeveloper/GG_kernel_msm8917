@@ -323,7 +323,12 @@ static int v9fs_xattr_set_acl(struct dentry *dentry, const char *name,
 			struct iattr iattr;
 			struct posix_acl *old_acl = acl;
 
+<<<<<<< HEAD
 			retval = posix_acl_update_mode(inode, &iattr.ia_mode, &acl);
+=======
+			retval = posix_acl_update_mode(inode,
+				&iattr.ia_mode, &acl);
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 			if (retval)
 				goto err_out;
 			if (!acl) {

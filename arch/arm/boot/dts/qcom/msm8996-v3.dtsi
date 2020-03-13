@@ -342,6 +342,7 @@
 
 			};
 		};
+<<<<<<< HEAD
 
 		qcom,gpu-pwrlevels-3 {
 			#address-cells = <1>;
@@ -415,6 +416,8 @@
 				qcom,bus-max = <0>;
 			};
 		};
+=======
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 	};
 };
 

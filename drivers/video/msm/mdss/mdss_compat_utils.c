@@ -1,5 +1,9 @@
 /*
+<<<<<<< HEAD
  * Copyright (c) 2013-2018, The Linux Foundation. All rights reserved.
+=======
+ * Copyright (c) 2013-2017, The Linux Foundation. All rights reserved.
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
  * Copyright (C) 1994 Martin Schaller
  *
  * 2001 - Documented with DocBook

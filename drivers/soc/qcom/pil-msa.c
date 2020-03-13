@@ -595,9 +595,16 @@ int pil_mss_reset_load_mba(struct pil_desc *pil)
 			&mba_dp_phys, &mba_dp_phys_end, drv->mba_dp_size);
 
 	/* Load the MBA image into memory */
+<<<<<<< HEAD
 	if (fw->size <= SZ_1M) {
 		/* Ensures memcpy is done for max 1MB fw size */
 		memcpy(mba_dp_virt, data, fw->size);
+=======
+	count = fw->size;
+	if (count <= SZ_1M) {
+		/* Ensures memcpy is done for max 1MB fw size */
+		memcpy(mba_dp_virt, data, count);
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 	} else {
 		dev_err(pil->dev, "%s fw image loading into memory is failed due to fw size overflow\n",
 			__func__);

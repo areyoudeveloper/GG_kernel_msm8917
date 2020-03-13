@@ -1,5 +1,9 @@
 /*
+<<<<<<< HEAD
  * Copyright (c) 2012-2018, The Linux Foundation. All rights reserved.
+=======
+ * Copyright (c) 2012-2017, The Linux Foundation. All rights reserved.
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -1018,12 +1022,16 @@ struct mdss_overlay_private {
 
 	bool allow_kickoff;
 
+<<<<<<< HEAD
 	/* video frame info used by deterministic frame rate control */
 	struct mdss_mdp_frc_fsm *frc_fsm;
 	u8 sd_transition_state;
 	struct kthread_worker worker;
 	struct kthread_work vsync_work;
 	struct task_struct *thread;
+=======
+	u8 sd_transition_state;
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 };
 
 struct mdss_mdp_set_ot_params {

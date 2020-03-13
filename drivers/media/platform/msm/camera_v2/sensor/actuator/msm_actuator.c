@@ -1321,6 +1321,10 @@ static int32_t msm_actuator_set_param(struct msm_actuator_ctrl_t *a_ctrl,
 	if (copy_from_user(&a_ctrl->region_params,
 		(void *)set_info->af_tuning_params.region_params,
 		a_ctrl->region_size * sizeof(struct region_params_t))) {
+<<<<<<< HEAD
+=======
+		a_ctrl->total_steps = 0;
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 		pr_err("Error copying region_params\n");
 		return -EFAULT;
 	}

@@ -66,3 +66,10 @@ endif
 ifeq ($(CONFIG_DM_VERITY_FEC),y)
 dm-verity-objs			+= dm-verity-fec.o
 endif
+<<<<<<< HEAD
+=======
+
+ifeq ($(CONFIG_DM_ANDROID_VERITY),y)
+dm-verity-objs			+= dm-android-verity.o
+endif
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4

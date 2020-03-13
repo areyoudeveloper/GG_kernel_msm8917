@@ -1,6 +1,10 @@
 /*Qualcomm Secure Execution Environment Communicator (QSEECOM) driver
  *
+<<<<<<< HEAD
  * Copyright (c) 2012-2018, The Linux Foundation. All rights reserved.
+=======
+ * Copyright (c) 2012-2017, The Linux Foundation. All rights reserved.
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -114,10 +118,17 @@ enum qseecom_clk_definitions {
 	CLK_SFPB,
 };
 
+<<<<<<< HEAD
 enum qseecom_ice_key_size_type {
 	QSEECOM_ICE_FDE_KEY_SIZE_16_BYTE = (0 << QSEECOM_ICE_FDE_KEY_SIZE_MASK),
 	QSEECOM_ICE_FDE_KEY_SIZE_32_BYTE = (1 << QSEECOM_ICE_FDE_KEY_SIZE_MASK),
 	QSEECOM_ICE_FDE_KEY_SIZE_UNDEF = (0xF << QSEECOM_ICE_FDE_KEY_SIZE_MASK),
+=======
+enum qseecom_ice_key_size_type{
+    QSEECOM_ICE_FDE_KEY_SIZE_16_BYTE = (0 << QSEECOM_ICE_FDE_KEY_SIZE_MASK),
+    QSEECOM_ICE_FDE_KEY_SIZE_32_BYTE = (1 << QSEECOM_ICE_FDE_KEY_SIZE_MASK),
+    QSEE_ICE_FDE_KEY_SIZE_UNDEFINED = (0xF << QSEECOM_ICE_FDE_KEY_SIZE_MASK),
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 };
 
 enum qseecom_client_handle_type {
@@ -1801,9 +1812,14 @@ static int __qseecom_process_incomplete_cmd(struct qseecom_dev_handle *data,
 				QSEOS_LISTENER_DATA_RSP_COMMAND_WHITELIST;
 		if (ptr_svc) {
 			ret = msm_ion_do_cache_op(qseecom.ion_clnt,
+<<<<<<< HEAD
 					ptr_svc->ihandle,
 					ptr_svc->sb_virt, ptr_svc->sb_length,
 					ION_IOC_CLEAN_INV_CACHES);
+=======
+				ptr_svc->ihandle, ptr_svc->sb_virt,
+				ptr_svc->sb_length, ION_IOC_CLEAN_INV_CACHES);
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 			if (ret) {
 				pr_err("cache operation failed %d\n", ret);
 				return ret;
@@ -2073,6 +2089,7 @@ static int __qseecom_reentrancy_process_incomplete_cmd(
 		else
 			*(uint32_t *)cmd_buf =
 				QSEOS_LISTENER_DATA_RSP_COMMAND_WHITELIST;
+<<<<<<< HEAD
 		if (ptr_svc) {
 			ret = msm_ion_do_cache_op(qseecom.ion_clnt,
 					ptr_svc->ihandle,
@@ -2089,6 +2106,27 @@ static int __qseecom_reentrancy_process_incomplete_cmd(
 				return ret;
 		}
 
+=======
+
+		if (lstnr == RPMB_SERVICE)
+			__qseecom_enable_clk(CLK_QSEE);
+
+		if (ptr_svc) {
+			ret = msm_ion_do_cache_op(qseecom.ion_clnt,
+				ptr_svc->ihandle, ptr_svc->sb_virt,
+				ptr_svc->sb_length, ION_IOC_CLEAN_INV_CACHES);
+			if (ret) {
+				pr_err("cache operation failed %d\n", ret);
+				return ret;
+			}
+		}
+		if (lstnr == RPMB_SERVICE) {
+			ret = __qseecom_enable_clk(CLK_QSEE);
+			if (ret)
+				return ret;
+		}
+
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 		ret = qseecom_scm_call(SCM_SVC_TZSCHEDULER, 1,
 					cmd_buf, cmd_len, resp, sizeof(*resp));
 		ptr_svc->listener_in_use = false;
@@ -3203,6 +3241,7 @@ static int __qseecom_send_cmd(struct qseecom_dev_handle *data,
 			}
 		}
 	}
+<<<<<<< HEAD
 exit:
 	ret2 = msm_ion_do_cache_op(qseecom.ion_clnt, data->client.ihandle,
 				data->client.sb_virt, data->client.sb_length,
@@ -3211,6 +3250,13 @@ exit:
 		pr_err("cache operation failed %d\n", ret2);
 		return ret2;
 	}
+=======
+	ret = msm_ion_do_cache_op(qseecom.ion_clnt, data->client.ihandle,
+				data->client.sb_virt, data->client.sb_length,
+				ION_IOC_INV_CACHES);
+	if (ret)
+		pr_err("cache operation failed %d\n", ret);
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 	return ret;
 }
 
@@ -6668,6 +6714,7 @@ static int __qseecom_qteec_issue_cmd(struct qseecom_dev_handle *data,
 			}
 		}
 	}
+<<<<<<< HEAD
 exit:
 	ret2 = msm_ion_do_cache_op(qseecom.ion_clnt, data->client.ihandle,
 				data->client.sb_virt, data->client.sb_length,
@@ -6675,6 +6722,14 @@ exit:
 	if (ret2) {
 		pr_err("cache operation failed %d\n", ret);
 		return ret2;
+=======
+	ret = msm_ion_do_cache_op(qseecom.ion_clnt, data->client.ihandle,
+				data->client.sb_virt, data->client.sb_length,
+				ION_IOC_INV_CACHES);
+	if (ret) {
+		pr_err("cache operation failed %d\n", ret);
+		return ret;
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 	}
 
 	if ((cmd_id == QSEOS_TEE_OPEN_SESSION) ||
@@ -6898,6 +6953,7 @@ static void __qseecom_clean_data_sglistinfo(struct qseecom_dev_handle *data)
 	}
 }
 
+<<<<<<< HEAD
 
 static int __qseecom_bus_scaling_enable(struct qseecom_dev_handle *data,
 					bool *perf_enabled)
@@ -6952,6 +7008,8 @@ static void __qseecom_bus_scaling_disable(struct qseecom_dev_handle *data,
 	}
 }
 
+=======
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 long qseecom_ioctl(struct file *file, unsigned cmd, unsigned long arg)
 {
 	int ret = 0;
@@ -7273,6 +7331,13 @@ long qseecom_ioctl(struct file *file, unsigned cmd, unsigned long arg)
 		break;
 	}
 	case QSEECOM_IOCTL_APP_LOADED_QUERY_REQ: {
+		if ((data->type != QSEECOM_GENERIC) &&
+			(data->type != QSEECOM_CLIENT_APP)) {
+			pr_err("app loaded query req: invalid handle (%d)\n",
+								data->type);
+			ret = -EINVAL;
+			break;
+		}
 		data->type = QSEECOM_CLIENT_APP;
 		mutex_lock(&app_access_lock);
 		atomic_inc(&data->ioctl_count);
@@ -8527,9 +8592,14 @@ static int qseecom_probe(struct platform_device *pdev)
 						"qcom,commonlib64-loaded-by-uefi");
 		pr_debug("qseecom.commonlib64-loaded-by-uefi = 0x%x",
 				qseecom.commonlib64_loaded);
+<<<<<<< HEAD
 		qseecom.fde_key_size = of_property_read_bool(
 					(&pdev->dev)->of_node,
 					"qcom,fde-key-size");
+=======
+		qseecom.fde_key_size = of_property_read_bool((&pdev->dev)->of_node,
+						"qcom,fde-key-size");
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 		qseecom.no_clock_support =
 				of_property_read_bool((&pdev->dev)->of_node,
 						"qcom,no-clock-support");

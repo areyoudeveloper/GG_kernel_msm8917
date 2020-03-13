@@ -1825,8 +1825,12 @@ int nf_conntrack_init_net(struct net *net)
 	if (!net->ct.stat)
 		goto err_pcpu_lists;
 
+<<<<<<< HEAD
 	net->ct.slabname = kasprintf(GFP_KERNEL, "nf_conntrack_%llu",
 				(u64)atomic64_inc_return(&unique_id));
+=======
+	net->ct.slabname = kasprintf(GFP_KERNEL, "nf_conntrack_%pK", net);
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 	if (!net->ct.slabname)
 		goto err_slabname;
 

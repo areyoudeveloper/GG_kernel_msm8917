@@ -473,8 +473,13 @@ static struct sock *dccp_v6_request_recv_sock(struct sock *sk,
 		newnp->ipv6_mc_list = NULL;
 		newnp->ipv6_ac_list = NULL;
 		newnp->ipv6_fl_list = NULL;
+<<<<<<< HEAD
 		newnp->mcast_oif   = inet_iif(skb);
 		newnp->mcast_hops  = ip_hdr(skb)->ttl;
+=======
+		newnp->mcast_oif   = inet6_iif(skb);
+		newnp->mcast_hops  = ipv6_hdr(skb)->hop_limit;
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 
 		/*
 		 * No need to charge this sock to the relevant IPv6 refcnt debug socks count
@@ -551,8 +556,11 @@ static struct sock *dccp_v6_request_recv_sock(struct sock *sk,
 	newnp->ipv6_mc_list = NULL;
 	newnp->ipv6_ac_list = NULL;
 	newnp->ipv6_fl_list = NULL;
+<<<<<<< HEAD
 
 	/* Clone pktoptions received with SYN */
+=======
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 	newnp->pktoptions = NULL;
 	if (ireq->pktopts != NULL) {
 		newnp->pktoptions = skb_clone(ireq->pktopts, GFP_ATOMIC);

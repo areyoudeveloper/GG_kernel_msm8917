@@ -2372,10 +2372,18 @@ void mdss_dsi_wait4video_done(struct mdss_dsi_ctrl_pdata *ctrl)
 
 	/* DSI_INTL_CTRL */
 	data = MIPI_INP((ctrl->ctrl_base) + 0x0110);
+<<<<<<< HEAD
 	/* clear previous VIDEO_DONE interrupt first */
 	data &= DSI_INTR_TOTAL_MASK;
 	MIPI_OUTP((ctrl->ctrl_base) + 0x0110, (data | DSI_INTR_VIDEO_DONE));
 	wmb(); /* make sure write happened */
+=======
+	/* clear previous VIDEO_DONE interrupt as well */
+	data &= (DSI_INTR_TOTAL_MASK | DSI_INTR_VIDEO_DONE);
+	data |= DSI_INTR_VIDEO_DONE_MASK;
+
+	MIPI_OUTP((ctrl->ctrl_base) + 0x0110, data);
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 
 	spin_lock_irqsave(&ctrl->mdp_lock, flag);
 	reinit_completion(&ctrl->video_comp);

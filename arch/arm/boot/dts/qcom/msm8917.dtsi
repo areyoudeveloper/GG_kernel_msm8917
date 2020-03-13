@@ -1,5 +1,9 @@
 /*
+<<<<<<< HEAD
  * Copyright (c) 2015-2018, The Linux Foundation. All rights reserved.
+=======
+ * Copyright (c) 2015-2017, The Linux Foundation. All rights reserved.
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -118,7 +122,6 @@
 			reusable;
 			alignment = <0 0x400000>;
 			size = <0 0x7000000>;
-			status = "disabled";
 		};
 
 		qseecom_mem: qseecom_region@0 {
@@ -1009,7 +1012,10 @@
 		cpu-to-dev-map =
 			<  998400  4248 >,
 			< 1094400  4541 >,
+<<<<<<< HEAD
 			< 1344000  5126 >,
+=======
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 			< 1497600  5645 >;
 		};
 
@@ -1404,7 +1410,11 @@
 		qcom,use-sw-ahash-algo;
 		qcom,use-sw-hmac-algo;
 		qcom,use-sw-aead-algo;
+<<<<<<< HEAD
 		qcom,ce-opp-freq = <160000000>;
+=======
+		qcom,ce-opp-freq = <100000000>;
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 	};
 
 	qcom_cedev: qcedev@720000 {
@@ -1945,7 +1955,11 @@
 			#size-cells = <0>;
 
 			qcom,speed-bin = <0>;
+<<<<<<< HEAD
 			qcom,initial-pwrlevel = <4>;
+=======
+			qcom,initial-pwrlevel = <3>;
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 
 				/* TURBO++ */
 			qcom,gpu-pwrlevel@0 {
@@ -2007,7 +2021,11 @@
 			#size-cells = <0>;
 
 			qcom,speed-bin = <1>;
+<<<<<<< HEAD
 			qcom,initial-pwrlevel = <4>;
+=======
+			qcom,initial-pwrlevel = <3>;
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 
 			/* TURBO++*/
 			qcom,gpu-pwrlevel@0 {

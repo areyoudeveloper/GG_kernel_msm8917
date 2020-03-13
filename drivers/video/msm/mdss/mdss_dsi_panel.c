@@ -2919,7 +2919,22 @@ static int mdss_panel_parse_dt(struct device_node *np,
 	if (rc)
 		goto error;
 
+<<<<<<< HEAD
 	mdss_livedisplay_parse_dt(np, pinfo);
+=======
+	if (pinfo->is_dba_panel) {
+		bridge_chip_name = of_get_property(np,
+			"qcom,bridge-name", &len);
+		if (!bridge_chip_name || len <= 0) {
+			pr_err("%s:%d Unable to read qcom,bridge_name, data=%pK,len=%d\n",
+				__func__, __LINE__, bridge_chip_name, len);
+			rc = -EINVAL;
+			goto error;
+		}
+		strlcpy(ctrl_pdata->bridge_name, bridge_chip_name,
+			MSM_DBA_CHIP_NAME_MAX_LEN);
+	}
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 
 	return 0;
 

@@ -1,7 +1,11 @@
 /*
  * MDSS MDP Interface (used by framebuffer core)
  *
+<<<<<<< HEAD
  * Copyright (c) 2007-2018, The Linux Foundation. All rights reserved.
+=======
+ * Copyright (c) 2007-2016, 2019 The Linux Foundation. All rights reserved.
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
  * Copyright (C) 2007 Google Incorporated
  *
  * This software is licensed under the terms of the GNU General Public

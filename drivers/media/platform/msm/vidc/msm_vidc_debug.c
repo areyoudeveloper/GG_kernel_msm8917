@@ -442,6 +442,7 @@ struct dentry *msm_vidc_debugfs_init_inst(struct msm_vidc_inst *inst,
 	if (!inst) {
 		dprintk(VIDC_ERR, "Invalid params, inst: %pK\n", inst);
 		goto exit;
+<<<<<<< HEAD
 	}
 	snprintf(debugfs_name, MAX_DEBUGFS_NAME, "inst_%pK", inst);
 
@@ -450,6 +451,16 @@ struct dentry *msm_vidc_debugfs_init_inst(struct msm_vidc_inst *inst,
 		dprintk(VIDC_ERR, "%s: Allocation failed!\n", __func__);
 		goto exit;
 	}
+=======
+	}
+	snprintf(debugfs_name, MAX_DEBUGFS_NAME, "inst_%p", inst);
+
+	idata = kzalloc(sizeof(struct core_inst_pair), GFP_KERNEL);
+	if (!idata) {
+		dprintk(VIDC_ERR, "%s: Allocation failed!\n", __func__);
+		goto exit;
+	}
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 
 	idata->core = inst->core;
 	idata->inst = inst;

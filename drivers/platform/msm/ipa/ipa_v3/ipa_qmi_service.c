@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2013-2018, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2013-2019, The Linux Foundation. All rights reserved.
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -618,6 +622,7 @@ int ipa3_qmi_filter_request_send(struct ipa_install_fltr_rule_req_msg_v01 *req)
 		req->filter_spec_list_len);
 	}
 
+<<<<<<< HEAD
 	if (req->filter_spec_list_len >= QMI_IPA_MAX_FILTERS_V01) {
 		IPAWANDBG(
 		"IPACM passes the number of filtering rules exceed limit\n");
@@ -651,6 +656,8 @@ int ipa3_qmi_filter_request_send(struct ipa_install_fltr_rule_req_msg_v01 *req)
 			return -EINVAL;
 	}
 
+=======
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 	mutex_lock(&ipa3_qmi_lock);
 	if (ipa3_qmi_ctx != NULL) {
 		/* cache the qmi_filter_request */
@@ -683,6 +690,7 @@ int ipa3_qmi_filter_request_send(struct ipa_install_fltr_rule_req_msg_v01 *req)
 		resp.resp.error, "ipa_install_filter");
 }
 
+<<<<<<< HEAD
 /* sending filter-install-request to modem*/
 int ipa3_qmi_filter_request_ex_send(
 	struct ipa_install_fltr_rule_req_ex_msg_v01 *req)
@@ -826,6 +834,8 @@ int ipa3_qmi_ul_filter_request_send(
 		resp.resp.error, "ipa_received_ul_firewall_filter");
 }
 
+=======
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 int ipa3_qmi_enable_force_clear_datapath_send(
 	struct ipa_enable_force_clear_datapath_req_msg_v01 *req)
 {
@@ -934,6 +944,7 @@ int ipa3_qmi_filter_notify_send(
 		return -EINVAL;
 	}
 
+<<<<<<< HEAD
 	if (req->install_status != IPA_QMI_RESULT_SUCCESS_V01) {
 		IPAWANERR(" UL filter rule for pipe %d install_status = %d\n",
 			req->source_pipe_index, req->install_status);
@@ -965,6 +976,8 @@ int ipa3_qmi_filter_notify_send(
 		return -EINVAL;
 	}
 
+=======
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 	mutex_lock(&ipa3_qmi_lock);
 	if (ipa3_qmi_ctx != NULL) {
 		/* cache the qmi_filter_request */
@@ -1538,6 +1551,7 @@ int ipa3_qmi_stop_data_qouta(void)
 		resp.resp.error, "ipa_stop_data_usage_quota_req_msg_v01");
 }
 
+<<<<<<< HEAD
 int ipa3_qmi_enable_per_client_stats(
 	struct ipa_enable_per_client_stats_req_msg_v01 *req,
 	struct ipa_enable_per_client_stats_resp_msg_v01 *resp)
@@ -1606,6 +1620,8 @@ int ipa3_qmi_get_per_client_packet_stats(
 		"struct ipa_get_stats_per_client_req_msg_v01");
 }
 
+=======
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 void ipa3_qmi_init(void)
 {
 	mutex_init(&ipa3_qmi_lock);

@@ -1795,8 +1795,13 @@ static ssize_t ipa3_enable_ipc_low(struct file *file,
 				ipc_log_context_create(IPA_IPC_LOG_PAGES,
 					"ipa_low", 0);
 		}
+<<<<<<< HEAD
 			if (ipa_ipc_low_buff == NULL)
 				IPADBG("failed to get logbuf_low\n");
+=======
+		if (ipa_ipc_low_buff == NULL)
+			IPAERR("failed to get logbuf_low\n");
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 		ipa3_ctx->logbuf_low = ipa_ipc_low_buff;
 	} else {
 		ipa3_ctx->logbuf_low = NULL;

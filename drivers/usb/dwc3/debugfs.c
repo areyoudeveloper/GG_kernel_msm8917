@@ -907,6 +907,7 @@ static ssize_t dwc3_store_int_events(struct file *file,
 		pr_err("[%s] EINVAL\n", __func__);
 		ret = -EINVAL;
 		return ret;
+<<<<<<< HEAD
 	}
 
 	ret = kstrtou8_from_user(ubuf, count, 0, &clear_stats);
@@ -915,6 +916,16 @@ static ssize_t dwc3_store_int_events(struct file *file,
 		return ret;
 	}
 
+=======
+	}
+
+	ret = kstrtou8_from_user(ubuf, count, 0, &clear_stats);
+	if (ret < 0) {
+		pr_err("can't get enter value.\n");
+		return ret;
+	}
+
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 	if (clear_stats != 0) {
 		pr_err("Wrong value. To clear stats, enter value as 0.\n");
 		ret = -EINVAL;

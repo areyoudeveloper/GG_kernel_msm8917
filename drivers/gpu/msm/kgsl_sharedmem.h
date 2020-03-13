@@ -268,8 +268,12 @@ static inline int kgsl_allocate_global(struct kgsl_device *device,
 	memdesc->flags = flags;
 	memdesc->priv = priv;
 
+<<<<<<< HEAD
 	if (((memdesc->priv & KGSL_MEMDESC_CONTIG) != 0) ||
 		(kgsl_mmu_get_mmutype(device) == KGSL_MMU_TYPE_NONE))
+=======
+	if ((memdesc->priv & KGSL_MEMDESC_CONTIG) != 0)
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 		ret = kgsl_sharedmem_alloc_contig(device, memdesc,
 						(size_t) size);
 	else {

@@ -965,8 +965,13 @@ static void gsi_ring_db(struct usb_ep *ep, struct usb_gsi_request *request)
 	}
 
 	offset = dwc3_trb_dma_offset(dep, &dep->trb_pool[num_trbs-1]);
+<<<<<<< HEAD
 	dev_dbg(mdwc->dev, "Writing link TRB addr:%pKa to %pK (%x) for ep:%s\n",
 		&offset, gsi_dbl_address_lsb, dbl_lo_addr, ep->name);
+=======
+	dev_dbg(mdwc->dev, "Writing link TRB addr: %pKa to %pK (%x)\n",
+	&offset, gsi_dbl_address_lsb, dbl_lo_addr);
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 
 	writel_relaxed(offset, gsi_dbl_address_lsb);
 	writel_relaxed(0, gsi_dbl_address_msb);
@@ -1990,7 +1995,11 @@ static int dwc3_msm_prepare_suspend(struct dwc3_msm *mdwc)
 		/* Mark fatal error for host mode or USB bus suspend case */
 		if (mdwc->in_host_mode || (mdwc->vbus_active
 			&& mdwc->otg_state == OTG_STATE_B_SUSPEND)) {
+<<<<<<< HEAD
 			queue_delayed_work(mdwc->dwc3_resume_wq,
+=======
+			queue_delayed_work(mdwc->dwc3_wq,
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 					&mdwc->resume_work, 0);
 			return -EBUSY;
 		}

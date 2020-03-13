@@ -2882,6 +2882,7 @@ void gsi_get_inst_ram_offset_and_size(unsigned long *base_offset,
 		unsigned long *size)
 {
 	if (base_offset)
+<<<<<<< HEAD
 		*base_offset = GSI_GSI_INST_RAM_n_OFFS(0);
 	if (size)
 		*size = GSI_GSI_INST_RAM_n_WORD_SZ *
@@ -2950,6 +2951,14 @@ free_lock:
 }
 EXPORT_SYMBOL(gsi_halt_channel_ee);
 
+=======
+		*base_offset = GSI_GSI_INST_RAM_BASE_OFFS;
+	if (size)
+		*size = GSI_GSI_INST_RAM_SIZE;
+}
+EXPORT_SYMBOL(gsi_get_inst_ram_offset_and_size);
+
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 static int msm_gsi_probe(struct platform_device *pdev)
 {
 	struct device *dev = &pdev->dev;

@@ -534,10 +534,15 @@ struct mdp_layer_commit_v1_32 {
 	uint32_t		input_layer_cnt;
 	compat_caddr_t		output_layer;
 	int			retire_fence;
+<<<<<<< HEAD
 	compat_caddr_t		dest_scaler;
 	uint32_t                dest_scaler_cnt;
 	compat_caddr_t		frc_info;
 	uint32_t		reserved[MDP_LAYER_COMMIT_V1_PAD];
+=======
+	uint32_t		reserved[6];
+	compat_caddr_t		frc_info;
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 };
 
 struct mdp_layer_commit32 {

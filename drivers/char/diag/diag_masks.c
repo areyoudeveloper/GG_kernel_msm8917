@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2008-2019, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2008-2017, 2019 The Linux Foundation. All rights reserved.
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -2143,12 +2147,17 @@ int diag_copy_to_user_log_mask(char __user *buf, size_t count,
 		return -EINVAL;
 	}
 	for (i = 0; i < MAX_EQUIP_ID; i++, mask++) {
+<<<<<<< HEAD
 		if (!mask->ptr) {
 			pr_err("diag: In %s, mask->ptr==NULL, equip_id:%d\n",
 				   __func__, mask->equip_id);
 			continue;
 		}
 
+=======
+		if (!mask->ptr)
+			continue;
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 		ptr = mask_info->update_buf;
 		len = 0;
 		mutex_lock(&mask->lock);

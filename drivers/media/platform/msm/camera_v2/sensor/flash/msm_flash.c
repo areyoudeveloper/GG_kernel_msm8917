@@ -539,8 +539,12 @@ static int32_t msm_flash_init_prepare(
 	struct msm_flash_cfg_data_t flash_data_k;
 	struct msm_flash_init_info_t flash_init_info;
 	int32_t i = 0;
+<<<<<<< HEAD
 
 	if (!is_compat_task()) {
+=======
+	if(!is_compat_task()) {
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 		/*for 64-bit usecase,it need copy the data to local memory*/
 		flash_data_k.cfg_type = flash_data->cfg_type;
 		for (i = 0; i < MAX_LED_TRIGGERS; i++) {
@@ -552,7 +556,11 @@ static int32_t msm_flash_init_prepare(
 
 		flash_data_k.cfg.flash_init_info = &flash_init_info;
 		if (copy_from_user(&flash_init_info,
+<<<<<<< HEAD
 			(void __user *)(flash_data->cfg.flash_init_info),
+=======
+			(void *)(flash_data->cfg.flash_init_info),
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 			sizeof(struct msm_flash_init_info_t))) {
 			pr_err("%s copy_from_user failed %d\n",
 				__func__, __LINE__);
@@ -580,7 +588,11 @@ static int32_t msm_flash_init_prepare(
 
 	flash_data_k.cfg.flash_init_info = &flash_init_info;
 	if (copy_from_user(&flash_init_info,
+<<<<<<< HEAD
 		(void __user *)(flash_data->cfg.flash_init_info),
+=======
+		(void *)(flash_data->cfg.flash_init_info),
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 		sizeof(struct msm_flash_init_info_t))) {
 		pr_err("%s copy_from_user failed %d\n",
 			__func__, __LINE__);
@@ -752,7 +764,7 @@ static int32_t msm_flash_release(
 static int32_t msm_flash_config(struct msm_flash_ctrl_t *flash_ctrl,
 	void __user *argp)
 {
-	int32_t rc = -EINVAL;
+	int32_t rc = 0;
 	struct msm_flash_cfg_data_t *flash_data =
 		(struct msm_flash_cfg_data_t *) argp;
 

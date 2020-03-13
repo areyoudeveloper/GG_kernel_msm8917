@@ -421,6 +421,40 @@ enum wake_reason {
 #define	HVDCP_OTG_VOTER			"HVDCP_OTG_VOTER"
 #define	HVDCP_PULSING_VOTER		"HVDCP_PULSING_VOTER"
 
+<<<<<<< HEAD
+=======
+enum hw_aicl_rerun_enable_indirect_voters {
+	/* enabled via device tree */
+	DEFAULT_CONFIG_HW_AICL_VOTER,
+	/* Varb workaround voter */
+	VARB_WORKAROUND_VOTER,
+	/* SHUTDOWN workaround voter */
+	SHUTDOWN_WORKAROUND_VOTER,
+	NUM_HW_AICL_RERUN_ENABLE_INDIRECT_VOTERS,
+};
+
+enum hw_aicl_rerun_disable_voters {
+	/* the results from enabling clients */
+	HW_AICL_RERUN_ENABLE_INDIRECT_VOTER,
+	/* Weak charger voter */
+	WEAK_CHARGER_HW_AICL_VOTER,
+	NUM_HW_AICL_DISABLE_VOTERS,
+};
+
+enum aicl_short_deglitch_voters {
+	/* Varb workaround voter */
+	VARB_WORKAROUND_SHORT_DEGLITCH_VOTER,
+	/* QC 2.0 */
+	HVDCP_SHORT_DEGLITCH_VOTER,
+	NUM_HW_SHORT_DEGLITCH_VOTERS,
+};
+enum hvdcp_voters {
+	HVDCP_PMIC_VOTER,
+	HVDCP_OTG_VOTER,
+	HVDCP_PULSING_VOTER,
+	NUM_HVDCP_VOTERS,
+};
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 static int smbchg_debug_mask;
 module_param_named(
 	debug_mask, smbchg_debug_mask, int, S_IRUSR | S_IWUSR
@@ -2678,6 +2712,7 @@ static int dc_suspend_vote_cb(struct votable *votable,
 }
 
 #define HVDCP_EN_BIT			BIT(3)
+<<<<<<< HEAD
 static int smbchg_hvdcp_enable_cb(struct votable *votable,
 				void *data,
 				int enable,
@@ -2687,6 +2722,17 @@ static int smbchg_hvdcp_enable_cb(struct votable *votable,
 	struct smbchg_chip *chip = data;
 
 	pr_err("smbchg_hvdcp_enable_cb  enable %d\n", enable);
+=======
+static int smbchg_hvdcp_enable_cb(struct device *dev, int enable,
+						int client, int last_enable,
+						int last_client)
+{
+	int rc = 0;
+	struct smbchg_chip *chip = dev_get_drvdata(dev);
+
+	pr_err("smbchg_hvdcp_enable_cb  enable %d last_enable %d\n",
+			enable, last_enable);
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 	rc = smbchg_sec_masked_write(chip,
 				chip->usb_chgpth_base + CHGPTH_CFG,
 				HVDCP_EN_BIT, enable ? HVDCP_EN_BIT : 0);
@@ -2697,8 +2743,12 @@ static int smbchg_hvdcp_enable_cb(struct votable *votable,
 	return rc;
 }
 
+<<<<<<< HEAD
 static int set_fastchg_current_vote_cb(struct votable *votable,
 						void *data,
+=======
+static int set_fastchg_current_vote_cb(struct device *dev,
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 						int fcc_ma,
 						const char *client)
 {
@@ -7250,6 +7300,7 @@ static int smbchg_hw_init(struct smbchg_chip *chip)
 			return rc;
 		}
 	} else {
+<<<<<<< HEAD
 		rc = vote(chip->hvdcp_enable_votable, HVDCP_PMIC_VOTER,
 				true, 1);
 		if (rc < 0) {
@@ -7257,6 +7308,8 @@ static int smbchg_hw_init(struct smbchg_chip *chip)
 				"Couldn't disable HVDCP vote rc=%d\n", rc);
 			return rc;
 		}
+=======
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 		rc = smbchg_sec_masked_write(chip,
 				chip->usb_chgpth_base + CHGPTH_CFG,
 				HVDCP_ADAPTER_SEL_MASK, HVDCP_9V);
@@ -8576,6 +8629,13 @@ static int smbchg_probe(struct spmi_device *spmi)
 		rc = PTR_ERR(chip->hvdcp_enable_votable);
 		goto votables_cleanup;
 	}
+
+	chip->hvdcp_enable_votable = create_votable(&spmi->dev,
+			"SMBCHG: hvdcp_enable",
+			VOTE_MIN, NUM_HVDCP_VOTERS, 1,
+			smbchg_hvdcp_enable_cb);
+	if (IS_ERR(chip->hvdcp_enable_votable))
+		return PTR_ERR(chip->hvdcp_enable_votable);
 
 	INIT_WORK(&chip->usb_set_online_work, smbchg_usb_update_online_work);
 	INIT_DELAYED_WORK(&chip->parallel_en_work,

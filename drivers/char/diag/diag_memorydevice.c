@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2014-2016, 2018-2019 The Linux Foundation.
+=======
+/* Copyright (c) 2014-2015, 2016, 2019 The Linux Foundation.
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
  * All rights reserved.
  *
  * This program is free software; you can redistribute it and/or modify

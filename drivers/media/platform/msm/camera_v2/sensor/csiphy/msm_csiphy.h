@@ -169,7 +169,10 @@ struct csiphy_device {
 	uint8_t num_irq_registers;
 	uint32_t csiphy_sof_debug;
 	uint32_t csiphy_sof_debug_count;
+<<<<<<< HEAD
 	uint32_t is_combo_mode;
+=======
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 	struct camera_vreg_t *csiphy_vreg;
 	struct regulator *csiphy_reg_ptr[MAX_REGULATOR];
 	int32_t regulator_count;

@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2015-2018, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2015-2017, The Linux Foundation. All rights reserved.
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -1092,6 +1096,19 @@ void gsi_get_inst_ram_offset_and_size(unsigned long *base_offset,
  */
 int gsi_halt_channel_ee(unsigned int chan_idx, unsigned int ee, int *code);
 
+/**
+ * gsi_get_inst_ram_offset_and_size - Peripheral should call this function
+ * to get instruction RAM base address offset and size. Peripheral typically
+ * uses this info to load GSI FW into the IRAM.
+ *
+ * @base_offset:[OUT] - IRAM base offset address
+ * @size:	[OUT] - IRAM size
+
+ * @Return none
+ */
+void gsi_get_inst_ram_offset_and_size(unsigned long *base_offset,
+		unsigned long *size);
+
 /*
  * Here is a typical sequence of calls
  *
@@ -1302,11 +1319,14 @@ static inline void gsi_get_inst_ram_offset_and_size(unsigned long *base_offset,
 		unsigned long *size)
 {
 }
+<<<<<<< HEAD
 
 static inline int gsi_halt_channel_ee(unsigned int chan_idx, unsigned int ee,
 	 int *code)
 {
 	return -GSI_STATUS_UNSUPPORTED_OP;
 }
+=======
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 #endif
 #endif

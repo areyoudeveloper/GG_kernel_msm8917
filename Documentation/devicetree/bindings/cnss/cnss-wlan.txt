@@ -48,10 +48,13 @@ Optional properties:
   - vdd-wlan-en-supply: WLAN_EN fixed regulator specified by QCA6174 specifications.
   - qcom,wlan-en-vreg-support: Boolean property to decide the whether the WLAN_EN pin
 				is a gpio or fixed regulator.
+<<<<<<< HEAD
   - qcom,mhi: phandle to indicate the device which needs MHI support.
   - qcom,cap-tsf-gpio: WLAN_TSF_CAPTURED GPIO signal specified by the chip
 				specifications, should be drived depending on
 				products
+=======
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 
 Example:
 

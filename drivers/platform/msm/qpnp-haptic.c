@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2014-2018, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2014-2017, The Linux Foundation. All rights reserved.
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -383,9 +387,12 @@ struct qpnp_hap {
 	u8 reg_play;
 	u8 sc_duration;
 	u8 ext_pwm_dtest_line;
+<<<<<<< HEAD
 	u8 pmic_subtype;
 	u8 auto_res_mode;
 	bool lra_hw_auto_resonance;
+=======
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 	bool vcc_pon_enabled;
 	bool state;
 	bool use_play_irq;

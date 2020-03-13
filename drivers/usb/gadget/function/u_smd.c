@@ -469,6 +469,11 @@ static void gsmd_write_complete(struct usb_ep *ep, struct usb_request *req)
 
 static void gsmd_start_io(struct gsmd_port *port)
 {
+<<<<<<< HEAD
+=======
+	int		ret = -ENODEV;
+
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 	pr_debug("%s: port: %pK\n", __func__, port);
 
 	spin_lock(&port->port_lock);

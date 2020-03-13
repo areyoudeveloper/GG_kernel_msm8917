@@ -1043,9 +1043,12 @@ skip_cqterri:
 				MMC_TRACE(mmc, "%s: completing tag -> %lu\n",
 					__func__, tag);
 				cmdq_finish_data(mmc, tag);
+<<<<<<< HEAD
 			} else {
 				pr_err("%s: tag:%lu finish_data already done\n",
 						mmc_hostname(mmc), tag);
+=======
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 			}
 		}
 	}
@@ -1148,6 +1151,13 @@ static int cmdq_halt(struct mmc_host *mmc, bool halt)
 			} else {
 				MMC_TRACE(mmc, "%s: halt done , retries: %d\n",
 					__func__, retries);
+<<<<<<< HEAD
+=======
+				/* halt done: re-enable legacy interrupts */
+				if (cq_host->ops->clear_set_irqs)
+					cq_host->ops->clear_set_irqs(mmc,
+								false);
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 				break;
 			}
 		}

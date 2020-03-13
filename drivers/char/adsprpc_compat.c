@@ -1,5 +1,9 @@
 /*
+<<<<<<< HEAD
  * Copyright (c) 2014-2018, The Linux Foundation. All rights reserved.
+=======
+ * Copyright (c) 2014-2017, The Linux Foundation. All rights reserved.
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -77,11 +81,14 @@ struct compat_fastrpc_ioctl_mmap_64 {
 struct compat_fastrpc_ioctl_munmap {
 	compat_uptr_t vaddrout;	/* address to unmap */
 	compat_size_t size;	/* size */
+<<<<<<< HEAD
 };
 
 struct compat_fastrpc_ioctl_munmap_64 {
 	compat_u64 vaddrout;	/* address to unmap */
 	compat_size_t size;	/* size */
+=======
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 };
 
 struct compat_fastrpc_ioctl_init {

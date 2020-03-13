@@ -795,6 +795,7 @@ static long qbt1000_ioctl(struct file *file, unsigned cmd, unsigned long arg)
 			goto end;
 		}
 
+<<<<<<< HEAD
 		if (strcmp(app.name, FP_APP_NAME)) {
 			dev_err(drvdata->dev, "%s: Invalid app name\n",
 				__func__);
@@ -802,6 +803,8 @@ static long qbt1000_ioctl(struct file *file, unsigned cmd, unsigned long arg)
 			goto end;
 		}
 
+=======
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 		if (drvdata->app_handle) {
 			dev_err(drvdata->dev, "%s: LOAD app already loaded, unloading first\n",
 				__func__);
@@ -813,8 +816,11 @@ static long qbt1000_ioctl(struct file *file, unsigned cmd, unsigned long arg)
 			}
 		}
 
+<<<<<<< HEAD
 		app.name[MAX_NAME_SIZE - 1] = '\0';
 
+=======
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 		/* start the TZ app */
 		rc = qseecom_start_app(&drvdata->app_handle,
 				app.name, app.size);
@@ -823,6 +829,20 @@ static long qbt1000_ioctl(struct file *file, unsigned cmd, unsigned long arg)
 		} else {
 			dev_err(drvdata->dev, "%s: Fingerprint Trusted App failed to load\n",
 				__func__);
+			goto end;
+		}
+
+		/* copy a fake app handle to user */
+		app_handle = drvdata->app_handle ?
+			(struct qseecom_handle *)123456 : 0;
+		rc = copy_to_user((void __user *)app.app_handle, &app_handle,
+			sizeof(*app.app_handle));
+
+		if (rc != 0) {
+			dev_err(drvdata->dev,
+				"%s: Failed copy 2us LOAD rc:%d\n",
+				 __func__, rc);
+			rc = -ENOMEM;
 			goto end;
 		}
 

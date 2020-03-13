@@ -275,7 +275,11 @@ int ipa_query_intf_tx_props(struct ipa_ioc_query_intf_tx_props *tx)
 		if (!strncmp(entry->name, tx->name, IPA_RESOURCE_NAME_MAX)) {
 			/* add the entry check */
 			if (entry->num_tx_props != tx->num_tx_props) {
+<<<<<<< HEAD
 				IPAERR_RL("invalid entry number(%u %u)\n",
+=======
+				IPAERR("invalid entry number(%u %u)\n",
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 					entry->num_tx_props,
 						tx->num_tx_props);
 				mutex_unlock(&ipa_ctx->lock);
@@ -316,7 +320,11 @@ int ipa_query_intf_rx_props(struct ipa_ioc_query_intf_rx_props *rx)
 		if (!strncmp(entry->name, rx->name, IPA_RESOURCE_NAME_MAX)) {
 			/* add the entry check */
 			if (entry->num_rx_props != rx->num_rx_props) {
+<<<<<<< HEAD
 				IPAERR_RL("invalid entry number(%u %u)\n",
+=======
+				IPAERR("invalid entry number(%u %u)\n",
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 					entry->num_rx_props,
 						rx->num_rx_props);
 				mutex_unlock(&ipa_ctx->lock);
@@ -357,7 +365,11 @@ int ipa_query_intf_ext_props(struct ipa_ioc_query_intf_ext_props *ext)
 		if (!strcmp(entry->name, ext->name)) {
 			/* add the entry check */
 			if (entry->num_ext_props != ext->num_ext_props) {
+<<<<<<< HEAD
 				IPAERR_RL("invalid entry number(%u %u)\n",
+=======
+				IPAERR("invalid entry number(%u %u)\n",
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 					entry->num_ext_props,
 						ext->num_ext_props);
 				mutex_unlock(&ipa_ctx->lock);
@@ -751,6 +763,7 @@ ssize_t ipa_read(struct file *filp, char __user *buf, size_t count,
 			buf += sizeof(struct ipa_msg_meta);
 			count -= sizeof(struct ipa_msg_meta);
 			if (msg->buff) {
+<<<<<<< HEAD
 				if (count >= msg->meta.msg_len) {
 					if (copy_to_user(buf, msg->buff,
 							  msg->meta.msg_len)) {
@@ -760,6 +773,10 @@ ssize_t ipa_read(struct file *filp, char __user *buf, size_t count,
 						break;
 					}
 				} else {
+=======
+				if (copy_to_user(buf, msg->buff,
+						  msg->meta.msg_len)) {
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 					kfree(msg);
 					msg = NULL;
 					ret = -EFAULT;

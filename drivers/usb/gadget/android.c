@@ -2152,6 +2152,7 @@ static int serial_function_bind_config(struct android_usb_function *f,
 	if (config->serial_initialized)
 		goto bind_config;
 
+<<<<<<< HEAD
 	if (!transports_initialized) {
 		err = gport_setup(c);
 		if (err) {
@@ -2161,6 +2162,13 @@ static int serial_function_bind_config(struct android_usb_function *f,
 		}
 		/* transports are initialized once and shared across configs */
 		transports_initialized = true;
+=======
+	err = gport_setup(c);
+	if (err) {
+		pr_err("serial: Cannot setup transports");
+		gserial_deinit_port();
+		goto out;
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 	}
 
 	for (i = 0; i < config->instances_on; i++) {

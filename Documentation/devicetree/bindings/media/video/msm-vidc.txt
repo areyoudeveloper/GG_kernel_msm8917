@@ -21,8 +21,11 @@ Optional properties:
     in efuse register.
 - qcom,capability-version : mask and shift of the capability version bits
     in efuse register.
+<<<<<<< HEAD
 - qcom,speedbin-version : mask and shift of speedbin version bits.
     in efuse register.
+=======
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 - qcom,load-freq-tbl : load (in macroblocks/sec) and corresponding vcodec
   clock required along with codec's config, which is a bitmap that describes
   what the clock is used for. The bitmaps are as follows:

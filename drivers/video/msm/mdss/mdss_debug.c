@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2009-2018, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2009-2017, The Linux Foundation. All rights reserved.
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -482,9 +486,12 @@ static ssize_t mdss_debug_base_offset_write(struct file *file,
 	if (cnt > (dbg->max_offset - off))
 		cnt = dbg->max_offset - off;
 
+<<<<<<< HEAD
 	if (!mdss_debug_base_is_valid_range(off, cnt))
 		return -EINVAL;
 
+=======
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 	mutex_lock(&mdss_debug_lock);
 	dbg->off = off;
 	dbg->cnt = cnt;

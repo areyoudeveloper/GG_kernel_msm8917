@@ -733,7 +733,11 @@ static void mbim_notify_complete(struct usb_ep *ep, struct usb_request *req)
 {
 	struct f_mbim *mbim = req->context;
 
+<<<<<<< HEAD
 	pr_debug("dev:%pK, pending:%d\n", mbim, mbim->not_port.notify_pending);
+=======
+	pr_debug("dev:%pK\n", mbim);
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 
 	spin_lock(&mbim->lock);
 	mbim->not_port.notify_req_queued = false;
@@ -1871,6 +1875,16 @@ mbim_write(struct file *fp, const char __user *buf, size_t count, loff_t *pos)
 		return -EPIPE;
 	}
 
+<<<<<<< HEAD
+=======
+	if (dev->not_port.notify_state != MBIM_NOTIFY_RESPONSE_AVAILABLE) {
+		pr_err("dev:%pK state=%d error\n", dev,
+			dev->not_port.notify_state);
+		mbim_unlock(&dev->write_excl);
+		return -EINVAL;
+	}
+
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 	if (dev->function.func_is_suspended &&
 			!dev->function.func_wakeup_allowed) {
 		dev->cpkt_drop_cnt++;

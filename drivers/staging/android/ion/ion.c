@@ -17,10 +17,13 @@
  */
 
 #include <linux/atomic.h>
+<<<<<<< HEAD
 
 
 #include <linux/device.h>
 
+=======
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 #include <linux/err.h>
 #include <linux/file.h>
 #include <linux/freezer.h>
@@ -408,9 +411,13 @@ static void ion_handle_get(struct ion_handle *handle)
 }
 
 /* Must hold the client lock */
+<<<<<<< HEAD
 
 static struct ion_handle* ion_handle_get_check_overflow(
 					struct ion_handle *handle)
+=======
+static struct ion_handle* ion_handle_get_check_overflow(struct ion_handle *handle)
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 {
 	if (atomic_read(&handle->ref.refcount) + 1 == 0)
 		return ERR_PTR(-EOVERFLOW);
@@ -474,7 +481,11 @@ static struct ion_handle *pass_to_user(struct ion_handle *handle)
 /* Must hold the client lock */
 static int user_ion_handle_put_nolock(struct ion_handle *handle)
 {
+<<<<<<< HEAD
 	int ret = 0;
+=======
+	int ret;
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 
 	if (--handle->user_ref_count == 0)
 		ret = ion_handle_put_nolock(handle);
@@ -508,6 +519,17 @@ struct ion_handle *ion_handle_get_by_id_nolock(struct ion_client *client,
 	handle = idr_find(&client->idr, id);
 	if (handle)
 		return ion_handle_get_check_overflow(handle);
+<<<<<<< HEAD
+=======
+
+	return ERR_PTR(-EINVAL);
+}
+
+struct ion_handle *ion_handle_get_by_id(struct ion_client *client,
+						int id)
+{
+	struct ion_handle *handle;
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 
 	return ERR_PTR(-EINVAL);
 }
@@ -693,7 +715,11 @@ static void user_ion_free_nolock(struct ion_client *client,
 		WARN(1, "%s: invalid handle passed to free.\n", __func__);
 		return;
 	}
+<<<<<<< HEAD
 	if (handle->user_ref_count == 0) {
+=======
+	if (!handle->user_ref_count > 0) {
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 		WARN(1, "%s: User does not have access!\n", __func__);
 		return;
 	}
@@ -1491,10 +1517,21 @@ static struct ion_handle *__ion_import_dma_buf(struct ion_client *client,
         struct ion_handle *handle;
         int ret;
 
+<<<<<<< HEAD
         dmabuf = dma_buf_get(fd);
         if (IS_ERR(dmabuf))
                 return ERR_CAST(dmabuf);
         /* if this memory came from ion */
+=======
+	mutex_lock(&client->lock);
+	/* if a handle exists for this buffer just take a reference to it */
+	handle = ion_handle_lookup(client, buffer);
+	if (!IS_ERR(handle)) {
+		handle = ion_handle_get_check_overflow(handle);
+		mutex_unlock(&client->lock);
+		goto end;
+	}
+>>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 
         if (dmabuf->ops != &dma_buf_ops) {
                 pr_err("%s: can not import dmabuf from another exporter\n",
