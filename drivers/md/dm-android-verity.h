@@ -26,7 +26,6 @@
 #define VERITY_METADATA_SIZE (8 * DATA_BLOCK_SIZE)
 #define VERITY_TABLE_ARGS 10
 #define VERITY_COMMANDLINE_PARAM_LENGTH 20
-<<<<<<< HEAD
 #define BUILD_VARIANT 20
 
 /*
@@ -44,8 +43,6 @@
  * setting VERITY_DEFAULT_KEY_ID_LENGTH to 200 characters.
  */
 #define VERITY_DEFAULT_KEY_ID_LENGTH 200
-=======
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 
 #define FEC_MAGIC 0xFECFECFE
 #define FEC_BLOCK_SIZE (4 * 1024)
@@ -75,12 +72,6 @@
  * if fec is not present
  * <data_blocks> <verity_tree> <verity_metdata_32K>
  */
-<<<<<<< HEAD
-=======
-/* TODO: rearrange structure to reduce memory holes
- * depends on userspace change.
- */
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 struct fec_header {
 	__le32 magic;
 	__le32 version;
@@ -89,11 +80,7 @@ struct fec_header {
 	__le32 fec_size;
 	__le64 inp_size;
 	u8 hash[SHA256_DIGEST_SIZE];
-<<<<<<< HEAD
 } __attribute__((packed));
-=======
-};
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 
 struct android_metadata_header {
 	__le32 magic_number;

@@ -566,7 +566,6 @@ struct ipa_hw_hdr_proc_ctx_add_hdr_cmd_seq {
 	struct ipa_hw_hdr_proc_ctx_tlv end;
 };
 
-<<<<<<< HEAD
 /**
  * struct ipa_hw_hdr_proc_ctx_add_l2tp_hdr_cmd_seq -
  * IPA processing context header - process command sequence
@@ -593,8 +592,6 @@ struct ipa_hw_hdr_proc_ctx_remove_l2tp_hdr_cmd_seq {
 	struct ipa_hw_hdr_proc_ctx_tlv end;
 };
 
-=======
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 /* IPA HW DPS/HPS image memory sizes */
 #define IPA_HW_DPS_IMG_MEM_SIZE_V3_0 128
 #define IPA_HW_HPS_IMG_MEM_SIZE_V3_0 320

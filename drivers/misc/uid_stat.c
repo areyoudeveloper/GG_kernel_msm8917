@@ -67,11 +67,7 @@ static const struct file_operations uid_stat_read_atomic_int_fops = {
 	.open		= uid_stat_read_atomic_int_open,
 	.read		= seq_read,
 	.llseek		= seq_lseek,
-<<<<<<< HEAD
 	.release        = single_release,
-=======
-	.release	= single_release,
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 };
 
 /* Create a new entry for tracking the specified uid. */

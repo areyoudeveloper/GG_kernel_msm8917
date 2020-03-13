@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 /* Copyright (c) 2012-2018, The Linux Foundation. All rights reserved.
-=======
-/* Copyright (c) 2012-2017, The Linux Foundation. All rights reserved.
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -312,10 +308,7 @@ struct ipa_rt_tbl {
  * @is_eth2_ofst_valid: is eth2_ofst field valid?
  * @eth2_ofst: offset to start of Ethernet-II/802.3 header
  * @user_deleted: is the header deleted by the user?
-<<<<<<< HEAD
  * @ipacm_installed: indicate if installed by ipacm
-=======
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
  */
 struct ipa_hdr_entry {
 	struct list_head link;
@@ -334,10 +327,7 @@ struct ipa_hdr_entry {
 	u8 is_eth2_ofst_valid;
 	u16 eth2_ofst;
 	bool user_deleted;
-<<<<<<< HEAD
 	bool ipacm_installed;
-=======
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 };
 
 /**
@@ -404,10 +394,7 @@ struct ipa_hdr_proc_ctx_add_hdr_cmd_seq {
  * @ref_cnt: reference counter of routing table
  * @id: processing context header entry id
  * @user_deleted: is the hdr processing context deleted by the user?
-<<<<<<< HEAD
  * @ipacm_installed: indicate if installed by ipacm
-=======
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
  */
 struct ipa_hdr_proc_ctx_entry {
 	struct list_head link;
@@ -418,10 +405,7 @@ struct ipa_hdr_proc_ctx_entry {
 	u32 ref_cnt;
 	int id;
 	bool user_deleted;
-<<<<<<< HEAD
 	bool ipacm_installed;
-=======
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 };
 
 /**

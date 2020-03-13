@@ -17,6 +17,7 @@
 #include "q6audio_common.h"
 #include "audio_utils_aio.h"
 #include <sound/msm-audio-effects-q6-v2.h>
+#include <sound/msm-dts-eagle.h>
 
 #define MAX_CHANNELS_SUPPORTED		8
 #define WAIT_TIMEDOUT_DURATION_SECS	1
@@ -57,7 +58,6 @@ static void audio_effects_init_pp(struct audio_client *ac)
 	if (ret < 0)
 		pr_err("%s: Send SoftVolume Param failed ret=%d\n",
 			__func__, ret);
-<<<<<<< HEAD
 
 	switch (ac->topology) {
 	case ASM_STREAM_POSTPROC_TOPO_ID_HPX_MASTER:
@@ -84,8 +84,6 @@ static void audio_effects_init_pp(struct audio_client *ac)
 				__func__, ret);
 		break;
 	}
-=======
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 }
 
 static void audio_effects_deinit_pp(struct audio_client *ac)
@@ -94,7 +92,6 @@ static void audio_effects_deinit_pp(struct audio_client *ac)
 		pr_err("%s: audio client null to deinit pp\n", __func__);
 		return;
 	}
-<<<<<<< HEAD
 
 	switch (ac->topology) {
 	case ASM_STREAM_POSTPROC_TOPO_ID_HPX_MASTER:
@@ -103,8 +100,6 @@ static void audio_effects_deinit_pp(struct audio_client *ac)
 	default:
 		break;
 	}
-=======
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 }
 
 static void audio_effects_event_handler(uint32_t opcode, uint32_t token,
@@ -439,7 +434,6 @@ static long audio_effects_set_pp_param(struct q6audio_effects *effects,
 			      &(effects->audio_effects.topo_switch_vol),
 			      (long *)&values[1], SOFT_VOLUME_INSTANCE_2);
 		break;
-<<<<<<< HEAD
 
 	case DTS_EAGLE_MODULE_ENABLE:
 		pr_debug("%s: DTS_EAGLE_MODULE_ENABLE\n", __func__);
@@ -468,8 +462,6 @@ static long audio_effects_set_pp_param(struct q6audio_effects *effects,
 					true);
 		}
 		break;
-=======
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 	default:
 		pr_err("%s: Invalid effects config module\n", __func__);
 		rc = -EINVAL;

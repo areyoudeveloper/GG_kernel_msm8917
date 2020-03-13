@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 /* Copyright (c) 2012-2018, The Linux Foundation. All rights reserved.
-=======
-/* Copyright (c) 2012-2017, 2019, The Linux Foundation. All rights reserved.
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -911,11 +907,7 @@ static ssize_t mdss_dsi_cmd_write(struct file *file, const char __user *p,
 
 	string_buf[ret] = '\0';
 	pcmds->string_buf = string_buf;
-<<<<<<< HEAD
 	pcmds->sblen = count;
-=======
-	pcmds->sblen = blen;
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 	mutex_unlock(&pcmds->dbg_mutex);
 	return ret;
 }
@@ -923,8 +915,7 @@ static ssize_t mdss_dsi_cmd_write(struct file *file, const char __user *p,
 static int mdss_dsi_cmd_flush(struct file *file, fl_owner_t id)
 {
 	struct buf_data *pcmds = file->private_data;
-	unsigned int len;
-	int blen, i;
+	int blen, len, i;
 	char *buf, *bufp, *bp;
 	struct dsi_ctrl_hdr *dchdr;
 
@@ -967,11 +958,7 @@ static int mdss_dsi_cmd_flush(struct file *file, fl_owner_t id)
 	while (len >= sizeof(*dchdr)) {
 		dchdr = (struct dsi_ctrl_hdr *)bp;
 		dchdr->dlen = ntohs(dchdr->dlen);
-<<<<<<< HEAD
 		if (dchdr->dlen > len || dchdr->dlen < 0) {
-=======
-		if (dchdr->dlen > (len - sizeof(*dchdr)) || dchdr->dlen < 0) {
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 			pr_err("%s: dtsi cmd=%x error, len=%d\n",
 				__func__, dchdr->dtype, dchdr->dlen);
 			kfree(buf);

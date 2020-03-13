@@ -787,15 +787,11 @@ int wil_cfg80211_mgmt_tx(struct wiphy *wiphy, struct wireless_dev *wdev,
 	if (len < sizeof(struct ieee80211_mgmt))
 		return -EINVAL;
 
-<<<<<<< HEAD
 	total = sizeof(*cmd) + len;
 	if (total < len)
 		return -EINVAL;
 
 	cmd = kmalloc(total, GFP_KERNEL);
-=======
-	cmd = kmalloc(sizeof(*cmd) + len, GFP_KERNEL);
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 	if (!cmd) {
 		rc = -ENOMEM;
 		goto out;

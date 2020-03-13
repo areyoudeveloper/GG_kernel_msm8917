@@ -6897,13 +6897,8 @@ int ipa3_load_fws(const struct firmware *firmware, phys_addr_t gsi_mem_base)
 {
 	const struct elf32_hdr *ehdr;
 	const struct elf32_phdr *phdr;
-<<<<<<< HEAD
 	unsigned long gsi_iram_ofst = 0;
 	unsigned long gsi_iram_size = 0;
-=======
-	unsigned long gsi_iram_ofst;
-	unsigned long gsi_iram_size;
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 	phys_addr_t ipa_reg_mem_base;
 	u32 ipa_reg_ofst;
 	int rc;
@@ -6912,7 +6907,6 @@ int ipa3_load_fws(const struct firmware *firmware, phys_addr_t gsi_mem_base)
 		IPAERR("Invalid GSI base address\n");
 		return -EINVAL;
 	}
-<<<<<<< HEAD
 
 	ipa_assert_on(!firmware);
 	/* One program header per FW image: GSI, DPS and HPS */
@@ -6969,44 +6963,6 @@ int ipa3_load_fws(const struct firmware *firmware, phys_addr_t gsi_mem_base)
 	if (phdr->p_memsz > ipahal_get_dps_img_mem_size()) {
 		IPAERR("Invalid IPA DPS img size memsz=%d dps_mem_size=%u\n",
 			phdr->p_memsz, ipahal_get_dps_img_mem_size());
-=======
-
-	ipa_assert_on(!firmware);
-	/* One program header per FW image: GSI, DPS and HPS */
-	if (firmware->size < (sizeof(*ehdr) + 3 * sizeof(*phdr))) {
-		IPAERR("Missing ELF and Program headers firmware size=%zu\n",
-			firmware->size);
-		return -EINVAL;
-	}
-
-	ehdr = (struct elf32_hdr *) firmware->data;
-	ipa_assert_on(!ehdr);
-	if (ehdr->e_phnum != 3) {
-		IPAERR("Unexpected number of ELF program headers\n");
-		return -EINVAL;
-	}
-	phdr = (struct elf32_phdr *)(firmware->data + sizeof(*ehdr));
-
-	/*
-	 * Each ELF program header represents a FW image and contains:
-	 *  p_vaddr : The starting address to which the FW needs to loaded.
-	 *  p_memsz : The size of the IRAM (where the image loaded)
-	 *  p_filesz: The size of the FW image embedded inside the ELF
-	 *  p_offset: Absolute offset to the image from the head of the ELF
-	 */
-
-	/* Load GSI FW image */
-	gsi_get_inst_ram_offset_and_size(&gsi_iram_ofst, &gsi_iram_size);
-	if (phdr->p_vaddr != (gsi_mem_base + gsi_iram_ofst)) {
-		IPAERR(
-			"Invalid GSI FW img load addr vaddr=0x%x gsi_mem_base=%pa gsi_iram_ofst=0x%lx\n"
-			, phdr->p_vaddr, &gsi_mem_base, gsi_iram_ofst);
-		return -EINVAL;
-	}
-	if (phdr->p_memsz > gsi_iram_size) {
-		IPAERR("Invalid GSI FW img size memsz=%d gsi_iram_size=%lu\n",
-			phdr->p_memsz, gsi_iram_size);
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 		return -EINVAL;
 	}
 	rc = ipa3_load_single_fw(firmware, phdr);
@@ -7014,7 +6970,6 @@ int ipa3_load_fws(const struct firmware *firmware, phys_addr_t gsi_mem_base)
 		return rc;
 
 	phdr++;
-<<<<<<< HEAD
 
 	/* Load IPA HPS FW image */
 	ipa_reg_ofst = ipahal_get_reg_ofst(IPA_HPS_SEQUENCER_FIRST);
@@ -7027,28 +6982,12 @@ int ipa3_load_fws(const struct firmware *firmware, phys_addr_t gsi_mem_base)
 	if (phdr->p_memsz > ipahal_get_hps_img_mem_size()) {
 		IPAERR("Invalid IPA HPS img size memsz=%d dps_mem_size=%u\n",
 			phdr->p_memsz, ipahal_get_hps_img_mem_size());
-=======
-	ipa_reg_mem_base = ipa3_ctx->ipa_wrapper_base + ipahal_get_reg_base();
-
-	/* Load IPA DPS FW image */
-	ipa_reg_ofst = ipahal_get_reg_ofst(IPA_DPS_SEQUENCER_FIRST);
-	if (phdr->p_vaddr != (ipa_reg_mem_base + ipa_reg_ofst)) {
-		IPAERR(
-			"Invalid IPA DPS img load addr vaddr=0x%x ipa_reg_mem_base=%pa ipa_reg_ofst=%u\n"
-			, phdr->p_vaddr, &ipa_reg_mem_base, ipa_reg_ofst);
-		return -EINVAL;
-	}
-	if (phdr->p_memsz > ipahal_get_dps_img_mem_size()) {
-		IPAERR("Invalid IPA DPS img size memsz=%d dps_mem_size=%u\n",
-			phdr->p_memsz, ipahal_get_dps_img_mem_size());
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 		return -EINVAL;
 	}
 	rc = ipa3_load_single_fw(firmware, phdr);
 	if (rc)
 		return rc;
 
-<<<<<<< HEAD
 	IPADBG("IPA FWs (GSI FW, DPS and HPS) loaded successfully\n");
 	return 0;
 }
@@ -7134,27 +7073,4 @@ void ipa3_enable_dcd(void)
 
 	ipahal_write_reg_fields(IPA_IDLE_INDICATION_CFG,
 			&idle_indication_cfg);
-=======
-	phdr++;
-
-	/* Load IPA HPS FW image */
-	ipa_reg_ofst = ipahal_get_reg_ofst(IPA_HPS_SEQUENCER_FIRST);
-	if (phdr->p_vaddr != (ipa_reg_mem_base + ipa_reg_ofst)) {
-		IPAERR(
-			"Invalid IPA HPS img load addr vaddr=0x%x ipa_reg_mem_base=%pa ipa_reg_ofst=%u\n"
-			, phdr->p_vaddr, &ipa_reg_mem_base, ipa_reg_ofst);
-		return -EINVAL;
-	}
-	if (phdr->p_memsz > ipahal_get_hps_img_mem_size()) {
-		IPAERR("Invalid IPA HPS img size memsz=%d dps_mem_size=%u\n",
-			phdr->p_memsz, ipahal_get_hps_img_mem_size());
-		return -EINVAL;
-	}
-	rc = ipa3_load_single_fw(firmware, phdr);
-	if (rc)
-		return rc;
-
-	IPADBG("IPA FWs (GSI FW, DPS and HPS) loaded successfully\n");
-	return 0;
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 }

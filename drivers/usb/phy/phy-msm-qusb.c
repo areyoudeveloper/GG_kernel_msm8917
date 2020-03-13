@@ -1,9 +1,5 @@
 /*
-<<<<<<< HEAD
  * Copyright (c) 2014-2017,2019, The Linux Foundation. All rights reserved.
-=======
- * Copyright (c) 2014-2017, The Linux Foundation. All rights reserved.
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -450,14 +446,7 @@ static int qusb_phy_update_dpdm(struct usb_phy *phy, int value)
 			}
 
 			if (qphy->put_into_high_z_state) {
-<<<<<<< HEAD
 				qusb_phy_update_tcsr_level_shifter(qphy, 0x1);
-=======
-				if (qphy->tcsr_phy_lvl_shift_keeper)
-					writel_relaxed(0x1,
-					       qphy->tcsr_phy_lvl_shift_keeper);
-
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 				qusb_phy_gdsc(qphy, true);
 				qusb_phy_enable_clocks(qphy, true);
 
@@ -529,13 +518,7 @@ static int qusb_phy_update_dpdm(struct usb_phy *phy, int value)
 			}
 
 			if (!qphy->cable_connected) {
-<<<<<<< HEAD
 				qusb_phy_update_tcsr_level_shifter(qphy, 0x0);
-=======
-				if (qphy->tcsr_phy_lvl_shift_keeper)
-					writel_relaxed(0x0,
-					       qphy->tcsr_phy_lvl_shift_keeper);
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 				dev_dbg(phy->dev, "turn off for HVDCP case\n");
 				ret = qusb_phy_enable_power(qphy, false);
 			}
@@ -1039,7 +1022,6 @@ static int qusb_phy_set_suspend(struct usb_phy *phy, int suspend)
 			writel_relaxed(intr_mask,
 				qphy->base + QUSB2PHY_PORT_INTR_CTRL);
 
-<<<<<<< HEAD
 			if (linestate & (LINESTATE_DP | LINESTATE_DM)) {
 				/* enable phy auto-resume */
 				writel_relaxed(0x0C,
@@ -1053,19 +1035,6 @@ static int qusb_phy_set_suspend(struct usb_phy *phy, int suspend)
 
 			dev_dbg(phy->dev, "%s: intr_mask = %x\n",
 				__func__, intr_mask);
-=======
-			/* enable phy auto-resume */
-			writel_relaxed(0x0C,
-					qphy->base + QUSB2PHY_PORT_TEST_CTRL);
-			/* flush the previous write before next write */
-			wmb();
-			writel_relaxed(0x04,
-				qphy->base + QUSB2PHY_PORT_TEST_CTRL);
-
-
-			dev_dbg(phy->dev, "%s: intr_mask = %x\n",
-			__func__, intr_mask);
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 
 			/* Makes sure that above write goes through */
 			wmb();
@@ -1079,7 +1048,6 @@ static int qusb_phy_set_suspend(struct usb_phy *phy, int suspend)
 			/* Make sure that above write is completed */
 			wmb();
 
-<<<<<<< HEAD
 			/* Do not disable clocks if there is vote for it */
 			if (!qphy->rm_pulldown)
 				qusb_phy_enable_clocks(qphy, false);
@@ -1087,12 +1055,6 @@ static int qusb_phy_set_suspend(struct usb_phy *phy, int suspend)
 				dev_dbg(phy->dev, "race with rm_pulldown. Keep clocks ON\n");
 
 			qusb_phy_update_tcsr_level_shifter(qphy, 0x0);
-=======
-			qusb_phy_enable_clocks(qphy, false);
-			if (qphy->tcsr_phy_lvl_shift_keeper)
-				writel_relaxed(0x0,
-					qphy->tcsr_phy_lvl_shift_keeper);
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 			/* Do not disable power rails if there is vote for it */
 			if (!qphy->rm_pulldown)
 				qusb_phy_enable_power(qphy, false);
@@ -1119,13 +1081,7 @@ static int qusb_phy_set_suspend(struct usb_phy *phy, int suspend)
 				qphy->base + QUSB2PHY_PORT_INTR_CTRL);
 		} else {
 			qusb_phy_enable_power(qphy, true);
-<<<<<<< HEAD
 			qusb_phy_update_tcsr_level_shifter(qphy, 0x1);
-=======
-			if (qphy->tcsr_phy_lvl_shift_keeper)
-				writel_relaxed(0x1,
-					qphy->tcsr_phy_lvl_shift_keeper);
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 			qusb_phy_enable_clocks(qphy, true);
 		}
 		qphy->suspended = false;
@@ -1244,12 +1200,9 @@ static int qusb_phy_probe(struct platform_device *pdev)
 		}
 	}
 
-<<<<<<< HEAD
 	qphy->scm_lvl_shifter_update = of_property_read_bool(dev->of_node,
 					"qcom,secure-level-shifter-update");
 
-=======
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 	qphy->dpdm_pulsing_enabled = of_property_read_bool(dev->of_node,
 					"qcom,enable-dpdm-pulsing");
 

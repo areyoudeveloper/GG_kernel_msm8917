@@ -88,14 +88,9 @@ struct cpr3_msm8996_hmss_fuses {
  * Fuse combos 0 -  7 map to CPR fusing revision 0 - 7 with speed bin fuse = 0.
  * Fuse combos 8 - 15 map to CPR fusing revision 0 - 7 with speed bin fuse = 1.
  * Fuse combos 16 - 23 map to CPR fusing revision 0 - 7 with speed bin fuse = 2.
-<<<<<<< HEAD
  * Fuse combos 24 - 31 map to CPR fusing revision 0 - 7 with speed bin fuse = 3.
  */
 #define CPR3_MSM8996_HMSS_FUSE_COMBO_COUNT	32
-=======
- */
-#define CPR3_MSM8996_HMSS_FUSE_COMBO_COUNT	24
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 
 /*
  * Constants which define the name of each fuse corner.  Note that no actual

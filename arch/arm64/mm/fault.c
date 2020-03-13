@@ -250,13 +250,8 @@ static int __kprobes do_page_fault(unsigned long addr, unsigned int esr,
 
 	if (is_el0_instruction_abort(esr)) {
 		vm_flags = VM_EXEC;
-<<<<<<< HEAD
 	} else if (((esr & ESR_ELx_WNR) && !(esr & ESR_ELx_CM)) ||
 			((esr & ESR_ELx_CM) && !(mm_flags & FAULT_FLAG_USER))) {
-=======
-	} else if (((esr & ESR_EL1_WRITE) && !(esr & ESR_EL1_CM)) ||
-			((esr & ESR_EL1_CM) && !(mm_flags & FAULT_FLAG_USER))) {
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 		vm_flags = VM_WRITE;
 		mm_flags |= FAULT_FLAG_WRITE;
 	}

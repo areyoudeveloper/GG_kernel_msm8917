@@ -236,10 +236,6 @@ void *wcnss_prealloc_get(size_t size)
 
 	pr_err("wcnss: %s: prealloc not available for size: %zu\n",
 	       __func__, size);
-<<<<<<< HEAD
-=======
-	WARN_ON(1);
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 
 	return NULL;
 }

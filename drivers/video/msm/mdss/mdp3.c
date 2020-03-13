@@ -1850,14 +1850,9 @@ int mdp3_put_img(struct mdp3_img_data *data, int client)
 		fdput(data->srcp_f);
 		memset(&data->srcp_f, 0, sizeof(struct fd));
 	} else if (!IS_ERR_OR_NULL(data->srcp_dma_buf)) {
-<<<<<<< HEAD
 		pr_debug("ion hdl = %pK buf=0x%pa domain = %d\n",
 			data->srcp_dma_buf, &data->addr, dom);
 
-=======
-		pr_debug("ion hdl = %pK buf=0x%pa\n", data->srcp_dma_buf,
-							&data->addr);
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 		if (!iclient) {
 			pr_err("invalid ion client\n");
 			return -ENOMEM;

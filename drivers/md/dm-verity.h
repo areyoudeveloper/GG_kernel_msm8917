@@ -16,10 +16,7 @@
 #include <linux/device-mapper.h>
 #include <crypto/hash.h>
 
-<<<<<<< HEAD
 #define DM_VERITY_WAIT_DEV_TIMEOUT_MS	(2000)
-=======
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 #define DM_VERITY_MAX_LEVELS		63
 
 enum verity_mode {
@@ -67,10 +64,7 @@ struct dm_verity {
 	sector_t hash_level_block[DM_VERITY_MAX_LEVELS];
 
 	struct dm_verity_fec *fec;	/* forward error correction */
-<<<<<<< HEAD
 	unsigned long *validated_blocks; /* bitset blocks validated */
-=======
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 };
 
 struct dm_verity_io {

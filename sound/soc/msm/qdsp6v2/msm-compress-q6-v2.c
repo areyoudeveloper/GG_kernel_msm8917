@@ -43,6 +43,8 @@
 #include <sound/compress_offload.h>
 #include <sound/compress_driver.h>
 #include <sound/msm-audio-effects-q6-v2.h>
+#include <sound/msm-dts-eagle.h>
+
 #include "msm-pcm-routing-v2.h"
 
 #define DSP_PP_BUFFERING_IN_MSEC	25
@@ -84,6 +86,15 @@ const DECLARE_TLV_DB_LINEAR(msm_compr_vol_gain, 0,
 #define STREAM_ARRAY_INDEX(stream_id) (stream_id - 1)
 
 #define MAX_NUMBER_OF_STREAMS 2
+
+/*
+ * Max size for getting DTS EAGLE Param through kcontrol
+ * Safe for both 32 and 64 bit platforms
+ * 64 = size of kcontrol value array on 64 bit platform
+ * 4 = size of parameters Eagle expects before cast to 64 bits
+ * 40 = size of dts_eagle_param_desc + module_id cast to 64 bits
+ */
+#define DTS_EAGLE_MAX_PARAM_SIZE_FOR_ALSA ((64 * 4) - 40)
 
 struct msm_compr_gapless_state {
 	bool set_next_stream_id;
@@ -281,6 +292,11 @@ static int msm_compr_set_volume(struct snd_compr_stream *cstream,
 	if (rc < 0)
 		pr_err("%s: Send vol gain command failed rc=%d\n",
 		       __func__, rc);
+	else
+		if (msm_dts_eagle_set_stream_gain(prtd->audio_client,
+						volume_l, volume_r))
+			pr_debug("%s: DTS_EAGLE send stream gain failed\n",
+				__func__);
 
 	return rc;
 }
@@ -1066,6 +1082,26 @@ static int msm_compr_init_pp_params(struct snd_compr_stream *cstream,
 	};
 
 	switch (ac->topology) {
+	case ASM_STREAM_POSTPROC_TOPO_ID_HPX_PLUS: /* HPX + SA+ topology */
+
+		ret = q6asm_set_softvolume_v2(ac, &softvol,
+					      SOFT_VOLUME_INSTANCE_1);
+		if (ret < 0)
+			pr_err("%s: Send SoftVolume Param failed ret=%d\n",
+			__func__, ret);
+
+		ret = q6asm_set_softvolume_v2(ac, &softvol,
+					      SOFT_VOLUME_INSTANCE_2);
+		if (ret < 0)
+			pr_err("%s: Send SoftVolume2 Param failed ret=%d\n",
+			__func__, ret);
+		/*
+		 * HPX module init is trigerred from HAL using ioctl
+		 * DTS_EAGLE_MODULE_ENABLE when stream starts
+		 */
+		break;
+	case ASM_STREAM_POSTPROC_TOPO_ID_DTS_HPX: /* HPX topology */
+		break;
 	default:
 		ret = q6asm_set_softvolume_v2(ac, &softvol,
 					      SOFT_VOLUME_INSTANCE_1);
@@ -1472,7 +1508,6 @@ static int msm_compr_playback_open(struct snd_compr_stream *cstream)
 		pdata->cstream[rtd->dai_link->be_id] = NULL;
 		kfree(prtd);
 		runtime->private_data = NULL;
-<<<<<<< HEAD
 		return -ENOMEM;
 	}
 	pr_debug("%s: session ID %d\n", __func__, prtd->audio_client->session);
@@ -1495,8 +1530,6 @@ static int msm_compr_capture_open(struct snd_compr_stream *cstream)
 	prtd = kzalloc(sizeof(struct msm_compr_audio), GFP_KERNEL);
 	if (prtd == NULL) {
 		pr_err("Failed to allocate memory for msm_compr_audio\n");
-=======
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 		return -ENOMEM;
 	}
 
@@ -1515,7 +1548,6 @@ static int msm_compr_capture_open(struct snd_compr_stream *cstream)
 	pr_debug("%s: session ID %d\n", __func__, prtd->audio_client->session);
 	prtd->audio_client->perf_mode = false;
 	prtd->session_id = prtd->audio_client->session;
-<<<<<<< HEAD
 	prtd->codec = FORMAT_LINEAR_PCM;
 	prtd->bytes_copied = 0;
 	prtd->bytes_read = 0;
@@ -1537,9 +1569,6 @@ static int msm_compr_capture_open(struct snd_compr_stream *cstream)
 	atomic_set(&prtd->error, 0);
 
 	runtime->private_data = prtd;
-=======
-	pdata->is_in_use[rtd->dai_link->be_id] = true;
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 
 	return 0;
 }
@@ -1708,19 +1737,7 @@ static int msm_compr_capture_free(struct snd_compr_stream *cstream)
 	q6asm_audio_client_buf_free_contiguous(dir, ac);
 
 	q6asm_audio_client_free(ac);
-<<<<<<< HEAD
 
-=======
-	if (pdata->audio_effects[soc_prtd->dai_link->be_id] != NULL) {
-		kfree(pdata->audio_effects[soc_prtd->dai_link->be_id]);
-		pdata->audio_effects[soc_prtd->dai_link->be_id] = NULL;
-	}
-	if (pdata->dec_params[soc_prtd->dai_link->be_id] != NULL) {
-		kfree(pdata->dec_params[soc_prtd->dai_link->be_id]);
-		pdata->dec_params[soc_prtd->dai_link->be_id] = NULL;
-	}
-	pdata->is_in_use[soc_prtd->dai_link->be_id] = false;
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 	kfree(prtd);
 	runtime->private_data = NULL;
 
@@ -2513,7 +2530,6 @@ static int msm_compr_pointer(struct snd_compr_stream *cstream,
 	}
 	if (cstream->direction == SND_COMPRESS_PLAYBACK) {
 
-<<<<<<< HEAD
 		gapless_transition = prtd->gapless_state.gapless_transition;
 		spin_unlock_irqrestore(&prtd->lock, flags);
 		if (gapless_transition)
@@ -2554,38 +2570,6 @@ static int msm_compr_pointer(struct snd_compr_stream *cstream,
 		}
 	} else {
 		spin_unlock_irqrestore(&prtd->lock, flags);
-=======
-	gapless_transition = prtd->gapless_state.gapless_transition;
-	spin_unlock_irqrestore(&prtd->lock, flags);
-
-	if (gapless_transition)
-		pr_debug("%s session time in gapless transition",
-			 __func__);
-
-	/*
-	 - Do not query if no buffer has been given.
-	 - Do not query on a gapless transition.
-	   Playback for the 2nd stream can start (thus returning time
-	   starting from 0) before the driver knows about EOS of first stream.
-	*/
-
-	if (!first_buffer && !gapless_transition) {
-		if (pdata->use_legacy_api)
-			rc = q6asm_get_session_time_legacy(prtd->audio_client,
-						&prtd->marker_timestamp);
-		else
-			rc = q6asm_get_session_time(prtd->audio_client,
-						&prtd->marker_timestamp);
-
-		if (rc < 0) {
-			pr_err("%s: Get Session Time return value =%lld\n",
-				__func__, timestamp);
-			if (atomic_read(&prtd->error))
-				return -ENETRESET;
-			else
-				return -EAGAIN;
-		}
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 	}
 	timestamp = prtd->marker_timestamp;
 
@@ -3057,6 +3041,23 @@ static int msm_compr_audio_effects_config_put(struct snd_kcontrol *kcontrol,
 						    &(audio_effects->equalizer),
 						     values);
 		break;
+	case DTS_EAGLE_MODULE:
+		pr_debug("%s: DTS_EAGLE_MODULE\n", __func__);
+		if (!msm_audio_effects_is_effmodule_supp_in_top(effects_module,
+						prtd->audio_client->topology))
+			return 0;
+		msm_dts_eagle_handle_asm(NULL, (void *)values, true,
+					 false, prtd->audio_client, NULL);
+		break;
+	case DTS_EAGLE_MODULE_ENABLE:
+		pr_debug("%s: DTS_EAGLE_MODULE_ENABLE\n", __func__);
+		if (msm_audio_effects_is_effmodule_supp_in_top(effects_module,
+						prtd->audio_client->topology))
+			msm_dts_eagle_enable_asm(prtd->audio_client,
+					(bool)values[0],
+					AUDPROC_MODULE_ID_DTS_HPX_PREMIX);
+
+		break;
 	case SOFT_VOLUME_MODULE:
 		pr_debug("%s: SOFT_VOLUME_MODULE\n", __func__);
 		break;
@@ -3085,6 +3086,7 @@ static int msm_compr_audio_effects_config_get(struct snd_kcontrol *kcontrol,
 	struct msm_compr_audio_effects *audio_effects = NULL;
 	struct snd_compr_stream *cstream = NULL;
 	struct msm_compr_audio *prtd = NULL;
+	long *values = &(ucontrol->value.integer.value[0]);
 
 	pr_debug("%s\n", __func__);
 	if (fe_id >= MSM_FRONTEND_DAI_MAX) {
@@ -3104,6 +3106,28 @@ static int msm_compr_audio_effects_config_get(struct snd_kcontrol *kcontrol,
 		return -EINVAL;
 	}
 
+	switch (audio_effects->query.mod_id) {
+	case DTS_EAGLE_MODULE:
+		pr_debug("%s: DTS_EAGLE_MODULE handling queued get\n",
+			 __func__);
+		values[0] = (long)audio_effects->query.mod_id;
+		values[1] = (long)audio_effects->query.parm_id;
+		values[2] = (long)audio_effects->query.size;
+		values[3] = (long)audio_effects->query.offset;
+		values[4] = (long)audio_effects->query.device;
+		if (values[2] > DTS_EAGLE_MAX_PARAM_SIZE_FOR_ALSA) {
+			pr_err("%s: DTS_EAGLE_MODULE parameter's requested size (%li) too large (max size is %i)\n",
+				__func__, values[2],
+				DTS_EAGLE_MAX_PARAM_SIZE_FOR_ALSA);
+			return -EINVAL;
+		}
+		msm_dts_eagle_handle_asm(NULL, (void *)&values[1],
+					 true, true, prtd->audio_client, NULL);
+		break;
+	default:
+		pr_err("%s: Invalid effects config module\n", __func__);
+		return -EINVAL;
+	}
 	return 0;
 }
 

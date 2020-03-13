@@ -19,10 +19,7 @@
 
 #include <linux/module.h>
 #include <linux/reboot.h>
-<<<<<<< HEAD:drivers/md/dm-verity-target.c
 #include <linux/vmalloc.h>
-=======
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4:drivers/md/dm-verity-target.c
 
 #define DM_MSG_PREFIX			"verity"
 
@@ -36,16 +33,10 @@
 #define DM_VERITY_OPT_LOGGING		"ignore_corruption"
 #define DM_VERITY_OPT_RESTART		"restart_on_corruption"
 #define DM_VERITY_OPT_IGN_ZEROES	"ignore_zero_blocks"
-<<<<<<< HEAD:drivers/md/dm-verity-target.c
 #define DM_VERITY_OPT_AT_MOST_ONCE	"check_at_most_once"
 
 #define DM_VERITY_OPTS_MAX		(2 + DM_VERITY_OPTS_FEC)
 
-=======
-
-#define DM_VERITY_OPTS_MAX		(2 + DM_VERITY_OPTS_FEC)
-
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4:drivers/md/dm-verity-target.c
 static unsigned dm_verity_prefetch_cluster = DM_VERITY_DEFAULT_PREFETCH_SIZE;
 
 module_param_named(prefetch_cluster, dm_verity_prefetch_cluster, uint, S_IRUGO | S_IWUSR);
@@ -339,7 +330,6 @@ int verity_hash_for_block(struct dm_verity *v, struct dm_verity_io *io,
 	}
 
 	memcpy(digest, v->root_digest, v->digest_size);
-<<<<<<< HEAD:drivers/md/dm-verity-target.c
 
 	for (i = v->levels - 1; i >= 0; i--) {
 		r = verity_verify_level(v, io, block, i, false, digest);
@@ -352,20 +342,6 @@ out:
 	else
 		*is_zero = false;
 
-=======
-
-	for (i = v->levels - 1; i >= 0; i--) {
-		r = verity_verify_level(v, io, block, i, false, digest);
-		if (unlikely(r))
-			goto out;
-	}
-out:
-	if (!r && v->zero_digest)
-		*is_zero = !memcmp(v->zero_digest, digest, v->digest_size);
-	else
-		*is_zero = false;
-
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4:drivers/md/dm-verity-target.c
 	return r;
 }
 
@@ -418,7 +394,6 @@ static int verity_bv_zero(struct dm_verity *v, struct dm_verity_io *io,
 {
 	memset(data, 0, len);
 	return 0;
-<<<<<<< HEAD:drivers/md/dm-verity-target.c
 }
 
 /*
@@ -431,8 +406,6 @@ static inline void verity_bv_skip_block(struct dm_verity *v,
 	struct bio *bio = dm_bio_from_per_bio_data(io, v->ti->per_bio_data_size);
 
 	bio_advance_iter(bio, iter, 1 << v->data_dev_block_bits);
-=======
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4:drivers/md/dm-verity-target.c
 }
 
 /*
@@ -447,7 +420,6 @@ static int verity_verify_io(struct dm_verity_io *io)
 
 	for (b = 0; b < io->n_blocks; b++) {
 		int r;
-<<<<<<< HEAD:drivers/md/dm-verity-target.c
 		sector_t cur_block = io->block + b;
 		struct shash_desc *desc = verity_io_hash_desc(v, io);
 
@@ -479,32 +451,6 @@ static int verity_verify_io(struct dm_verity_io *io)
 		r = verity_hash_init(v, desc);
 		if (unlikely(r < 0))
 			return r;
-=======
-		struct shash_desc *desc = verity_io_hash_desc(v, io);
-
-		r = verity_hash_for_block(v, io, io->block + b,
-					  verity_io_want_digest(v, io),
-					  &is_zero);
-		if (unlikely(r < 0))
-			return r;
-
-		if (is_zero) {
-			/*
-			 * If we expect a zero block, don't validate, just
-			 * return zeros.
-			 */
-			r = verity_for_bv_block(v, io, &io->iter,
-						verity_bv_zero);
-			if (unlikely(r < 0))
-				return r;
-
-			continue;
-		}
-
-		r = verity_hash_init(v, desc);
-		if (unlikely(r < 0))
-			return r;
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4:drivers/md/dm-verity-target.c
 
 		start = io->iter;
 		r = verity_for_bv_block(v, io, &io->iter, verity_bv_hash_update);
@@ -516,7 +462,6 @@ static int verity_verify_io(struct dm_verity_io *io)
 			return r;
 
 		if (likely(memcmp(verity_io_real_digest(v, io),
-<<<<<<< HEAD:drivers/md/dm-verity-target.c
 				  verity_io_want_digest(v, io), v->digest_size) == 0)) {
 			if (v->validated_blocks)
 				set_bit(cur_block, v->validated_blocks);
@@ -527,15 +472,6 @@ static int verity_verify_io(struct dm_verity_io *io)
 			continue;
 		else if (verity_handle_err(v, DM_VERITY_BLOCK_TYPE_DATA,
 					   cur_block))
-=======
-				  verity_io_want_digest(v, io), v->digest_size) == 0))
-			continue;
-		else if (verity_fec_decode(v, io, DM_VERITY_BLOCK_TYPE_DATA,
-					   io->block + b, NULL, &start) == 0)
-			continue;
-		else if (verity_handle_err(v, DM_VERITY_BLOCK_TYPE_DATA,
-					   io->block + b))
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4:drivers/md/dm-verity-target.c
 			return -EIO;
 	}
 
@@ -730,11 +666,8 @@ void verity_status(struct dm_target *ti, status_type_t type,
 			args += DM_VERITY_OPTS_FEC;
 		if (v->zero_digest)
 			args++;
-<<<<<<< HEAD:drivers/md/dm-verity-target.c
 		if (v->validated_blocks)
 			args++;
-=======
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4:drivers/md/dm-verity-target.c
 		if (!args)
 			return;
 		DMEMIT(" %u", args);
@@ -753,11 +686,8 @@ void verity_status(struct dm_target *ti, status_type_t type,
 		}
 		if (v->zero_digest)
 			DMEMIT(" " DM_VERITY_OPT_IGN_ZEROES);
-<<<<<<< HEAD:drivers/md/dm-verity-target.c
 		if (v->validated_blocks)
 			DMEMIT(" " DM_VERITY_OPT_AT_MOST_ONCE);
-=======
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4:drivers/md/dm-verity-target.c
 		sz = verity_fec_status_table(v, sz, result, maxlen);
 		break;
 	}
@@ -943,89 +873,6 @@ static int verity_parse_opt_args(struct dm_arg_set *as, struct dm_verity *v)
 			r = verity_alloc_most_once(v);
 			if (r)
 				return r;
-			continue;
-
-		} else if (verity_is_fec_opt_arg(arg_name)) {
-			r = verity_fec_parse_opt_args(as, v, &argc, arg_name);
-			if (r)
-				return r;
-			continue;
-		}
-
-		ti->error = "Unrecognized verity feature request";
-		return -EINVAL;
-	} while (argc && !r);
-
-	return r;
-}
-
-static int verity_alloc_zero_digest(struct dm_verity *v)
-{
-	int r = -ENOMEM;
-	struct shash_desc *desc;
-	u8 *zero_data;
-
-	v->zero_digest = kmalloc(v->digest_size, GFP_KERNEL);
-
-	if (!v->zero_digest)
-		return r;
-
-	desc = kmalloc(v->shash_descsize, GFP_KERNEL);
-
-	if (!desc)
-		return r; /* verity_dtr will free zero_digest */
-
-	zero_data = kzalloc(1 << v->data_dev_block_bits, GFP_KERNEL);
-
-	if (!zero_data)
-		goto out;
-
-	r = verity_hash(v, desc, zero_data, 1 << v->data_dev_block_bits,
-			v->zero_digest);
-
-out:
-	kfree(desc);
-	kfree(zero_data);
-
-	return r;
-}
-
-static int verity_parse_opt_args(struct dm_arg_set *as, struct dm_verity *v)
-{
-	int r;
-	unsigned argc;
-	struct dm_target *ti = v->ti;
-	const char *arg_name;
-
-	static struct dm_arg _args[] = {
-		{0, DM_VERITY_OPTS_MAX, "Invalid number of feature args"},
-	};
-
-	r = dm_read_arg_group(_args, as, &argc, &ti->error);
-	if (r)
-		return -EINVAL;
-
-	if (!argc)
-		return 0;
-
-	do {
-		arg_name = dm_shift_arg(as);
-		argc--;
-
-		if (!strcasecmp(arg_name, DM_VERITY_OPT_LOGGING)) {
-			v->mode = DM_VERITY_MODE_LOGGING;
-			continue;
-
-		} else if (!strcasecmp(arg_name, DM_VERITY_OPT_RESTART)) {
-			v->mode = DM_VERITY_MODE_RESTART;
-			continue;
-
-		} else if (!strcasecmp(arg_name, DM_VERITY_OPT_IGN_ZEROES)) {
-			r = verity_alloc_zero_digest(v);
-			if (r) {
-				ti->error = "Cannot allocate zero digest";
-				return r;
-			}
 			continue;
 
 		} else if (verity_is_fec_opt_arg(arg_name)) {
@@ -1298,11 +1145,7 @@ EXPORT_SYMBOL_GPL(verity_ctr);
 
 static struct target_type verity_target = {
 	.name		= "verity",
-<<<<<<< HEAD:drivers/md/dm-verity-target.c
 	.version	= {1, 4, 0},
-=======
-	.version	= {1, 3, 0},
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4:drivers/md/dm-verity-target.c
 	.module		= THIS_MODULE,
 	.ctr		= verity_ctr,
 	.dtr		= verity_dtr,

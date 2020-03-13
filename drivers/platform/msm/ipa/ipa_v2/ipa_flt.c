@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 /* Copyright (c) 2012-2018, The Linux Foundation. All rights reserved.
-=======
-/* Copyright (c) 2012-2016, The Linux Foundation. All rights reserved.
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -549,7 +545,6 @@ static int ipa_generate_flt_hw_tbl_v1_1(enum ipa_ip_type ip,
 	u8 *body;
 	u8 *base;
 	int res;
-<<<<<<< HEAD
 
 	res = ipa_get_flt_hw_tbl_size(ip, &hdr_sz);
 	if (res < 0) {
@@ -557,15 +552,6 @@ static int ipa_generate_flt_hw_tbl_v1_1(enum ipa_ip_type ip,
 		return res;
 	}
 
-=======
-
-	res = ipa_get_flt_hw_tbl_size(ip, &hdr_sz);
-	if (res < 0) {
-		IPAERR("ipa_get_flt_hw_tbl_size failed %d\n", res);
-		return res;
-	}
-
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 	mem->size = res;
 	mem->size = IPA_HW_TABLE_ALIGNMENT(mem->size);
 
@@ -1042,11 +1028,7 @@ static int __ipa_add_flt_rule(struct ipa_flt_tbl *tbl, enum ipa_ip_type ip,
 			}
 
 			if (rt_tbl->cookie != IPA_RT_TBL_COOKIE) {
-<<<<<<< HEAD
 				IPAERR_RL("RT table cookie is invalid\n");
-=======
-				IPAERR("RT table cookie is invalid\n");
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 				goto error;
 			}
 		} else {
@@ -1120,11 +1102,7 @@ static int __ipa_del_flt_rule(u32 rule_hdl)
 	}
 
 	if (entry->cookie != IPA_FLT_COOKIE) {
-<<<<<<< HEAD
 		IPAERR_RL("bad params\n");
-=======
-		IPAERR("bad params\n");
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 		return -EINVAL;
 	}
 	id = entry->id;
@@ -1156,11 +1134,7 @@ static int __ipa_mdfy_flt_rule(struct ipa_flt_rule_mdfy *frule,
 	}
 
 	if (entry->cookie != IPA_FLT_COOKIE) {
-<<<<<<< HEAD
 		IPAERR_RL("bad params\n");
-=======
-		IPAERR("bad params\n");
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 		goto error;
 	}
 
@@ -1181,11 +1155,7 @@ static int __ipa_mdfy_flt_rule(struct ipa_flt_rule_mdfy *frule,
 			}
 
 			if (rt_tbl->cookie != IPA_RT_TBL_COOKIE) {
-<<<<<<< HEAD
 				IPAERR_RL("RT table cookie is invalid\n");
-=======
-				IPAERR("RT table cookie is invalid\n");
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 				goto error;
 			}
 		} else {

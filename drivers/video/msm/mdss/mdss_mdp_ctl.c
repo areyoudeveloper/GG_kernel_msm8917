@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 /* Copyright (c) 2012-2018, The Linux Foundation. All rights reserved.
-=======
-/* Copyright (c) 2012-2017, The Linux Foundation. All rights reserved.
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -80,22 +76,15 @@ static inline u64 fudge_factor(u64 val, u32 numer, u32 denom)
 	u64 result = val;
 
 	if (val) {
-<<<<<<< HEAD
 		u64 temp = U64_MAX;
-=======
-		u64 temp = -1UL;
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 
 		do_div(temp, val);
 		if (temp > numer) {
 			/* no overflow, so we can do the operation*/
 			result = (val * (u64)numer);
 			do_div(result, denom);
-<<<<<<< HEAD
 		} else {
 			pr_warn("Overflow, skip fudge factor\n");
-=======
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 		}
 	}
 	return result;

@@ -3016,13 +3016,8 @@ static void msm_usb_bam_update_props(struct sps_bam_props *props,
 	struct msm_usb_bam_platform_data *pdata = pdev->dev.platform_data;
 	enum usb_ctrl bam_type = pdata->bam_type;
 	struct usb_bam_ctx_type *ctx = &msm_usb_bam[bam_type];
-<<<<<<< HEAD
 
 
-=======
-
-
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 	props->phys_addr = ctx->io_res->start;
 	props->virt_addr = NULL;
 	props->virt_size = resource_size(ctx->io_res);

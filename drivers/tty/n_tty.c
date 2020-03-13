@@ -1674,11 +1674,7 @@ static void __receive_buf(struct tty_struct *tty, const unsigned char *cp,
 	if (ldata->icanon && !L_EXTPROC(tty))
 		return;
 
-<<<<<<< HEAD
 	/* publish read head to consumer */
-=======
-	/* publish read_head to consumer */
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 	smp_store_release(&ldata->commit_head, ldata->read_head);
 
 	if ((read_cnt(ldata) >= ldata->minimum_to_wake) || L_EXTPROC(tty)) {
@@ -2022,20 +2018,12 @@ static int copy_from_read_buf(struct tty_struct *tty,
 		is_eof = n == 1 && read_buf(ldata, tail) == EOF_CHAR(tty);
 		tty_audit_add_data(tty, read_buf_addr(ldata, tail), n,
 				ldata->icanon);
-<<<<<<< HEAD
 		zero_buffer(tty, read_buf_addr(ldata, tail), n);
 		ldata->read_tail += n;
 		/* Turn single EOF into zero-length read */
 		if (L_EXTPROC(tty) && ldata->icanon && is_eof &&
 			(head == ldata->read_tail))
 				n = 0;
-=======
-		smp_store_release(&ldata->read_tail, ldata->read_tail + n);
-		/* Turn single EOF into zero-length read */
-		if (L_EXTPROC(tty) && ldata->icanon && is_eof &&
-		    (head == ldata->read_tail))
-			n = 0;
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 		*b += n;
 		*nr -= n;
 	}

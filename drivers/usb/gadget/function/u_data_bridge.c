@@ -922,11 +922,7 @@ static void gbridge_debugfs_init(void) {}
 int gbridge_setup(void *gptr, u8 no_ports)
 {
 	pr_debug("gptr:%pK, no_bridge_ports:%d\n", gptr, no_ports);
-<<<<<<< HEAD
 	if (no_ports > num_of_instance) {
-=======
-	if (no_ports >= num_of_instance) {
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 		pr_err("More ports are requested\n");
 		return -EINVAL;
 	}

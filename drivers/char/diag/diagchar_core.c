@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 /* Copyright (c) 2008-2019, The Linux Foundation. All rights reserved.
-=======
-/* Copyright (c) 2008-2018, 2019 The Linux Foundation. All rights reserved.
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -458,12 +454,9 @@ static void diag_close_logging_process(const int pid)
 	session_peripheral_mask = session_info->peripheral_mask;
 	mutex_unlock(&driver->md_session_lock);
 
-<<<<<<< HEAD
 	if (diag_mask_clear_param)
 		diag_clear_masks(pid);
 
-=======
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 	mutex_lock(&driver->diagchar_mutex);
 	for (i = 0; i < NUM_MD_SESSIONS; i++)
 		if (MD_PERIPHERAL_MASK(i) & session_peripheral_mask)
@@ -541,18 +534,12 @@ static int diag_remove_client_entry(struct file *file)
 }
 static int diagchar_close(struct inode *inode, struct file *file)
 {
-<<<<<<< HEAD
 	int ret;
 	DIAG_LOG(DIAG_DEBUG_USERSPACE, "diag: %s process exit with pid = %d\n",
 		current->comm, current->tgid);
 	ret = diag_remove_client_entry(file);
 
 	return ret;
-=======
-	DIAG_LOG(DIAG_DEBUG_USERSPACE, "diag: %s process exit with pid = %d\n",
-		current->comm, current->tgid);
-	return diag_remove_client_entry(file);
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 }
 
 void diag_record_stats(int type, int flag)
@@ -2931,10 +2918,7 @@ static int diag_user_process_apps_data(const char __user *buf, int len,
 	else
 		hdlc_disabled = driver->hdlc_disabled;
 	mutex_unlock(&driver->md_session_lock);
-<<<<<<< HEAD
 	mutex_unlock(&driver->hdlc_disable_mutex);
-=======
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 	if (hdlc_disabled)
 		ret = diag_process_apps_data_non_hdlc(user_space_data, len,
 						      pkt_type);
@@ -3180,7 +3164,6 @@ exit:
 									track);
 			pid_struct = find_get_pid(entry->tgid);
 			if (!pid_struct)
-<<<<<<< HEAD
 				continue;
 			task_s = get_pid_task(pid_struct, PIDTYPE_PID);
 			if (!task_s) {
@@ -3200,20 +3183,6 @@ exit:
 			if (!entry->in_service) {
 				put_task_struct(task_s);
 				put_pid(pid_struct);
-=======
-				continue;
-			task_s = get_pid_task(pid_struct, PIDTYPE_PID);
-			if (!task_s) {
-				DIAG_LOG(DIAG_DEBUG_DCI,
-				"diag: valid task doesn't exist for pid = %d\n",
-				entry->tgid);
-				continue;
-			}
-			if (task_s == entry->client)
-				if (entry->client->tgid != current->tgid)
-					continue;
-			if (!entry->in_service)
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 				continue;
 			}
 			if (copy_to_user(buf + ret, &data_type, sizeof(int))) {

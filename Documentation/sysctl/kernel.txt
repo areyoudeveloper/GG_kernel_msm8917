@@ -58,10 +58,7 @@ show up in /proc/sys/kernel:
 - panic_on_oops
 - panic_on_stackoverflow
 - panic_on_unrecovered_nmi
-<<<<<<< HEAD
 - perf_cpu_time_max_percent
-=======
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 - perf_event_paranoid
 - pid_max
 - powersave-nap               [ PPC only ]
@@ -576,7 +573,6 @@ This file shows up if CONFIG_DEBUG_STACKOVERFLOW is enabled.
 
 0: try to continue operation.
 
-<<<<<<< HEAD
 
 ==============================================================
 
@@ -603,8 +599,6 @@ dealt with than an uncorrected parity/ECC error get propagated.
 A small number of systems do generate NMI's for bizarre random reasons
 such as power management so the default is off. That sysctl works like
 the existing panic controls already in that directory.
-=======
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 
 ==============================================================
 

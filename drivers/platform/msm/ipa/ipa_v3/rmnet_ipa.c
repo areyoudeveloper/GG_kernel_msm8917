@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 /* Copyright (c) 2014-2018, The Linux Foundation. All rights reserved.
-=======
-/* Copyright (c) 2014-2019, The Linux Foundation. All rights reserved.
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -134,17 +130,12 @@ struct rmnet_ipa3_context {
 	void *subsys_notify_handle;
 	u32 apps_to_ipa3_hdl;
 	u32 ipa3_to_apps_hdl;
-<<<<<<< HEAD
 	struct mutex pipe_handle_guard;
 	struct mutex add_mux_channel_lock;
 	struct mutex per_client_stats_guard;
 	struct ipa_tether_device_info
 		tether_device
 		[IPACM_MAX_CLIENT_DEVICE_TYPES];
-=======
-	struct mutex ipa_to_apps_pipe_handle_guard;
-	struct mutex add_mux_channel_lock;
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 };
 
 static struct rmnet_ipa3_context *rmnet_ipa3_ctx;
@@ -3599,7 +3590,6 @@ static int __init ipa3_wwan_init(void)
 	atomic_set(&rmnet_ipa3_ctx->is_initialized, 0);
 	atomic_set(&rmnet_ipa3_ctx->is_ssr, 0);
 
-<<<<<<< HEAD
 	mutex_init(&rmnet_ipa3_ctx->pipe_handle_guard);
 	mutex_init(&rmnet_ipa3_ctx->add_mux_channel_lock);
 	mutex_init(&rmnet_ipa3_ctx->per_client_stats_guard);
@@ -3612,11 +3602,6 @@ static int __init ipa3_wwan_init(void)
 	}
 	rmnet_ipa3_ctx->ipa3_to_apps_hdl = -1;
 	rmnet_ipa3_ctx->apps_to_ipa3_hdl = -1;
-=======
-	mutex_init(&rmnet_ipa3_ctx->ipa_to_apps_pipe_handle_guard);
-	mutex_init(&rmnet_ipa3_ctx->add_mux_channel_lock);
-	rmnet_ipa3_ctx->ipa3_to_apps_hdl = -1;
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 
 	ipa3_qmi_init();
 
@@ -3633,17 +3618,11 @@ static int __init ipa3_wwan_init(void)
 static void __exit ipa3_wwan_cleanup(void)
 {
 	int ret;
-<<<<<<< HEAD
 
 	ipa3_qmi_cleanup();
 	mutex_destroy(&rmnet_ipa3_ctx->pipe_handle_guard);
 	mutex_destroy(&rmnet_ipa3_ctx->add_mux_channel_lock);
 	mutex_destroy(&rmnet_ipa3_ctx->per_client_stats_guard);
-=======
-	ipa3_qmi_cleanup();
-	mutex_destroy(&rmnet_ipa3_ctx->ipa_to_apps_pipe_handle_guard);
-	mutex_destroy(&rmnet_ipa3_ctx->add_mux_channel_lock);
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 	ret = subsys_notif_unregister_notifier(
 		rmnet_ipa3_ctx->subsys_notify_handle, &ipa3_ssr_notifier);
 	if (ret)

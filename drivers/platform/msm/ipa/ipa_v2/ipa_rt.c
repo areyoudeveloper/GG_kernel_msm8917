@@ -83,11 +83,7 @@ int __ipa_generate_rt_hw_rule_v2(enum ipa_ip_type ip,
 	if (entry->hdr) {
 		hdr_entry = ipa_id_find(entry->rule.hdr_hdl);
 		if (!hdr_entry || hdr_entry->cookie != IPA_HDR_COOKIE) {
-<<<<<<< HEAD
 			IPAERR_RL("Header entry already deleted\n");
-=======
-			IPAERR("Header entry already deleted\n");
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 			return -EPERM;
 		}
 	}
@@ -188,22 +184,14 @@ int __ipa_generate_rt_hw_rule_v2_5(enum ipa_ip_type ip,
 	if (entry->hdr) {
 		hdr_entry = ipa_id_find(entry->rule.hdr_hdl);
 		if (!hdr_entry || hdr_entry->cookie != IPA_HDR_COOKIE) {
-<<<<<<< HEAD
 			IPAERR_RL("Header entry already deleted\n");
-=======
-			IPAERR("Header entry already deleted\n");
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 			return -EPERM;
 		}
 	} else if (entry->proc_ctx) {
 		hdr_proc_entry = ipa_id_find(entry->rule.hdr_proc_ctx_hdl);
 		if (!hdr_proc_entry ||
 			hdr_proc_entry->cookie != IPA_PROC_HDR_COOKIE) {
-<<<<<<< HEAD
 			IPAERR_RL("Proc header entry already deleted\n");
-=======
-			IPAERR("Proc header entry already deleted\n");
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 			return -EPERM;
 		}
 	}
@@ -997,11 +985,7 @@ static int __ipa_del_rt_tbl(struct ipa_rt_tbl *entry)
 	u32 id;
 
 	if (entry == NULL || (entry->cookie != IPA_RT_TBL_COOKIE)) {
-<<<<<<< HEAD
 		IPAERR_RL("bad parms\n");
-=======
-		IPAERR("bad parms\n");
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 		return -EINVAL;
 	}
 	id = entry->id;
@@ -1208,11 +1192,7 @@ int __ipa_del_rt_rule(u32 rule_hdl)
 	}
 
 	if (entry->cookie != IPA_RT_RULE_COOKIE) {
-<<<<<<< HEAD
 		IPAERR_RL("bad params\n");
-=======
-		IPAERR("bad params\n");
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 		return -EINVAL;
 	}
 
@@ -1220,11 +1200,7 @@ int __ipa_del_rt_rule(u32 rule_hdl)
 		IPADBG("Deleting rule from default rt table idx=%u\n",
 			entry->tbl->idx);
 		if (entry->tbl->rule_cnt == 1) {
-<<<<<<< HEAD
 			IPAERR_RL("Default tbl last rule cannot be deleted\n");
-=======
-			IPAERR("Default tbl last rule cannot be deleted\n");
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 			return -EINVAL;
 		}
 	}
@@ -1235,22 +1211,14 @@ int __ipa_del_rt_rule(u32 rule_hdl)
 	if (entry->hdr) {
 		hdr_entry = ipa_id_find(entry->rule.hdr_hdl);
 		if (!hdr_entry || hdr_entry->cookie != IPA_HDR_COOKIE) {
-<<<<<<< HEAD
 			IPAERR_RL("Header entry already deleted\n");
-=======
-			IPAERR("Header entry already deleted\n");
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 			return -EINVAL;
 		}
 	} else if (entry->proc_ctx) {
 		hdr_proc_entry = ipa_id_find(entry->rule.hdr_proc_ctx_hdl);
 		if (!hdr_proc_entry ||
 			hdr_proc_entry->cookie != IPA_PROC_HDR_COOKIE) {
-<<<<<<< HEAD
 			IPAERR_RL("Proc header entry already deleted\n");
-=======
-			IPAERR("Proc header entry already deleted\n");
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 			return -EINVAL;
 		}
 	}
@@ -1534,13 +1502,10 @@ int ipa2_get_rt_tbl(struct ipa_ioc_get_rt_tbl *lookup)
 	mutex_lock(&ipa_ctx->lock);
 	entry = __ipa_find_rt_tbl(lookup->ip, lookup->name);
 	if (entry && entry->cookie == IPA_RT_TBL_COOKIE) {
-<<<<<<< HEAD
 		if (entry->ref_cnt == U32_MAX) {
 			IPAERR_RL("fail: ref count crossed limit\n");
 			goto ret;
 		}
-=======
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 		entry->ref_cnt++;
 		lookup->hdl = entry->id;
 
@@ -1580,11 +1545,7 @@ int ipa2_put_rt_tbl(u32 rt_tbl_hdl)
 	}
 
 	if ((entry->cookie != IPA_RT_TBL_COOKIE) || entry->ref_cnt == 0) {
-<<<<<<< HEAD
 		IPAERR_RL("bad parms\n");
-=======
-		IPAERR("bad parms\n");
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 		result = -EINVAL;
 		goto ret;
 	}
@@ -1626,11 +1587,7 @@ static int __ipa_mdfy_rt_rule(struct ipa_rt_rule_mdfy *rtrule)
 	if (rtrule->rule.hdr_hdl) {
 		hdr = ipa_id_find(rtrule->rule.hdr_hdl);
 		if ((hdr == NULL) || (hdr->cookie != IPA_HDR_COOKIE)) {
-<<<<<<< HEAD
 			IPAERR_RL("rt rule does not point to valid hdr\n");
-=======
-			IPAERR("rt rule does not point to valid hdr\n");
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 			goto error;
 		}
 	}
@@ -1642,11 +1599,7 @@ static int __ipa_mdfy_rt_rule(struct ipa_rt_rule_mdfy *rtrule)
 	}
 
 	if (entry->cookie != IPA_RT_RULE_COOKIE) {
-<<<<<<< HEAD
 		IPAERR_RL("bad params\n");
-=======
-		IPAERR("bad params\n");
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 		goto error;
 	}
 
@@ -1657,11 +1610,7 @@ static int __ipa_mdfy_rt_rule(struct ipa_rt_rule_mdfy *rtrule)
 	if (entry->hdr) {
 		hdr_entry = ipa_id_find(entry->rule.hdr_hdl);
 		if (!hdr_entry || hdr_entry->cookie != IPA_HDR_COOKIE) {
-<<<<<<< HEAD
 			IPAERR_RL("Header entry already deleted\n");
-=======
-			IPAERR("Header entry already deleted\n");
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 			return -EPERM;
 		}
 	}

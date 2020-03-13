@@ -792,14 +792,10 @@ struct vfe_device {
 	/* before halt irq info */
 	uint32_t recovery_irq0_mask;
 	uint32_t recovery_irq1_mask;
-<<<<<<< HEAD
 	/* Store the buf_idx for pd stats RDI stream */
 	uint8_t pd_buf_idx;
 	uint32_t ms_frame_id;
 	struct isp_proc *isp_page;
-=======
-	uint32_t ms_frame_id;
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 };
 
 struct vfe_parent_device {

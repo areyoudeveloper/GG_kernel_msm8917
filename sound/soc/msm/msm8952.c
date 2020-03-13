@@ -1999,7 +1999,6 @@ static int msm_audrx_init(struct snd_soc_pcm_runtime *rtd)
 			return ret;
 		}
 	}
-<<<<<<< HEAD
 
 #if defined(CONFIG_C3N_SMB358) || defined(CONFIG_C3B_BQ2560X) || defined(CONFIG_D1_ROSY)
 #else
@@ -2013,8 +2012,6 @@ static int msm_audrx_init(struct snd_soc_pcm_runtime *rtd)
 	Set_Spk_PA_Id();
 #endif
 
-=======
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 	return 0;
 }
 

@@ -839,12 +839,7 @@ static int mdp3_dmap_update(struct mdp3_dma *dma, void *buf,
 		ATRACE_BEGIN("mdp3_wait_for_vsync_comp");
 retry_vsync:
 		rc = wait_for_completion_timeout(&dma->vsync_comp,
-<<<<<<< HEAD
 			 dma_timeout_value(dma));
-=======
-			KOFF_TIMEOUT);
-		pr_err("%s VID DMA Buff Addr %pK\n", __func__, buf);
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 		if (rc <= 0 && --retry_count) {
 			vsync = MDP3_REG_READ(MDP3_REG_INTR_STATUS) &
 					(1 << MDP3_INTR_LCDC_START_OF_FRAME);

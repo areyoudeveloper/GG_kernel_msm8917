@@ -2073,11 +2073,7 @@ static const struct export_operations f2fs_export_ops = {
 	.get_parent = f2fs_get_parent,
 };
 
-<<<<<<< HEAD
 static loff_t max_file_blocks(void)
-=======
-loff_t max_file_size(unsigned bits)
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 {
 	loff_t result = 0;
 	loff_t leaf_count = ADDRS_PER_BLOCK;
@@ -2336,30 +2332,12 @@ static int sanity_check_raw_super(struct f2fs_sb_info *sbi,
 		return 1;
 	}
 
-<<<<<<< HEAD
 	if (le32_to_cpu(raw_super->cp_payload) >
 				(blocks_per_seg - F2FS_CP_PACKS)) {
 		f2fs_msg(sb, KERN_INFO,
 			"Insane cp_payload (%u > %u)",
 			le32_to_cpu(raw_super->cp_payload),
 			blocks_per_seg - F2FS_CP_PACKS);
-=======
-	/* check log blocks per segment */
-	if (le32_to_cpu(raw_super->log_blocks_per_seg) != 9) {
-		f2fs_msg(sb, KERN_INFO,
-			"Invalid log blocks per segment (%u)\n",
-			le32_to_cpu(raw_super->log_blocks_per_seg));
-		return 1;
-	}
-
-	/* Currently, support 512/1024/2048/4096 bytes sector size */
-	if (le32_to_cpu(raw_super->log_sectorsize) >
-				F2FS_MAX_LOG_SECTOR_SIZE ||
-		le32_to_cpu(raw_super->log_sectorsize) <
-				F2FS_MIN_LOG_SECTOR_SIZE) {
-		f2fs_msg(sb, KERN_INFO, "Invalid log sectorsize (%u)",
-			le32_to_cpu(raw_super->log_sectorsize));
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 		return 1;
 	}
 
@@ -2375,19 +2353,10 @@ static int sanity_check_raw_super(struct f2fs_sb_info *sbi,
 		return 1;
 	}
 
-<<<<<<< HEAD
 	/* check CP/SIT/NAT/SSA/MAIN_AREA area boundary */
 	if (sanity_check_area_boundary(sbi, bh))
 		return 1;
 
-=======
-	if (le32_to_cpu(raw_super->segment_count) > F2FS_MAX_SEGMENT) {
-		f2fs_msg(sb, KERN_INFO,
-			"Invalid segment count (%u)",
-			le32_to_cpu(raw_super->segment_count));
-		return 1;
-	}
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 	return 0;
 }
 
@@ -2396,7 +2365,6 @@ int f2fs_sanity_check_ckpt(struct f2fs_sb_info *sbi)
 	unsigned int total, fsmeta;
 	struct f2fs_super_block *raw_super = F2FS_RAW_SUPER(sbi);
 	struct f2fs_checkpoint *ckpt = F2FS_CKPT(sbi);
-<<<<<<< HEAD
 	unsigned int ovp_segments, reserved_segments;
 	unsigned int main_segs, blocks_per_seg;
 	unsigned int sit_segs, nat_segs;
@@ -2405,9 +2373,6 @@ int f2fs_sanity_check_ckpt(struct f2fs_sb_info *sbi)
 	unsigned int segment_count_main;
 	unsigned int cp_pack_start_sum, cp_payload;
 	block_t user_block_count;
-=======
-	unsigned int main_segs, blocks_per_seg;
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 	int i;
 
 	total = le32_to_cpu(raw_super->segment_count);
@@ -2422,7 +2387,6 @@ int f2fs_sanity_check_ckpt(struct f2fs_sb_info *sbi)
 	if (unlikely(fsmeta >= total))
 		return 1;
 
-<<<<<<< HEAD
 	ovp_segments = le32_to_cpu(ckpt->overprov_segment_count);
 	reserved_segments = le32_to_cpu(ckpt->rsvd_segment_count);
 
@@ -2444,14 +2408,10 @@ int f2fs_sanity_check_ckpt(struct f2fs_sb_info *sbi)
 	}
 
 	main_segs = le32_to_cpu(raw_super->segment_count_main);
-=======
-	main_segs = le32_to_cpu(sbi->raw_super->segment_count_main);
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 	blocks_per_seg = sbi->blocks_per_seg;
 
 	for (i = 0; i < NR_CURSEG_NODE_TYPE; i++) {
 		if (le32_to_cpu(ckpt->cur_node_segno[i]) >= main_segs ||
-<<<<<<< HEAD
 			le16_to_cpu(ckpt->cur_node_blkoff[i]) >= blocks_per_seg)
 			return 1;
 	}
@@ -2481,17 +2441,6 @@ int f2fs_sanity_check_ckpt(struct f2fs_sb_info *sbi)
 			"Wrong cp_pack_start_sum: %u",
 			cp_pack_start_sum);
 		return 1;
-=======
-		    le16_to_cpu(ckpt->cur_node_blkoff[i]) >= blocks_per_seg) {
-			return 1;
-		}
-	}
-	for (i = 0; i < NR_CURSEG_DATA_TYPE; i++) {
-		if (le32_to_cpu(ckpt->cur_data_segno[i]) >= main_segs ||
-		    le16_to_cpu(ckpt->cur_data_blkoff[i]) >= blocks_per_seg) {
-			return 1;
-		}
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 	}
 
 	if (unlikely(f2fs_cp_error(sbi))) {

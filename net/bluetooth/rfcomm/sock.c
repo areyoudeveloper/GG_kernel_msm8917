@@ -337,10 +337,6 @@ static int rfcomm_sock_bind(struct socket *sock, struct sockaddr *addr, int addr
 {
 	struct sockaddr_rc sa;
 	struct sock *sk = sock->sk;
-<<<<<<< HEAD
-=======
-	int chan;
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 	int len, err = 0;
 
 	if (!addr || addr->sa_family != AF_BLUETOOTH)
@@ -349,14 +345,8 @@ static int rfcomm_sock_bind(struct socket *sock, struct sockaddr *addr, int addr
 	memset(&sa, 0, sizeof(sa));
 	len = min_t(unsigned int, sizeof(sa), addr_len);
 	memcpy(&sa, addr, len);
-<<<<<<< HEAD
 
 	BT_DBG("sk %p %pMR", sk, &sa.rc_bdaddr);
-=======
-	chan = sa.rc_channel;
-
-	BT_DBG("sk %pK %pMR", sk, &sa.rc_bdaddr);
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 
 	lock_sock(sk);
 
@@ -372,21 +362,13 @@ static int rfcomm_sock_bind(struct socket *sock, struct sockaddr *addr, int addr
 
 	write_lock(&rfcomm_sk_list.lock);
 
-<<<<<<< HEAD
 	if (sa.rc_channel &&
 	    __rfcomm_get_listen_sock_by_addr(sa.rc_channel, &sa.rc_bdaddr)) {
-=======
-	if (chan && __rfcomm_get_listen_sock_by_addr(chan, &sa.rc_bdaddr)) {
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 		err = -EADDRINUSE;
 	} else {
 		/* Save source address */
 		bacpy(&rfcomm_pi(sk)->src, &sa.rc_bdaddr);
-<<<<<<< HEAD
 		rfcomm_pi(sk)->channel = sa.rc_channel;
-=======
-		rfcomm_pi(sk)->channel = chan;
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 		sk->sk_state = BT_BOUND;
 	}
 

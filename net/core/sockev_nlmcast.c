@@ -73,7 +73,6 @@ static int sockev_client_cb(struct notifier_block *nb,
 
 	sock = (struct socket *)data;
 	if (!socknlmsgsk || !sock)
-<<<<<<< HEAD
 		goto sk_null;
 
 	sk = sock->sk;
@@ -82,14 +81,6 @@ static int sockev_client_cb(struct notifier_block *nb,
 
 	sock_hold(sk);
 
-=======
-		goto done;
-
-	sk = sock->sk;
-	if (!sk)
-		goto done;
-
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 	if (sk->sk_family != AF_INET && sk->sk_family != AF_INET6)
 		goto done;
 

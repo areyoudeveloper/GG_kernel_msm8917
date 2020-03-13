@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 /* Copyright (c) 2013-2017, The Linux Foundation. All rights reserved.
-=======
-/* Copyright (c) 2013-2019, The Linux Foundation. All rights reserved.
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -235,7 +231,6 @@ int ipa3_qmi_stop_data_qouta(void);
 
 void ipa3_q6_handshake_complete(bool ssr_bootup);
 
-<<<<<<< HEAD
 int ipa3_qmi_enable_per_client_stats(
 	struct ipa_enable_per_client_stats_req_msg_v01 *req,
 	struct ipa_enable_per_client_stats_resp_msg_v01 *resp);
@@ -244,8 +239,6 @@ int ipa3_qmi_get_per_client_packet_stats(
 	struct ipa_get_stats_per_client_req_msg_v01 *req,
 	struct ipa_get_stats_per_client_resp_msg_v01 *resp);
 
-=======
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 void ipa3_qmi_init(void);
 
 void ipa3_qmi_cleanup(void);
@@ -367,7 +360,6 @@ static inline int ipa3_qmi_stop_data_qouta(void)
 
 static inline void ipa3_q6_handshake_complete(bool ssr_bootup) { }
 
-<<<<<<< HEAD
 static inline int ipa3_qmi_enable_per_client_stats(
 	struct ipa_enable_per_client_stats_req_msg_v01 *req,
 	struct ipa_enable_per_client_stats_resp_msg_v01 *resp)
@@ -385,18 +377,11 @@ static inline int ipa3_qmi_get_per_client_packet_stats(
 static inline void ipa3_qmi_init(void)
 {
 
-=======
-static inline void ipa3_qmi_init(void)
-{
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 }
 
 static inline void ipa3_qmi_cleanup(void)
 {
-<<<<<<< HEAD
 
-=======
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 }
 
 #endif /* CONFIG_RMNET_IPA3 */

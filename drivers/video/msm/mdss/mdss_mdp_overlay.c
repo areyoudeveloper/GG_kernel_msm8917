@@ -2003,7 +2003,6 @@ set_roi:
 	mdss_mdp_set_roi(ctl, &l_roi, &r_roi);
 }
 
-<<<<<<< HEAD
 static bool __is_supported_candence(int cadence)
 {
 	return (cadence == FRC_CADENCE_22) ||
@@ -2699,8 +2698,6 @@ static void __post_frc_in_disable_state(struct mdss_mdp_frc_fsm *frc_fsm,
 	/* do nothing */
 }
 
-=======
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 static int __config_secure_display(struct mdss_overlay_private *mdp5_data)
 {
 	int panel_type = mdp5_data->ctl->panel_data->panel_info.type;
@@ -2737,7 +2734,6 @@ static int __config_secure_display(struct mdss_overlay_private *mdp5_data)
 	return ret;
 }
 
-<<<<<<< HEAD
 /* predefined state table of FRC FSM */
 static struct mdss_mdp_frc_fsm_state frc_fsm_states[FRC_STATE_MAX] = {
 	{
@@ -2858,8 +2854,6 @@ static void mdss_mdp_overlay_update_frc(struct msm_fb_data_type *mfd)
 	}
 }
 
-=======
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 int mdss_mdp_overlay_kickoff(struct msm_fb_data_type *mfd,
 				struct mdp_display_commit *data)
 {
@@ -4753,12 +4747,6 @@ static int mdss_mdp_hw_cursor_pipe_update(struct msm_fb_data_type *mfd,
 	req->transp_mask = img->bg_color & ~(0xff << var->transp.offset);
 
 	if (mfd->cursor_buf && (cursor->set & FB_CUR_SETIMAGE)) {
-		if (img->width * img->height * 4 > cursor_frame_size) {
-			pr_err("cursor image size is too large\n");
-			ret = -EINVAL;
-			goto done;
-		}
-
 		ret = copy_from_user(mfd->cursor_buf, img->data,
 				     img->width * img->height * 4);
 		if (ret) {

@@ -119,7 +119,6 @@ enum {
 };
 
 enum {
-<<<<<<< HEAD
 	MDSS_PANEL_BLANK_BLANK = 0,
 	MDSS_PANEL_BLANK_UNBLANK,
 	MDSS_PANEL_BLANK_LOW_POWER,
@@ -132,8 +131,6 @@ enum {
 };
 
 enum {
-=======
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 	MODE_GPIO_NOT_VALID = 0,
 	MODE_GPIO_HIGH,
 	MODE_GPIO_LOW,
@@ -770,12 +767,9 @@ struct mdss_panel_info {
 	/* debugfs structure for the panel */
 	struct mdss_panel_debugfs_info *debugfs_info;
 
-<<<<<<< HEAD
 	/* persistence mode on/off */
 	bool persist_mode;
 
-=======
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 	/* HDR properties of display panel*/
 	struct mdss_panel_hdr_properties hdr_properties;
 };

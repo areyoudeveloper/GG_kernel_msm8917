@@ -2,11 +2,7 @@
  * Core MDSS framebuffer driver.
  *
  * Copyright (C) 2007 Google Incorporated
-<<<<<<< HEAD
  * Copyright (c) 2008-2019, The Linux Foundation. All rights reserved.
-=======
- * Copyright (c) 2008-2017, The Linux Foundation. All rights reserved.
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
  *
  * This software is licensed under the terms of the GNU General Public
  * License version 2, as published by the Free Software Foundation, and
@@ -3427,10 +3423,6 @@ int mdss_fb_atomic_commit(struct fb_info *info,
 					goto end;
 				}
 				output_layer = commit_v1->output_layer;
-				if (!output_layer) {
-					pr_err("Output layer is null\n");
-					goto end;
-				}
 				wb_change = !mdss_fb_is_wb_config_same(mfd,
 						output_layer);
 				if (wb_change) {
@@ -4385,10 +4377,6 @@ static int mdss_fb_handle_buf_sync_ioctl(struct msm_sync_pt_data *sync_pt_data,
 		goto buf_sync_err_3;
 	}
 
-<<<<<<< HEAD
-=======
-	sync_fence_install(rel_fence, rel_fen_fd);
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 	sync_fence_install(retire_fence, retire_fen_fd);
 
 skip_retire_fence:

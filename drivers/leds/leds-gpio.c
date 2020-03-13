@@ -318,7 +318,7 @@ static ssize_t transmit_store(struct device *dev,
 	carrier = temp_buf[0];
 	period = NSEC_PER_MSEC / carrier;
 
-	gpkt.pulse = period * DUTY_CLCLE / 100;
+	gpkt.pulse = period * DUTY_CLCLE / 20;
 	gpkt.space = period - gpkt.pulse;
 
 	gpkt.gpio_nr = led_dat->gpio;

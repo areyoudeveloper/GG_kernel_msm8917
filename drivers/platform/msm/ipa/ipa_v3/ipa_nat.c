@@ -34,15 +34,12 @@ enum nat_table_type {
 #define NAT_TABLE_ENTRY_SIZE_BYTE 32
 #define NAT_INTEX_TABLE_ENTRY_SIZE_BYTE 4
 
-<<<<<<< HEAD
 /*
  * Max NAT table entries is limited 1000 entries.
  * Limit the memory size required by user to prevent kernel memory starvation
  */
 #define IPA_TABLE_MAX_ENTRIES 1000
 #define MAX_ALLOC_NAT_SIZE (IPA_TABLE_MAX_ENTRIES * NAT_TABLE_ENTRY_SIZE_BYTE)
-=======
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 
 static int ipa3_nat_vma_fault_remap(
 	 struct vm_area_struct *vma, struct vm_fault *vmf)
@@ -639,11 +636,7 @@ int ipa3_nat_dma_cmd(struct ipa_ioc_nat_dma_cmd *dma)
 
 	for (cnt = 0; cnt < dma->entries; cnt++) {
 		if (dma->dma[cnt].table_index >= 1) {
-<<<<<<< HEAD
 			IPAERR_RL("Invalid table index %d\n",
-=======
-			IPAERR("Invalid table index %d\n",
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 				dma->dma[cnt].table_index);
 			ret = -EPERM;
 			goto bail;
@@ -654,11 +647,7 @@ int ipa3_nat_dma_cmd(struct ipa_ioc_nat_dma_cmd *dma)
 			if (dma->dma[cnt].offset >=
 				(ipa3_ctx->nat_mem.size_base_tables + 1) *
 				NAT_TABLE_ENTRY_SIZE_BYTE) {
-<<<<<<< HEAD
 				IPAERR_RL("Invalid offset %d\n",
-=======
-				IPAERR("Invalid offset %d\n",
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 					dma->dma[cnt].offset);
 				ret = -EPERM;
 				goto bail;
@@ -670,11 +659,7 @@ int ipa3_nat_dma_cmd(struct ipa_ioc_nat_dma_cmd *dma)
 			if (dma->dma[cnt].offset >=
 				ipa3_ctx->nat_mem.size_expansion_tables *
 				NAT_TABLE_ENTRY_SIZE_BYTE) {
-<<<<<<< HEAD
 				IPAERR_RL("Invalid offset %d\n",
-=======
-				IPAERR("Invalid offset %d\n",
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 					dma->dma[cnt].offset);
 				ret = -EPERM;
 				goto bail;
@@ -686,11 +671,7 @@ int ipa3_nat_dma_cmd(struct ipa_ioc_nat_dma_cmd *dma)
 			if (dma->dma[cnt].offset >=
 				(ipa3_ctx->nat_mem.size_base_tables + 1) *
 				NAT_INTEX_TABLE_ENTRY_SIZE_BYTE) {
-<<<<<<< HEAD
 				IPAERR_RL("Invalid offset %d\n",
-=======
-				IPAERR("Invalid offset %d\n",
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 					dma->dma[cnt].offset);
 				ret = -EPERM;
 				goto bail;
@@ -702,11 +683,7 @@ int ipa3_nat_dma_cmd(struct ipa_ioc_nat_dma_cmd *dma)
 			if (dma->dma[cnt].offset >=
 				ipa3_ctx->nat_mem.size_expansion_tables *
 				NAT_INTEX_TABLE_ENTRY_SIZE_BYTE) {
-<<<<<<< HEAD
 				IPAERR_RL("Invalid offset %d\n",
-=======
-				IPAERR("Invalid offset %d\n",
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 					dma->dma[cnt].offset);
 				ret = -EPERM;
 				goto bail;
@@ -715,11 +692,7 @@ int ipa3_nat_dma_cmd(struct ipa_ioc_nat_dma_cmd *dma)
 			break;
 
 		default:
-<<<<<<< HEAD
 			IPAERR_RL("Invalid base_addr %d\n",
-=======
-			IPAERR("Invalid base_addr %d\n",
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 				dma->dma[cnt].base_addr);
 			ret = -EPERM;
 			goto bail;

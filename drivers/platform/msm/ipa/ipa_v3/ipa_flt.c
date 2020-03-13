@@ -1085,11 +1085,7 @@ static int __ipa_validate_flt_rule(const struct ipa_flt_rule *rule,
 			}
 
 			if ((*rt_tbl)->cookie != IPA_RT_TBL_COOKIE) {
-<<<<<<< HEAD
 				IPAERR_RL("RT table cookie is invalid\n");
-=======
-				IPAERR("RT table cookie is invalid\n");
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 				goto error;
 			}
 		} else {
@@ -1172,13 +1168,8 @@ static int __ipa_finish_flt_rule_add(struct ipa3_flt_tbl *tbl,
 		entry->rt_tbl->ref_cnt++;
 	id = ipa3_id_alloc(entry);
 	if (id < 0) {
-<<<<<<< HEAD
 		IPAERR_RL("failed to add to tree\n");
 		WARN_ON_RATELIMIT_IPA(1);
-=======
-		IPAERR("failed to add to tree\n");
-		WARN_ON(1);
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 		goto ipa_insert_failed;
 	}
 	*rule_hdl = id;
@@ -1293,11 +1284,7 @@ static int __ipa_del_flt_rule(u32 rule_hdl)
 	}
 
 	if (entry->cookie != IPA_FLT_COOKIE) {
-<<<<<<< HEAD
 		IPAERR_RL("bad params\n");
-=======
-		IPAERR("bad params\n");
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 		return -EINVAL;
 	}
 	id = entry->id;
@@ -1334,11 +1321,7 @@ static int __ipa_mdfy_flt_rule(struct ipa_flt_rule_mdfy *frule,
 	}
 
 	if (entry->cookie != IPA_FLT_COOKIE) {
-<<<<<<< HEAD
 		IPAERR_RL("bad params\n");
-=======
-		IPAERR("bad params\n");
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 		goto error;
 	}
 
@@ -1359,11 +1342,7 @@ static int __ipa_mdfy_flt_rule(struct ipa_flt_rule_mdfy *frule,
 			}
 
 			if (rt_tbl->cookie != IPA_RT_TBL_COOKIE) {
-<<<<<<< HEAD
 				IPAERR_RL("RT table cookie is invalid\n");
-=======
-				IPAERR("RT table cookie is invalid\n");
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 				goto error;
 			}
 		} else {

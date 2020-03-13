@@ -68,12 +68,7 @@ int hfsplus_set_posix_acl(struct inode *inode, struct posix_acl *acl,
 	case ACL_TYPE_ACCESS:
 		xattr_name = POSIX_ACL_XATTR_ACCESS;
 		if (acl) {
-<<<<<<< HEAD
 			err = posix_acl_update_mode(inode, &inode->i_mode, &acl);
-=======
-			err = posix_acl_update_mode(inode,
-				&inode->i_mode, &acl);
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 			if (err)
 				return err;
 		}

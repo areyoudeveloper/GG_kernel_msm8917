@@ -68,11 +68,7 @@ static void *dummy_q6_mvm;
 static void *dummy_q6_cvs;
 dev_t device_num;
 
-<<<<<<< HEAD
 static struct mutex session_lock;
-=======
-struct mutex session_lock;
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 static spinlock_t voicesvc_lock;
 static bool is_released = 1;
 static int voice_svc_dummy_reg(void);

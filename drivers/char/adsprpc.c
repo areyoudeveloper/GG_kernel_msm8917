@@ -130,13 +130,10 @@ struct fastrpc_buf {
 	void *virt;
 	uint64_t phys;
 	size_t size;
-<<<<<<< HEAD
 	struct dma_attrs attrs;
 	uintptr_t raddr;
 	uint32_t flags;
 	int remote;
-=======
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 };
 
 struct fastrpc_ctx_lst;
@@ -434,18 +431,10 @@ static int fastrpc_mmap_find(struct fastrpc_file *fl, int fd, uintptr_t va,
 	return -ENOTTY;
 }
 
-<<<<<<< HEAD
 static int dma_alloc_memory(dma_addr_t *region_start, void **vaddr, size_t size,
 			struct dma_attrs *attrs)
 {
 	struct fastrpc_apps *me = &gfa;
-=======
-static int dma_alloc_memory(phys_addr_t *region_start, size_t size)
-{
-	struct fastrpc_apps *me = &gfa;
-	void *vaddr = NULL;
-	DEFINE_DMA_ATTRS(attrs);
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 
 	if (me->dev == NULL) {
 		pr_err("device adsprpc-mem is not initialized\n");
@@ -602,12 +591,8 @@ static int fastrpc_mmap_create(struct fastrpc_file *fl, int fd, uintptr_t va,
 
 		map->apps = me;
 		map->fl = NULL;
-<<<<<<< HEAD
 		VERIFY(err, !dma_alloc_memory(&region_start,
 			 &region_vaddr, len, &rh_attrs));
-=======
-		VERIFY(err, !dma_alloc_memory(&region_start, len));
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 		if (err)
 			goto bail;
 		map->phys = (uintptr_t)region_start;
@@ -683,12 +668,8 @@ bail:
 }
 
 static int fastrpc_buf_alloc(struct fastrpc_file *fl, size_t size,
-<<<<<<< HEAD
 				struct dma_attrs attr, uint32_t rflags,
 				int remote, struct fastrpc_buf **obuf)
-=======
-			     struct fastrpc_buf **obuf)
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 {
 	int err = 0, vmid;
 	struct fastrpc_buf *buf = NULL, *fr = NULL;
@@ -1129,12 +1110,8 @@ static int get_args(uint32_t kernel, struct smq_invoke_ctx *ctx)
 	/* allocate new local rpra buffer */
 	lrpralen = (u64)(uintptr_t)&list[0];
 	if (lrpralen) {
-<<<<<<< HEAD
 		err = fastrpc_buf_alloc(ctx->fl, lrpralen,
 			ctx_attrs, 0, 0, &ctx->lbuf);
-=======
-		err = fastrpc_buf_alloc(ctx->fl, lrpralen, &ctx->lbuf);
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 		if (err)
 			goto bail;
 	}
@@ -1597,11 +1574,8 @@ static int fastrpc_init_process(struct fastrpc_file *fl,
 	struct fastrpc_ioctl_invoke_fd ioctl;
 	struct smq_phy_page pages[1];
 	struct fastrpc_mmap *file = NULL, *mem = NULL;
-<<<<<<< HEAD
 	struct fastrpc_buf *imem = NULL;
 
-=======
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 	if (init->flags == FASTRPC_INIT_ATTACH) {
 		remote_arg_t ra[1];
 		int tgid = current->tgid;
@@ -1932,7 +1906,6 @@ static int fastrpc_internal_munmap(struct fastrpc_file *fl,
 {
 	int err = 0;
 	struct fastrpc_mmap *map = NULL;
-<<<<<<< HEAD
 	struct fastrpc_buf *rbuf = NULL, *free = NULL;
 	struct hlist_node *n;
 
@@ -1958,8 +1931,6 @@ static int fastrpc_internal_munmap(struct fastrpc_file *fl,
 		mutex_unlock(&fl->map_mutex);
 		return err;
 	}
-=======
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 	if (!fastrpc_mmap_remove(fl, ud->vaddrout, ud->size,
 				 &map)) {
 		VERIFY(err, !fastrpc_munmap_on_dsp(fl, map->raddr,
@@ -1980,11 +1951,8 @@ static int fastrpc_internal_mmap(struct fastrpc_file *fl,
 {
 
 	struct fastrpc_mmap *map = NULL;
-<<<<<<< HEAD
 	struct fastrpc_buf *rbuf = NULL;
 	uintptr_t raddr = 0;
-=======
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 	int err = 0;
 
 	mutex_lock(&fl->map_mutex);
@@ -2426,7 +2394,6 @@ static int fastrpc_get_info(struct fastrpc_file *fl, uint32_t *info)
 	VERIFY(err, fl && fl->sctx);
 	if (err)
 		goto bail;
-<<<<<<< HEAD
 	if (fl->sctx)
 		*info = (fl->sctx->smmu.enabled ? 1 : 0);
 bail:
@@ -2453,9 +2420,6 @@ static int fastrpc_internal_control(struct fastrpc_file *fl,
 		err = -ENOTTY;
 		break;
 	}
-=======
-	*info = (fl->sctx->smmu.enabled ? 1 : 0);
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 bail:
 	return err;
 }
@@ -2553,7 +2517,6 @@ static long fastrpc_device_ioctl(struct file *file, unsigned int ioctl_num,
 			break;
 		}
 		break;
-<<<<<<< HEAD
 	case FASTRPC_IOCTL_CONTROL:
 		K_COPY_FROM_USER(err, 0, &p.cp, param,
 				sizeof(p.cp));
@@ -2568,8 +2531,6 @@ static long fastrpc_device_ioctl(struct file *file, unsigned int ioctl_num,
 				goto bail;
 		}
 		break;
-=======
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 	case FASTRPC_IOCTL_GETINFO:
 	    K_COPY_FROM_USER(err, 0, &info, param, sizeof(info));
 		if (err)

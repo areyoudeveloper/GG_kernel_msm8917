@@ -1406,15 +1406,10 @@ static int xc2028_set_config(struct dvb_frontend *fe, void *priv_cfg)
 	memcpy(&priv->ctrl, p, sizeof(priv->ctrl));
 	if (p->fname) {
 		priv->ctrl.fname = kstrdup(p->fname, GFP_KERNEL);
-<<<<<<< HEAD
 		if (priv->ctrl.fname == NULL) {
 			rc = -ENOMEM;
 			goto unlock;
 		}
-=======
-		if (priv->ctrl.fname == NULL)
-			return -ENOMEM;
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 	}
 
 	/*

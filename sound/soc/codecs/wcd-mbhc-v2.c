@@ -1,8 +1,5 @@
 /* Copyright (c) 2015-2017, The Linux Foundation. All rights reserved.
-<<<<<<< HEAD
  * Copyright (C) 2018 XiaoMi, Inc.
-=======
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -968,15 +965,12 @@ static int wcd_check_cross_conn(struct wcd_mbhc *mbhc)
 		if (mbhc->mbhc_cb->hph_pa_on_status(mbhc->codec))
 			return false;
 
-<<<<<<< HEAD
 
 	if (mbhc->mbhc_cb->hph_pull_down_ctrl) {
 		WCD_MBHC_REG_UPDATE_BITS(WCD_MBHC_L_DET_EN, 0);
 		mbhc->mbhc_cb->hph_pull_down_ctrl(mbhc->codec, false);
 	}
 
-=======
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 	WCD_MBHC_REG_READ(WCD_MBHC_ELECT_SCHMT_ISRC, reg1);
 	/*
 	 * Check if there is any cross connection,
@@ -2171,14 +2165,11 @@ static irqreturn_t wcd_mbhc_btn_press_handler(int irq, void *data)
 				__func__);
 		goto done;
 	}
-<<<<<<< HEAD
 #if 1
 	/* Don't process button interrupts immediately after plug detection */
 	if (mbhc->ignore_btn_intr)
 		goto done;
 #endif
-=======
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 	mbhc->buttons_pressed |= mask;
 	mbhc->mbhc_cb->lock_sleep(mbhc, true);
 	if (schedule_delayed_work(&mbhc->mbhc_btn_dwork,

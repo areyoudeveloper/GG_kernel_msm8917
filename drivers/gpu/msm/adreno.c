@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 /* Copyright (c) 2002,2007-2018, The Linux Foundation. All rights reserved.
-=======
-/* Copyright (c) 2002,2007-2017, The Linux Foundation. All rights reserved.
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -2939,10 +2935,7 @@ static const struct kgsl_functable adreno_functable = {
 	.pwrlevel_change_settings = adreno_pwrlevel_change_settings,
 	.regulator_disable_poll = adreno_regulator_disable_poll,
 	.gpu_model = adreno_gpu_model,
-<<<<<<< HEAD
 	.stop_fault_timer = adreno_dispatcher_stop_fault_timer,
-=======
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 };
 
 static struct platform_driver adreno_platform_driver = {

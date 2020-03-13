@@ -390,13 +390,10 @@ void mmc_add_host_debugfs(struct mmc_host *host)
 		&host->cmdq_thist_enabled))
 		goto err_node;
 
-<<<<<<< HEAD
 	if (!debugfs_create_file("err_state", S_IRUSR | S_IWUSR, root, host,
 		&mmc_err_state))
 		goto err_node;
 
-=======
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 #ifdef CONFIG_MMC_RING_BUFFER
 	if (!debugfs_create_file("ring_buffer", S_IRUSR,
 				root, host, &mmc_ring_buffer_fops))

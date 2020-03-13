@@ -400,11 +400,7 @@ static struct {
 	int	user_cal_read;
 	int	user_cal_available;
 	u32	user_cal_rcvd;
-<<<<<<< HEAD
 	u32	user_cal_exp_size;
-=======
-	int	user_cal_exp_size;
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 	int	iris_xo_mode_set;
 	int	fw_vbatt_state;
 	char	wlan_nv_macAddr[WLAN_MAC_ADDR_SIZE];
@@ -577,7 +573,6 @@ void wcnss_pronto_is_a2xb_bus_stall(void *tst_addr, u32 fifo_mask, char *type)
 	}
 }
 
-<<<<<<< HEAD
 int wcnss_get_dual_band_capability_info(struct platform_device *pdev)
 {
 	u32 reg = 0;
@@ -602,8 +597,6 @@ int wcnss_get_dual_band_capability_info(struct platform_device *pdev)
 	return 0;
 }
 
-=======
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 /* Log pronto debug registers during SSR Timeout CB */
 void wcnss_pronto_log_debug_regs(void)
 {

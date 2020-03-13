@@ -83,10 +83,6 @@ static int32_t msm_ir_cut_release(
 		return 0;
 	}
 
-<<<<<<< HEAD
-=======
-	rc = ir_cut_ctrl->func_tbl->camera_ir_cut_on(ir_cut_ctrl, NULL);
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 	if (rc < 0) {
 		pr_err("%s:%d camera_ir_cut_on failed rc = %d",
 			__func__, __LINE__, rc);
@@ -273,11 +269,6 @@ static int32_t msm_ir_cut_handle_init(
 		return -EINVAL;
 	}
 
-<<<<<<< HEAD
-=======
-	rc = ir_cut_ctrl->func_tbl->camera_ir_cut_init(
-			ir_cut_ctrl, ir_cut_data);
->>>>>>> c41a3c145b811822e9e17b143123f7fb92179da4
 	if (rc < 0) {
 		pr_err("%s:%d camera_ir_cut_init failed rc = %d",
 			__func__, __LINE__, rc);
