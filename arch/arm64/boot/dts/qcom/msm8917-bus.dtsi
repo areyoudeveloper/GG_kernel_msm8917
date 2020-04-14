@@ -552,7 +552,7 @@
 		pcnoc_s_4: pcnoc-s-4 {
 			cell-id = <MSM_BUS_PNOC_SLV_4>;
 			label = "pcnoc-s-4";
-			qcom,buswidth = <4>;
+			qcom,buswidth = <8>;
 			qcom,agg-ports = <1>;
 			qcom,ap-owned;
 			qcom,connections = <&slv_camera_ss_cfg
@@ -731,7 +731,7 @@
 		slv_camera_ss_cfg:slv-camera-ss-cfg {
 			cell-id = <MSM_BUS_SLAVE_CAMERA_CFG>;
 			label = "slv-camera-ss-cfg";
-			qcom,buswidth = <4>;
+			qcom,buswidth = <8>;
 			qcom,agg-ports = <1>;
 			qcom,ap-owned;
 			qcom,bus-dev = <&fab_pcnoc>;

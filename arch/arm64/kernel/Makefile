@@ -25,6 +25,7 @@ arm64-obj-y		:= debug-monitors.o entry.o irq.o fpsimd.o		\
 arm64-obj-$(CONFIG_COMPAT)		+= sys32.o kuser32.o signal32.o 	\
 					   sys_compat.o				\
 					   ../../arm/kernel/opcodes.o
+
 arm64-obj-$(CONFIG_FUNCTION_TRACER)	+= ftrace.o entry-ftrace.o
 arm64-obj-$(CONFIG_MODULES)		+= arm64ksyms.o module.o
 arm64-obj-$(CONFIG_PERF_EVENTS)		+= perf_regs.o

@@ -773,6 +773,9 @@ sysctl_sched_cfs_boost_handler(struct ctl_table *table, int write,
 
 	if (ret || !write)
 		return ret;
+	
+	if (!strcmp(css->cgroup->kn->name, "top-app"))
+		boost = 1;
 
 	if (sysctl_sched_cfs_boost < -100 || sysctl_sched_cfs_boost > 100)
 		return -EINVAL;

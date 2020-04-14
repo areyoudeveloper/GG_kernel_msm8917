@@ -18,8 +18,8 @@ static int throtl_grp_quantum = 8;
 /* Total max dispatch from all groups in one round */
 static int throtl_quantum = 32;
 
-/* Throttling is performed over 100ms slice and after that slice is renewed */
-static unsigned long throtl_slice = HZ/10;	/* 100 ms */
+/* Throttling is performed over 50ms slice and after that slice is renewed */
+static unsigned long throtl_slice = HZ/5;	/* 50 ms */
 
 static struct blkcg_policy blkcg_policy_throtl;
 

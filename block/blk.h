@@ -6,13 +6,13 @@
 #include "blk-mq.h"
 
 /* Amount of time in which a process may batch requests */
-#define BLK_BATCH_TIME	(HZ/50UL)
+#define BLK_BATCH_TIME	(HZ/100UL)
 
 /* Number of requests a "batching" process may submit */
-#define BLK_BATCH_REQ	32
+#define BLK_BATCH_REQ	64
 
 /* Max future timer expiry for timeouts */
-#define BLK_MAX_TIMEOUT		(5 * HZ)
+#define BLK_MAX_TIMEOUT		(2 * HZ)
 
 struct blk_flush_queue {
 	unsigned int		flush_queue_delayed:1;

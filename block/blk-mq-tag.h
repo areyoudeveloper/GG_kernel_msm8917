@@ -4,8 +4,8 @@
 #include "blk-mq.h"
 
 enum {
-	BT_WAIT_QUEUES	= 8,
-	BT_WAIT_BATCH	= 8,
+	BT_WAIT_QUEUES	= 5,
+	BT_WAIT_BATCH	= 5,
 };
 
 struct bt_wait_state {

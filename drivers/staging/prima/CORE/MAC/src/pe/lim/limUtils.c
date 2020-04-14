@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2018 The Linux Foundation. All rights reserved.
+ * Copyright (c) 2011-2019 The Linux Foundation. All rights reserved.
  *
  * Previously licensed under the ISC license by Qualcomm Atheros, Inc.
  *
@@ -1140,6 +1140,9 @@ limCleanupMlm(tpAniSirGlobal pMac)
 
         tx_timer_deactivate(&pMac->lim.limTimers.g_lim_ap_ecsa_timer);
         tx_timer_delete(&pMac->lim.limTimers.g_lim_ap_ecsa_timer);
+
+        tx_timer_deactivate(&pMac->lim.limTimers.sae_auth_timer);
+        tx_timer_delete(&pMac->lim.limTimers.sae_auth_timer);
 
         pMac->lim.gLimTimersCreated = 0;
     }
@@ -4839,8 +4842,8 @@ tSirRetStatus
 limEnableHT20Protection(tpAniSirGlobal pMac, tANI_U8 enable,
     tANI_U8 overlap, tpUpdateBeaconParams pBeaconParams,tpPESession psessionEntry)
 {
-    if(!psessionEntry->htCapability)
-        return eSIR_SUCCESS; // this protection  is only for HT stations.
+        if(!psessionEntry->htCapability)
+            return eSIR_SUCCESS; // this protection  is only for HT stations.
 
         //overlapping protection configuration check.
         if(overlap)
@@ -5049,8 +5052,8 @@ tSirRetStatus
 limEnableHTNonGfProtection(tpAniSirGlobal pMac, tANI_U8 enable,
     tANI_U8 overlap, tpUpdateBeaconParams pBeaconParams,tpPESession psessionEntry)
 {
-    if(!psessionEntry->htCapability)
-        return eSIR_SUCCESS; // this protection  is only for HT stations.
+        if(!psessionEntry->htCapability)
+            return eSIR_SUCCESS; // this protection  is only for HT stations.
 
         //overlapping protection configuration check.
         if(overlap)
@@ -5120,8 +5123,8 @@ tSirRetStatus
 limEnableHTLsigTxopProtection(tpAniSirGlobal pMac, tANI_U8 enable,
     tANI_U8 overlap, tpUpdateBeaconParams pBeaconParams,tpPESession psessionEntry)
 {
-    if(!psessionEntry->htCapability)
-        return eSIR_SUCCESS; // this protection  is only for HT stations.
+        if(!psessionEntry->htCapability)
+            return eSIR_SUCCESS; // this protection  is only for HT stations.
 
         //overlapping protection configuration check.
         if(overlap)
@@ -5193,8 +5196,8 @@ tSirRetStatus
 limEnableHtRifsProtection(tpAniSirGlobal pMac, tANI_U8 enable,
     tANI_U8 overlap, tpUpdateBeaconParams pBeaconParams,tpPESession psessionEntry)
 {
-    if(!psessionEntry->htCapability)
-        return eSIR_SUCCESS; // this protection  is only for HT stations.
+        if(!psessionEntry->htCapability)
+            return eSIR_SUCCESS; // this protection  is only for HT stations.
 
 
         //overlapping protection configuration check.

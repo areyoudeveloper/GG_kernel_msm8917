@@ -25,7 +25,7 @@
 #include <linux/pinctrl/consumer.h>
 #include <linux/err.h>
 #include <linux/delay.h>
-#define DUTY_CLCLE 50
+#define DUTY_CLCLE 2
 #define ADJUST_NUM 15
 #define JUSTTIMES 1
 #define JUST_DELAY 1
@@ -318,7 +318,7 @@ static ssize_t transmit_store(struct device *dev,
 	carrier = temp_buf[0];
 	period = NSEC_PER_MSEC / carrier;
 
-	gpkt.pulse = period * DUTY_CLCLE / 20;
+	gpkt.pulse = period * DUTY_CLCLE / 1;
 	gpkt.space = period - gpkt.pulse;
 
 	gpkt.gpio_nr = led_dat->gpio;

@@ -1497,6 +1497,8 @@ VOS_STATUS hdd_hostapd_SAPEventCB( tpSap_Event pSapEvent, v_PVOID_t usrDataForCa
             memcpy(wrqu.addr.sa_data, &pSapEvent->sapevt.sapStationDisassocCompleteEvent.staMac,
                    sizeof(v_MACADDR_t));
             hddLog(LOG1, " disassociated "MAC_ADDRESS_STR, MAC_ADDR_ARRAY(wrqu.addr.sa_data));
+
+            vos_status = vos_event_set(&pHostapdState->sta_discon_event);
             if (pSapEvent->sapevt.sapStationDisassocCompleteEvent.reason == eSAP_USR_INITATED_DISASSOC)
                 hddLog(LOG1," User initiated disassociation");
             else
@@ -2077,8 +2079,8 @@ void hdd_check_for_unsafe_ch(hdd_adapter_t *phostapd_adapter,
 
     for (channelLoop = 0; channelLoop < unsafeChannelCount; channelLoop++)
     {
-        if ((unsafeChannelList[channelLoop] ==
-             phostapd_adapter->sessionCtx.ap.operatingChannel)) {
+        if (unsafeChannelList[channelLoop] ==
+             phostapd_adapter->sessionCtx.ap.operatingChannel) {
             if ((AUTO_CHANNEL_SELECT ==
                 phostapd_adapter->sessionCtx.ap.sapConfig.channel)
                 && (WLAN_HDD_SOFTAP == phostapd_adapter->device_mode)) {
@@ -2330,7 +2332,7 @@ void hdd_hostapd_ch_avoid_cb
 
            for (i = 0; i < unsafeChannelCount; i++)
            {
-               if ((pSapCtx->sap_sec_chan == unsafeChannelList[i]))
+               if (pSapCtx->sap_sec_chan == unsafeChannelList[i])
                {
                    /* Current SAP Secondary channel is un-safe channel */
                    VOS_TRACE( VOS_MODULE_ID_SAP, VOS_TRACE_LEVEL_ERROR,
@@ -5535,6 +5537,12 @@ VOS_STATUS hdd_init_ap_mode( hdd_adapter_t *pAdapter, bool re_init)
     {
          VOS_TRACE(VOS_MODULE_ID_HDD, VOS_TRACE_LEVEL_ERROR, ("ERROR: Hostapd HDD vos event init failed!!"));
          return status;
+    }
+    status = vos_event_init(&phostapdBuf->sta_discon_event);
+    if (!VOS_IS_STATUS_SUCCESS(status))
+    {
+        VOS_TRACE(VOS_MODULE_ID_HDD, VOS_TRACE_LEVEL_ERROR, "ERROR: Hostapd HDD sta disassoc event init failed!!");
+        return status;
     }
 #ifdef DHCP_SERVER_OFFLOAD
     status = vos_event_init(&dhcp_status->vos_event);

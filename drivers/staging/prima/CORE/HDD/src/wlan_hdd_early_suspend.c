@@ -1520,7 +1520,7 @@ static void hdd_conf_suspend_ind(hdd_context_t* pHddCtx,
     hddLog(VOS_TRACE_LEVEL_INFO,
       "%s: send wlan suspend indication", __func__);
 
-    if((pHddCtx->cfg_ini->nEnableSuspend == WLAN_MAP_SUSPEND_TO_MCAST_BCAST_FILTER))
+    if(pHddCtx->cfg_ini->nEnableSuspend == WLAN_MAP_SUSPEND_TO_MCAST_BCAST_FILTER)
     {
         //Configure supported OffLoads
         hdd_conf_hostoffload(pAdapter, TRUE);
@@ -1677,6 +1677,7 @@ void hdd_suspend_wlan(void)
            pAdapterNode = pNext;
            continue;
        }
+       dev_hold(pAdapter->dev);
        /* Avoid multiple enter/exit BMPS in this while loop using
         * hdd_enter_bmps flag
         */
@@ -1721,6 +1722,7 @@ void hdd_suspend_wlan(void)
                  __func__, ret);
        }
        status = hdd_get_next_adapter ( pHddCtx, pAdapterNode, &pNext );
+       dev_put(pAdapter->dev);
        pAdapterNode = pNext;
    }
 

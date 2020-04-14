@@ -148,7 +148,7 @@ obj-$(CONFIG_HWSPINLOCK)	+= hwspinlock/
 obj-$(CONFIG_IOMMU_SUPPORT)	+= iommu/
 obj-$(CONFIG_REMOTEPROC)	+= remoteproc/
 obj-$(CONFIG_RPMSG)		+= rpmsg/
-
+obj-$(CONFIG_ENERGY_MODEL)	+= energy_model/
 # Virtualization drivers
 obj-$(CONFIG_VIRT_DRIVERS)	+= virt/
 obj-$(CONFIG_HYPERV)		+= hv/
@@ -172,3 +172,4 @@ obj-$(CONFIG_BIF)		+= bif/
 
 obj-$(CONFIG_SENSORS)		+= sensors/
 obj-$(CONFIG_SENSORS_SSC)	+= sensors/
+obj-$(CONFIG_AINUR_DTS_SW) += dts_eagle/

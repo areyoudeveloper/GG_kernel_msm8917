@@ -1883,7 +1883,7 @@ int wlan_queue_logpkt_for_app(vos_pkt_t *pPacket, uint32 pkt_type)
 	VOS_STATUS status = VOS_STATUS_E_FAILURE;
 
 	if (pPacket == NULL) {
-		pr_err("%s: Null param", __func__);
+		pr_debug("%s: Null param", __func__);
 		VOS_ASSERT(0);
 		return VOS_STATUS_E_FAILURE;
 	}
@@ -1961,7 +1961,7 @@ void wlan_process_done_indication(uint8 type, uint32 reason_code)
 				spin_unlock_irqrestore(
 					&gwlan_logging.bug_report_lock,
 					flags);
-				pr_info("%s: Ignoring Fatal event from firmware for reason %d\n",
+				pr_debug("%s: Ignoring Fatal event from firmware for reason %d\n",
 					__func__, reason_code);
 				return;
 			}
@@ -2034,7 +2034,7 @@ int wlan_fwr_mem_dump_buffer_allocation(void)
 	  or if feature not supported just report to the user */
 	if(gwlan_logging.fw_mem_dump_ctx.fw_dump_max_size <= 0)
 	{
-	   pr_err("%s: fw_mem_dump_req not supported by firmware", __func__);
+	   pr_debug("%s: fw_mem_dump_req not supported by firmware", __func__);
 	   return -EFAULT;
 	}
 	gwlan_logging.fw_mem_dump_ctx.fw_dump_start_loc =
@@ -2115,7 +2115,7 @@ size_t wlan_fwr_mem_dump_fsread_handler(char __user *buf,
 		count = gwlan_logging.fw_mem_dump_ctx.fw_dump_max_size - *pos;
 	}
 	if (copy_to_user(buf, gwlan_logging.fw_mem_dump_ctx.fw_dump_start_loc, count)) {
-		pr_err("%s copy to user space failed",__func__);
+		pr_debug("%s copy to user space failed",__func__);
 		return 0;
 	}
 	/* offset(pos) should be updated here based on the copy done*/
@@ -2155,73 +2155,7 @@ void wlan_store_fwr_mem_dump_size(uint32 dump_size)
 	gwlan_logging.fw_mem_dump_ctx.fw_dump_max_size = dump_size;
 	spin_unlock_irqrestore(&gwlan_logging.fw_mem_dump_ctx.fw_mem_dump_lock, flags);
 }
-/**
- * wlan_indicate_mem_dump_complete() -  When H2H for mem
- * dump finish invoke the handler.
- *
- * This is a handler used to indicate user space about the
- * availability for firmware memory dump via vendor event.
- *
- * Return: None
- */
-void wlan_indicate_mem_dump_complete(bool status )
-{
-	hdd_context_t *hdd_ctx;
-	void *vos_ctx;
-	int ret;
-	struct sk_buff *skb = NULL;
-	vos_ctx = vos_get_global_context(VOS_MODULE_ID_SYS, NULL);
-	if (!vos_ctx) {
-		pr_err("Invalid VOS context");
-		return;
-	}
 
-	hdd_ctx = vos_get_context(VOS_MODULE_ID_HDD, vos_ctx);
-	if(!hdd_ctx) {
-		pr_err("Invalid HDD context");
-		return;
-	}
-
-	ret = wlan_hdd_validate_context(hdd_ctx);
-	if (0 != ret) {
-		pr_err("HDD context is not valid");
-		return;
-	}
-
-
-	skb = cfg80211_vendor_cmd_alloc_reply_skb(hdd_ctx->wiphy,
-		sizeof(uint32_t) + NLA_HDRLEN + NLMSG_HDRLEN);
-
-	if (!skb) {
-		pr_err("cfg80211_vendor_event_alloc failed");
-		return;
-	}
-	if(status)
-	{
-		if (nla_put_u32(skb, QCA_WLAN_VENDOR_ATTR_MEMDUMP_SIZE,
-				gwlan_logging.fw_mem_dump_ctx.fw_dump_max_size)) {
-			pr_err("nla put fail");
-			goto nla_put_failure;
-		}
-	}
-	else
-	{
-		pr_err("memdump failed.Returning size 0 to user");
-		if (nla_put_u32(skb, QCA_WLAN_VENDOR_ATTR_MEMDUMP_SIZE,
-				0)) {
-			pr_err("nla put fail");
-			goto nla_put_failure;
-		}
-	}
-	/*indicate mem dump complete*/
-	cfg80211_vendor_cmd_reply(skb);
-	pr_info("Memdump event sent successfully to user space : recvd size %d",(int)(gwlan_logging.fw_mem_dump_ctx.fw_dump_current_loc - gwlan_logging.fw_mem_dump_ctx.fw_dump_start_loc));
-	return;
-
-nla_put_failure:
-	kfree_skb(skb);
-	return;
-}
 #ifdef FEATURE_WLAN_DIAG_SUPPORT
 /**
  * wlan_report_log_completion() - Report bug report completion to userspace

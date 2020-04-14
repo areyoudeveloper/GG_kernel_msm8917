@@ -1,11 +1,8 @@
 /*
  *  drivers/cpufreq/cpufreq_sad_tea.c
- *
  *  Copyright (C) 2020 tea <kmd36rk@gmail.com>
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License version 2 as
- * published by the Free Software Foundation.
+ *  This cpu freq based on ondemand gov
+ *  we do little optimization here
  */
 
 #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
@@ -14,7 +11,7 @@
 #include <linux/percpu-defs.h>
 #include <linux/slab.h>
 #include <linux/tick.h>
-#include "cpufreq_governor.h"
+#include "sad_tea.h"
 
 /* sad_tea governor macros */
 #define DEF_FREQUENCY_UP_THRESHOLD		(20)
@@ -42,18 +39,6 @@ static void sad_tea_powersave_bias_init_cpu(int cpu)
 	dbs_info->freq_table = cpufreq_frequency_get_table(cpu);
 	dbs_info->freq_lo = 0;
 }
-
-/*
- * Not all CPUs want IO time to be accounted as busy; this depends on how
- * efficient idling at a higher frequency/voltage is.
- * Pavel Machek says this is not so for various generations of AMD and old
- * Intel systems.
- * Mike Chan (android.com) claims this is also not true for ARM.
- * Because of this, whitelist specific known (series) of CPUs by default, and
- * leave all others up to the user.
- */
-
-
 /*
  * Find right freq to be set now with powersave_bias on.
  * Returns the freq_hi to be used right now and will set freq_hi_jiffies,
@@ -196,8 +181,8 @@ static void tea_dbs_timer(struct work_struct *work)
 	}
 
 	/* Common NORMAL_SAMPLE setup */
-	core_dbs_info->sample_type = tea_NORMAL_SAMPLE;
-	if (sample_type == tea_SUB_SAMPLE) {
+	core_dbs_info->sample_type = TEA_NORMAL_SAMPLE;
+	if (sample_type == TEA_SUB_SAMPLE) {
 		delay = core_dbs_info->freq_lo_jiffies;
 		__cpufreq_driver_target(core_dbs_info->cdbs.cur_policy,
 				core_dbs_info->freq_lo, CPUFREQ_RELATION_H);
@@ -205,7 +190,7 @@ static void tea_dbs_timer(struct work_struct *work)
 		dbs_check_cpu(dbs_data, cpu);
 		if (core_dbs_info->freq_lo) {
 			/* Setup timer for SUB_SAMPLE */
-			core_dbs_info->sample_type = tea_SUB_SAMPLE;
+			core_dbs_info->sample_type = TEA_SUB_SAMPLE;
 			delay = core_dbs_info->freq_hi_jiffies;
 		}
 	}
@@ -489,7 +474,7 @@ static int tea_init(struct dbs_data *dbs_data)
 		tuners->up_threshold = DEF_FREQUENCY_UP_THRESHOLD;
 
 		/* For correct statistics, we need 10 ticks for each measure */
-		dbs_data->min_sampling_rate = MIN_SAMPLING_RATE_RATIO *
+		dbs_data->min_sampling_rate = MSRR *
 			jiffies_to_usecs(5);
 	}
 
@@ -589,7 +574,7 @@ static
 struct cpufreq_governor cpufreq_gov_sad_tea = {
 	.name			= "sad_tea",
 	.governor		= tea_cpufreq_governor_dbs,
-	.max_transition_latency	= TRANSITION_LATENCY_LIMIT,
+	.max_transition_latency	= TLL,
 	.owner			= THIS_MODULE,
 };
 
