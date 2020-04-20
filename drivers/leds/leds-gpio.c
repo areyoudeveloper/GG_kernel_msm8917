@@ -25,10 +25,10 @@
 #include <linux/pinctrl/consumer.h>
 #include <linux/err.h>
 #include <linux/delay.h>
-#define DUTY_CLCLE 2
+#define DUTY_CLCLE 50
 #define ADJUST_NUM 15
-#define JUSTTIMES 1
-#define JUST_DELAY 1
+#define JUSTTIMES 6
+#define JUST_DELAY 9
 
 static s64 dealt;
 static DEFINE_SPINLOCK(infrared_lock);
@@ -318,7 +318,7 @@ static ssize_t transmit_store(struct device *dev,
 	carrier = temp_buf[0];
 	period = NSEC_PER_MSEC / carrier;
 
-	gpkt.pulse = period * DUTY_CLCLE / 1;
+	gpkt.pulse = period * DUTY_CLCLE / 100;
 	gpkt.space = period - gpkt.pulse;
 
 	gpkt.gpio_nr = led_dat->gpio;

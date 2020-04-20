@@ -18,7 +18,7 @@
 		reg-names = "msm-cam";
 		status = "ok";
 		bus-vectors = "suspend", "svs", "nominal", "turbo";
-		qcom,bus-votes = <0 160000000 320000000 420000000>;
+		qcom,bus-votes = <0 160000000 320000000 320000000>;
 	};
 
 	qcom,csiphy@1b34000 {
@@ -252,7 +252,7 @@
 			0xcccc1111	0xcccc1111
 			0xcccc1111	0x00000110>;
 		max-clk-nominal = <400000000>;
-		max-clk-turbo = <450000000>;
+		max-clk-turbo = <432000000>;
 	};
 
 	vfe1: qcom,vfe1@1b14000 {
@@ -302,7 +302,7 @@
 			0xcccc1111	0xcccc1111
 			0xcccc1111	0x00000110>;
 		max-clk-nominal = <400000000>;
-		max-clk-turbo = <450000000>;
+		max-clk-turbo = <432000000>;
 	};
 
 	qcom,vfe {
@@ -401,7 +401,7 @@
 		clock-names = "camss_top_ahb_clk", "cpp_core_clk",
 			"camss_vfe_cpp_ahb_clk", "camss_vfe_cpp_axi_clk",
 			"camss_vfe_cpp_clk","micro_iface_clk", "camss_ahb_clk";
-		qcom,clock-rates = <0 250000000 0 0 250000000 0 0>;
+		qcom,clock-rates = <0 180000000 0 0 180000000 0 0>;
 		qcom,min-clock-rate = <133000000>;
 		qcom,bus-master = <1>;
 		qcom,msm-bus,name = "msm_camera_cpp";
@@ -524,6 +524,6 @@
 	qcom,hw-scl-stretch-en = <1>;
 	qcom,hw-trdhld = <3>;
 	qcom,hw-tsp = <3>;
-	qcom,cci-clk-src = <47500000>;
+	qcom,cci-clk-src = <37500000>;
 	status = "ok";
 };
