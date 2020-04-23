@@ -187,7 +187,7 @@
 #define AC_CHG_CURRENT_SHIFT		4
 #define SMB358_IRQ_REG_COUNT		6
 #define SMB358_FAST_CHG_MIN_MA		200
-#define SMB358_FAST_CHG_MAX_MA		1600
+#define SMB358_FAST_CHG_MAX_MA		2000
 #define SMB358_FAST_CHG_SHIFT		5
 #define SMB_FAST_CHG_CURRENT_MASK	0xE0
 #define SMB358_DEFAULT_BATT_CAPACITY	10
@@ -348,11 +348,11 @@ struct irq_handler_info {
 };
 
 static int chg_current[] = {
-	300, 500, 700, 1000, 1200, 1400, 1500, 1600,
+	300, 500, 700, 1000, 1200, 1500, 1800, 2000,
 };
 
 static int fast_chg_current[] = {
-	200, 450, 600, 900, 1300, 1400, 1500, 1600,
+	200, 450, 600, 900, 1300, 1500, 1800, 2000,
 };
 
 /* add supplied to "bms" function */
@@ -1241,7 +1241,7 @@ static int get_prop_current_now(struct smb358_charger *chip)
 		} else {
 			pr_debug("No BMS supply registered return 0\n");
 		}
-	return 1600;
+	return 1000;
 }
 
 static int smb358_get_prop_charge_type(struct smb358_charger *chip)
@@ -3387,15 +3387,12 @@ static int smb358_charger_probe(struct i2c_client *client,
 			chip->adc_param.low_temp = chip->cool_bat_decidegc;
 			chip->adc_param.high_temp = chip->warm_bat_decidegc;
 		}
-		chip->adc_param.timer_interval =
-				ADC_MEAS2_INTERVAL_1S;
-		chip->adc_param.state_request =
-				ADC_TM_HIGH_LOW_THR_ENABLE;
+		chip->adc_param.timer_interval = ADC_MEAS2_INTERVAL_1S;
+		chip->adc_param.state_request = ADC_TM_HIGH_LOW_THR_ENABLE;
 		chip->adc_param.btm_ctx = chip;
 		chip->adc_param.threshold_notification =
 				smb_chg_adc_notification;
-		chip->adc_param.channel =
-				P_MUX2_1_1;
+		chip->adc_param.channel = P_MUX2_1_1;
 
 
 		/* update battery missing info in tm_channel_measure*/

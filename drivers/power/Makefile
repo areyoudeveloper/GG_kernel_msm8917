@@ -1,8 +1,3 @@
-# Silence Clang Warning
-ifeq ($(cc-name),clang)
-EXTRA_CFLAGS += $(call cc-disable-warning, void-pointer-to-enum-cast)
-endif
-
 ccflags-$(CONFIG_POWER_SUPPLY_DEBUG) := -DDEBUG
 
 power_supply-y				:= power_supply_core.o
@@ -91,6 +86,3 @@ obj-$(CONFIG_ARCH_MSM)		+= qcom/
 obj-$(CONFIG_BATTERY_CW2015)	+= cw2015_battery.o ### add for c3
 obj-$(CONFIG_CHARGER_BQ2560) += bq2560x_charger.o
 obj-$(CONFIG_GAUGE_BQ27426) += bq27426_fg.o
-
-# some ccflags
-subdir-ccflags-y += -Wno-enum-conversion
