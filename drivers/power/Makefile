@@ -1,3 +1,8 @@
+# Silence Clang Warning
+ifeq ($(cc-name),clang)
+EXTRA_CFLAGS += $(call cc-disable-warning, void-pointer-to-enum-cast)
+endif
+
 ccflags-$(CONFIG_POWER_SUPPLY_DEBUG) := -DDEBUG
 
 power_supply-y				:= power_supply_core.o
@@ -79,8 +84,6 @@ obj-$(CONFIG_QPNP_SMB2)		+= battery.o qpnp-smb2.o pmic-voter.o smb-lib.o storm-w
 obj-$(CONFIG_QPNP_TYPEC)	+= qpnp-typec.o
 obj-$(CONFIG_CHARGER_TPS65090)	+= tps65090-charger.o
 obj-$(CONFIG_BATTERY_BCL)	+= battery_current_limit.o
-obj-$(CONFIG_QNS_SYSTEM)	+= qns_system.o
-obj-$(CONFIG_QUICK_CHARGE)     	+= Quick_Charge.o
 obj-$(CONFIG_MSM_BCL_CTL)	+= msm_bcl.o
 obj-$(CONFIG_MSM_BCL_PERIPHERAL_CTL) += bcl_peripheral.o
 obj-$(CONFIG_POWER_RESET)	+= reset/
@@ -88,3 +91,6 @@ obj-$(CONFIG_ARCH_MSM)		+= qcom/
 obj-$(CONFIG_BATTERY_CW2015)	+= cw2015_battery.o ### add for c3
 obj-$(CONFIG_CHARGER_BQ2560) += bq2560x_charger.o
 obj-$(CONFIG_GAUGE_BQ27426) += bq27426_fg.o
+
+# some ccflags
+subdir-ccflags-y += -Wno-enum-conversion

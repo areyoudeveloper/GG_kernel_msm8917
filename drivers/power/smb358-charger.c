@@ -187,7 +187,7 @@
 #define AC_CHG_CURRENT_SHIFT		4
 #define SMB358_IRQ_REG_COUNT		6
 #define SMB358_FAST_CHG_MIN_MA		200
-#define SMB358_FAST_CHG_MAX_MA		1500
+#define SMB358_FAST_CHG_MAX_MA		1600
 #define SMB358_FAST_CHG_SHIFT		5
 #define SMB_FAST_CHG_CURRENT_MASK	0xE0
 #define SMB358_DEFAULT_BATT_CAPACITY	10
@@ -197,10 +197,6 @@
 #define BATTERY_FCC 3030
 #else
 #define BATTERY_FCC 3000
-#endif
-
-#ifdef CONFIG_QUICK_CHARGE
-#include <linux/Quick_Charge.h>
 #endif
 
 int pre_usb_current_ma = -EINVAL;
@@ -352,11 +348,11 @@ struct irq_handler_info {
 };
 
 static int chg_current[] = {
-	300, 500, 700, 1000, 1200, 1500,
+	300, 500, 700, 1000, 1200, 1400, 1500, 1600,
 };
 
 static int fast_chg_current[] = {
-	200, 450, 600, 900, 1300, 1500,
+	200, 450, 600, 900, 1300, 1400, 1500, 1600,
 };
 
 /* add supplied to "bms" function */
@@ -1245,7 +1241,7 @@ static int get_prop_current_now(struct smb358_charger *chip)
 		} else {
 			pr_debug("No BMS supply registered return 0\n");
 		}
-	return 1500;
+	return 1600;
 }
 
 static int smb358_get_prop_charge_type(struct smb358_charger *chip)
@@ -2480,34 +2476,34 @@ static void smb358_external_power_changed(struct power_supply *psy)
 		dev_err(chip->dev,
 			"Couldn't read USB current_max property, rc=%d\n", rc);
 	else
-        #ifdef CONFIG_QUICK_CHARGE
+        #ifdef CONFIG_C3N_SMB358
         {
            if (!((prop.intval / 1000) == 0))
            {
-	      if (QC_Toggle == 1) 
+	      if (rolex_smb358 == 1)
 	      {
 		 // If Current (mA) is Equal to 500 mA, then USB is Connected.
                  if ((prop.intval / 1000) == 500)
 		 {
 		    // Raise USB-Charging Current (mA) to 1000 mA (Maximum Supported).
-                    pr_info("Using Custom USB Current (mA) %d", 1000);
+                    pr_info("Using USB Current (mA) %d", 1000);
                     current_limit = 1000;
                  }
                  else
 	         {
-                     pr_info("Using Quick Charge Current (mA) %d", Dynamic_Current);
-                     current_limit = Dynamic_Current;
+                     pr_info("Using AC Charge Current (mA) %d", 1250);
+                     current_limit = 1250;
                  }
               }
               else
-		  // If Quick Charge is Disabled, Restore Default Value of Current (mA).
+		  // If AC Charge is Disabled, Restore Default Value of Current (mA).
                   current_limit = prop.intval / 1000;
            }
 	   else
 	       current_limit = 0;
 	}
 	#else
-	    // If Quick Charge is Not Compiled, Leave Current (mA) Value Untouched.
+	    // If AC Charge is Not Compiled, Leave Current (mA) Value Untouched.
 	    current_limit = prop.intval / 1000;
 	#endif
 
@@ -2807,25 +2803,11 @@ static int smb_parse_dt(struct smb358_charger *chip)
 		pr_debug("Invalid chg-valid-gpio");
 	else
 		chip->chg_valid_act_low = gpio_flags & OF_GPIO_ACTIVE_LOW;
-	#ifdef CONFIG_QUICK_CHARGE
-	// If Quick Charge is Enabled, then Set the Max. Current to the Value of Dynamic Current of the Driver.
-	if (QC_Toggle == 1)
-	   chip->fastchg_current_max_ma = Dynamic_Current;
-	else
-	{
-	// If Quick Charge is Disabled, then Restore the Max. Current Value to the Default as Specified in DTB.
+
 	rc = of_property_read_u32(node, "qcom,fastchg-current-max-ma",
 						&chip->fastchg_current_max_ma);
 	if (rc)
 		chip->fastchg_current_max_ma = SMB358_FAST_CHG_MAX_MA;
-	}
-        #else
-	// If Quick Charge is not Compiled, then Read the Default Value only
-	rc = of_property_read_u32(node, "qcom,fastchg-current-max-ma",
-						&chip->fastchg_current_max_ma);
-	if (rc)
-		chip->fastchg_current_max_ma = SMB358_FAST_CHG_MAX_MA;
-	  #endif
 
 	chip->iterm_disabled = of_property_read_bool(node,
 					"qcom,iterm-disabled");
@@ -3405,12 +3387,15 @@ static int smb358_charger_probe(struct i2c_client *client,
 			chip->adc_param.low_temp = chip->cool_bat_decidegc;
 			chip->adc_param.high_temp = chip->warm_bat_decidegc;
 		}
-		chip->adc_param.timer_interval = ADC_MEAS2_INTERVAL_1S;
-		chip->adc_param.state_request = ADC_TM_HIGH_LOW_THR_ENABLE;
+		chip->adc_param.timer_interval =
+				ADC_MEAS2_INTERVAL_1S;
+		chip->adc_param.state_request =
+				ADC_TM_HIGH_LOW_THR_ENABLE;
 		chip->adc_param.btm_ctx = chip;
 		chip->adc_param.threshold_notification =
 				smb_chg_adc_notification;
-		chip->adc_param.channel = P_MUX2_1_1;
+		chip->adc_param.channel =
+				P_MUX2_1_1;
 
 
 		/* update battery missing info in tm_channel_measure*/
