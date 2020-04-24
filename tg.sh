@@ -9,7 +9,6 @@ sudo dpkg-reconfigure --frontend noninteractive tzdata
 
 sudo apt-get install -y tzdata
 sudo apt-get update -qq && \
-    sudo apt-get upgrade -y && \
     sudo apt-get install --no-install-recommends -y \
 	autoconf \
 	autogen \
@@ -77,7 +76,7 @@ echo bulding!!
 export ARCH=arm64
 export SUBARCH=arm64
 export KBUILD_BUILD_USER=TEA
-export CROSS_COMPILE=/home/runner/work/android_kernel_xiaomi_msm8917/android_kernel_xiaomi_msm8917/aarch64-linux-gnu/bin/aarch64-linux-gnu-
+export CROSS_COMPILE=/home/runner/work/GG_kernel_msm8917/GG_kernel_msm8917/aarch64-linux-gnu/bin/aarch64-linux-gnu-
 
 make mrproper
 mkdir -p out
