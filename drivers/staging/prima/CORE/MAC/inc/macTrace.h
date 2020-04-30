@@ -43,6 +43,12 @@
 
 #include "aniGlobal.h"
 
+<<<<<<< HEAD
+=======
+
+#ifdef TRACE_RECORD
+
+>>>>>>> b6571a93e5e73651328529ff6dbda6810c579b9c
 #define MAC_TRACE_GET_MODULE_ID(data) ((data >> 8) & 0xff)
 #define MAC_TRACE_GET_MSG_ID(data)       (data & 0xffff)
 
@@ -77,3 +83,8 @@ tANI_U8* macTraceGetTLState(tANI_U16 tlState);
 
 #endif
 
+<<<<<<< HEAD
+=======
+#endif
+
+>>>>>>> b6571a93e5e73651328529ff6dbda6810c579b9c

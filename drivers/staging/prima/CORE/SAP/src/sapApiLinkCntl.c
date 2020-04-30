@@ -650,7 +650,11 @@ eHalStatus sapCheckHT40SecondaryIsNotAllowed(ptSapContext psapCtx)
 
     for (i = 0; i < unsafeChannelCount; i++)
     {
+<<<<<<< HEAD
         if (psapCtx->sap_sec_chan == unsafeChannelList[i])
+=======
+        if ((psapCtx->sap_sec_chan == unsafeChannelList[i]))
+>>>>>>> b6571a93e5e73651328529ff6dbda6810c579b9c
         {
             VOS_TRACE(VOS_MODULE_ID_SAP, VOS_TRACE_LEVEL_INFO,
                 FL("Unsafe Channel %d SAP Secondary Channel: %d"),

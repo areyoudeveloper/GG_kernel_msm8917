@@ -1103,11 +1103,19 @@ typedef __ani_attr_pre_packed struct sSirMacRateSet
     tANI_U8  rate[SIR_MAC_RATESET_EID_MAX];
 } __ani_attr_packed tSirMacRateSet;
 
+<<<<<<< HEAD
 
 typedef __ani_attr_pre_packed struct sSirMacSSid
 {
     tANI_U8        length;
     tANI_U8        ssId[32];
+=======
+//Reserve 1 byte for NULL character in the SSID name field to print in %s
+typedef __ani_attr_pre_packed struct sSirMacSSid
+{
+    tANI_U8        length;
+    tANI_U8        ssId[SIR_MAC_MAX_SSID_LENGTH + 1];
+>>>>>>> b6571a93e5e73651328529ff6dbda6810c579b9c
 } __ani_attr_packed tSirMacSSid;
 
 typedef __ani_attr_pre_packed struct sSirMacWpaInfo

@@ -1145,7 +1145,11 @@ sapFsm
     switch (stateVar)
     {
         case eSAP_DISCONNECTED:
+<<<<<<< HEAD
             if (msg == eSAP_HDD_START_INFRA_BSS)
+=======
+            if ((msg == eSAP_HDD_START_INFRA_BSS))
+>>>>>>> b6571a93e5e73651328529ff6dbda6810c579b9c
             {
                 /* Transition from eSAP_DISCONNECTED to eSAP_CH_SELECT (both without substates) */
                 VOS_TRACE( VOS_MODULE_ID_SAP, VOS_TRACE_LEVEL_INFO_HIGH, "In %s, new from state %s => %s",
@@ -2175,8 +2179,13 @@ static VOS_STATUS sapGetChannelList(ptSapContext sapContext,
 #ifdef FEATURE_WLAN_CH_AVOID
                 for( i = 0; i < NUM_20MHZ_RF_CHANNELS; i++ )
                 {
+<<<<<<< HEAD
                     if( safeChannels[i].channelNumber ==
                                 rfChannels[loopCount].channelNum )
+=======
+                    if( (safeChannels[i].channelNumber ==
+                                rfChannels[loopCount].channelNum) )
+>>>>>>> b6571a93e5e73651328529ff6dbda6810c579b9c
                     {
                         /* Check if channel is safe */
                         if(VOS_TRUE == safeChannels[i].isSafe)

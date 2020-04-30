@@ -1604,7 +1604,11 @@ eHalStatus pmcRequestEnterWowlState(tHalHandle hHal, tpSirSmeWowlEnterParams wow
     pmcLog(pMac, LOG1, FL("Enter. PMC State is %d"),pMac->pmc.pmcState);
 
    /* Incase of SAP send command directly */
+<<<<<<< HEAD
    if (pSessionEntry->operMode == BSS_OPERATIONAL_MODE_AP)
+=======
+   if ((pSessionEntry->operMode == BSS_OPERATIONAL_MODE_AP))
+>>>>>>> b6571a93e5e73651328529ff6dbda6810c579b9c
    {
        if (pmcIssueCommand(hHal, eSmeCommandEnterWowl, wowlEnterParams,
             sizeof(tSirSmeWowlEnterParams), FALSE) != eHAL_STATUS_SUCCESS)

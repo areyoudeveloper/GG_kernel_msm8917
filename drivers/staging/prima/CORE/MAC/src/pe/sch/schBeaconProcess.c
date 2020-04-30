@@ -759,10 +759,13 @@ void schBeaconProcess(tpAniSirGlobal pMac, tANI_U8* pRxPacketInfo, tpPESession p
 
         return;
     }
+<<<<<<< HEAD
     if (beaconStruct.ssidPresent)
     {
         beaconStruct.ssId.ssId[beaconStruct.ssId.length] = 0;
     }
+=======
+>>>>>>> b6571a93e5e73651328529ff6dbda6810c579b9c
 
     /*
     * First process the beacon in the context of any existing AP or BTAP session.

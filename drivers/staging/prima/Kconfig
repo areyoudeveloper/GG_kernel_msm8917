@@ -53,6 +53,7 @@ config WLAN_OFFLOAD_PACKETS
 	bool "Enable offload packets feature"
 	default n
 
+<<<<<<< HEAD
 config QCOM_TDLS
 	bool "Enable TDLS feature"
 	default n
@@ -61,4 +62,6 @@ config WLAN_FEATURE_HOLD_RX_WAKELOCK
 	bool "Enable hold RX wake lock feature"
 	default n
 
+=======
+>>>>>>> b6571a93e5e73651328529ff6dbda6810c579b9c
 endif # PRIMA_WLAN || PRONTO_WLAN

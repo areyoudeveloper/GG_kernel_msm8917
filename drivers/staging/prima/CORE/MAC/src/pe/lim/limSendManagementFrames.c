@@ -6130,6 +6130,7 @@ tSirRetStatus limSendAddBARsp( tpAniSirGlobal pMac,
   else
     return eSIR_SUCCESS;
 
+<<<<<<< HEAD
   returnAfterError:
     // Release buffer, if allocated
     if( NULL != pAddBARspBuffer )
@@ -6139,6 +6140,17 @@ tSirRetStatus limSendAddBARsp( tpAniSirGlobal pMac,
           (void *) pPacket );
 
     return statusCode;
+=======
+    returnAfterError:
+      // Release buffer, if allocated
+      if( NULL != pAddBARspBuffer )
+        palPktFree( pMac->hHdd,
+            HAL_TXRX_FRM_802_11_MGMT,
+            (void *) pAddBARspBuffer,
+            (void *) pPacket );
+
+      return statusCode;
+>>>>>>> b6571a93e5e73651328529ff6dbda6810c579b9c
 }
 
 /**
@@ -6336,6 +6348,7 @@ tSirRetStatus limSendDelBAInd( tpAniSirGlobal pMac,
   else
     return eSIR_SUCCESS;
 
+<<<<<<< HEAD
   returnAfterError:
 
     // Release buffer, if allocated
@@ -6346,6 +6359,18 @@ tSirRetStatus limSendDelBAInd( tpAniSirGlobal pMac,
           (void *) pPacket );
 
     return statusCode;
+=======
+    returnAfterError:
+
+      // Release buffer, if allocated
+      if( NULL != pDelBAIndBuffer )
+        palPktFree( pMac->hHdd,
+            HAL_TXRX_FRM_802_11_MGMT,
+            (void *) pDelBAIndBuffer,
+            (void *) pPacket );
+
+      return statusCode;
+>>>>>>> b6571a93e5e73651328529ff6dbda6810c579b9c
 }
 
 #if defined WLAN_FEATURE_VOWIFI

@@ -4100,8 +4100,13 @@ static char *i_trim(char *str)
 
    /* Find the first non white-space*/
    for (ptr = str; i_isspace(*ptr); ptr++);
+<<<<<<< HEAD
    if (*ptr == '\0')
       return str;
+=======
+      if (*ptr == '\0')
+         return str;
+>>>>>>> b6571a93e5e73651328529ff6dbda6810c579b9c
 
    /* This is the new start of the string*/
    str = ptr;
@@ -4109,8 +4114,13 @@ static char *i_trim(char *str)
    /* Find the last non white-space */
    ptr += strlen(ptr) - 1;
    for (; ptr != str && i_isspace(*ptr); ptr--);
+<<<<<<< HEAD
    /* Null terminate the following character */
    ptr[1] = '\0';
+=======
+      /* Null terminate the following character */
+      ptr[1] = '\0';
+>>>>>>> b6571a93e5e73651328529ff6dbda6810c579b9c
 
    return str;
 }
@@ -4123,6 +4133,7 @@ typedef struct
    char *value;
 }tCfgIniEntry;
 
+<<<<<<< HEAD
 
 /* convert string to 6 bytes mac address
  * 00AA00BB00CC -> 0x00 0xAA 0x00 0xBB 0x00 0xCC
@@ -4250,6 +4261,8 @@ config_exit:
    return vos_status;
 }
 
+=======
+>>>>>>> b6571a93e5e73651328529ff6dbda6810c579b9c
 static VOS_STATUS hdd_apply_cfg_ini( hdd_context_t * pHddCtx,
     tCfgIniEntry* iniTable, unsigned long entries);
 
@@ -5768,10 +5781,13 @@ v_BOOL_t hdd_update_config_dat( hdd_context_t *pHddCtx )
 
     if (ccmCfgSetInt(pHddCtx->hHal, WNI_CFG_MCAST_BCAST_FILTER_SETTING, pConfig->mcastBcastFilterSetting,
                      NULL, eANI_BOOLEAN_FALSE)==eHAL_STATUS_FAILURE)
+<<<<<<< HEAD
     {
        fStatus = FALSE;
        hddLog(LOGE,"Failure: Could not pass on WNI_CFG_MCAST_BCAST_FILTER_SETTING configuration info to CCM");
     }
+=======
+>>>>>>> b6571a93e5e73651328529ff6dbda6810c579b9c
 #endif
 
      if (ccmCfgSetInt(pHddCtx->hHal, WNI_CFG_SINGLE_TID_RC, pConfig->bSingleTidRc,

@@ -222,7 +222,11 @@ rrmSetMaxTxPowerRsp ( tpAniSirGlobal pMac, tpSirMsgQ limMsgQ )
    {
       for (i =0;i < pMac->lim.maxBssId;i++)
       {
+<<<<<<< HEAD
          if ( pMac->lim.gpSession[i].valid == TRUE )
+=======
+         if ( (pMac->lim.gpSession[i].valid == TRUE ))
+>>>>>>> b6571a93e5e73651328529ff6dbda6810c579b9c
          {
             pSessionEntry = &pMac->lim.gpSession[i];
             rrmCacheMgmtTxPower ( pMac, pMaxTxParams->power, pSessionEntry );
@@ -678,7 +682,12 @@ rrmFillBeaconIes( tpAniSirGlobal pMac,
                   tANI_U8 *eids, tANI_U8 numEids,
                   tpSirBssDescription pBssDesc )
 {
+<<<<<<< HEAD
    tANI_U8 len, *pBcnIes, BcnNumIes, count = 0, i;
+=======
+   tANI_U8 len, *pBcnIes, count = 0, i;
+   tANI_U16 BcnNumIes = 0;
+>>>>>>> b6571a93e5e73651328529ff6dbda6810c579b9c
 
    if( (pIes == NULL) || (pNumIes == NULL) || (pBssDesc == NULL) )
    {
@@ -705,10 +714,24 @@ rrmFillBeaconIes( tpAniSirGlobal pMac,
 
    while ( BcnNumIes > 0 )
    {
+<<<<<<< HEAD
       len = *(pBcnIes + 1) + 2; //element id + length.
       limLog( pMac, LOG3, "EID = %d, len = %d total = %d",
              *pBcnIes, *(pBcnIes+1), len );
 
+=======
+      len = *(pBcnIes + 1); //element id + length.
+      len += 2;
+      limLog( pMac, LOG3, "EID = %d, len = %d total = %d",
+             *pBcnIes, *(pBcnIes+1), len );
+
+      if (BcnNumIes < len || len <= 2) {
+          limLog(pMac, LOGE, "RRM: Invalid IE len:%d exp_len:%d",
+                 len, BcnNumIes);
+          break;
+      }
+
+>>>>>>> b6571a93e5e73651328529ff6dbda6810c579b9c
       i = 0;
       do
       {

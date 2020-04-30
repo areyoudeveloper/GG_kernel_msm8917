@@ -13888,6 +13888,7 @@ int hdd_wlan_startup(struct device *dev )
    {
       eHalStatus halStatus;
 
+<<<<<<< HEAD
       /* Overwrite the Mac address if config file exist */
       if (VOS_STATUS_SUCCESS != hdd_update_mac_config(pHddCtx))
       {
@@ -13904,6 +13905,8 @@ int hdd_wlan_startup(struct device *dev )
                  pHddCtx->cfg_ini->intfMacAddr[0].bytes[5]);
       }
 
+=======
+>>>>>>> b6571a93e5e73651328529ff6dbda6810c579b9c
       /* Set the MAC Address Currently this is used by HAL to
        * add self sta. Remove this once self sta is added as
        * part of session open.
@@ -15150,12 +15153,19 @@ wlan_hdd_is_GO_power_collapse_allowed (hdd_context_t* pHddCtx)
                  FL("GO started"));
           return TRUE;
      }
+<<<<<<< HEAD
      else {
+=======
+     else
+>>>>>>> b6571a93e5e73651328529ff6dbda6810c579b9c
           /* wait till GO changes its interface to p2p device */
           hddLog(VOS_TRACE_LEVEL_INFO,
                  FL("Del_bss called, avoid apps suspend"));
           return FALSE;
+<<<<<<< HEAD
      }
+=======
+>>>>>>> b6571a93e5e73651328529ff6dbda6810c579b9c
 
 }
 /* Decide whether to allow/not the apps power collapse. 

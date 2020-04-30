@@ -4842,8 +4842,13 @@ tSirRetStatus
 limEnableHT20Protection(tpAniSirGlobal pMac, tANI_U8 enable,
     tANI_U8 overlap, tpUpdateBeaconParams pBeaconParams,tpPESession psessionEntry)
 {
+<<<<<<< HEAD
         if(!psessionEntry->htCapability)
             return eSIR_SUCCESS; // this protection  is only for HT stations.
+=======
+    if(!psessionEntry->htCapability)
+        return eSIR_SUCCESS; // this protection  is only for HT stations.
+>>>>>>> b6571a93e5e73651328529ff6dbda6810c579b9c
 
         //overlapping protection configuration check.
         if(overlap)
@@ -5052,8 +5057,13 @@ tSirRetStatus
 limEnableHTNonGfProtection(tpAniSirGlobal pMac, tANI_U8 enable,
     tANI_U8 overlap, tpUpdateBeaconParams pBeaconParams,tpPESession psessionEntry)
 {
+<<<<<<< HEAD
         if(!psessionEntry->htCapability)
             return eSIR_SUCCESS; // this protection  is only for HT stations.
+=======
+    if(!psessionEntry->htCapability)
+        return eSIR_SUCCESS; // this protection  is only for HT stations.
+>>>>>>> b6571a93e5e73651328529ff6dbda6810c579b9c
 
         //overlapping protection configuration check.
         if(overlap)
@@ -5123,8 +5133,13 @@ tSirRetStatus
 limEnableHTLsigTxopProtection(tpAniSirGlobal pMac, tANI_U8 enable,
     tANI_U8 overlap, tpUpdateBeaconParams pBeaconParams,tpPESession psessionEntry)
 {
+<<<<<<< HEAD
         if(!psessionEntry->htCapability)
             return eSIR_SUCCESS; // this protection  is only for HT stations.
+=======
+    if(!psessionEntry->htCapability)
+        return eSIR_SUCCESS; // this protection  is only for HT stations.
+>>>>>>> b6571a93e5e73651328529ff6dbda6810c579b9c
 
         //overlapping protection configuration check.
         if(overlap)
@@ -5196,8 +5211,13 @@ tSirRetStatus
 limEnableHtRifsProtection(tpAniSirGlobal pMac, tANI_U8 enable,
     tANI_U8 overlap, tpUpdateBeaconParams pBeaconParams,tpPESession psessionEntry)
 {
+<<<<<<< HEAD
         if(!psessionEntry->htCapability)
             return eSIR_SUCCESS; // this protection  is only for HT stations.
+=======
+    if(!psessionEntry->htCapability)
+        return eSIR_SUCCESS; // this protection  is only for HT stations.
+>>>>>>> b6571a93e5e73651328529ff6dbda6810c579b9c
 
 
         //overlapping protection configuration check.

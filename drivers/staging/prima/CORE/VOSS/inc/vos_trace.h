@@ -113,7 +113,10 @@ typedef enum
 
 #else
 #define MTRACE(p) {  }
+<<<<<<< HEAD
 #define CASE_RETURN_STRING( str ) { }
+=======
+>>>>>>> b6571a93e5e73651328529ff6dbda6810c579b9c
 
 #endif
 

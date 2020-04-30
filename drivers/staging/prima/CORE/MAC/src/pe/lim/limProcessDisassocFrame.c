@@ -300,7 +300,12 @@ limProcessDisassocFrame(tpAniSirGlobal pMac, tANI_U8 *pRxPacketInfo, tpPESession
     }
 
     if ((pStaDs->mlmStaContext.mlmState == eLIM_MLM_WT_DEL_STA_RSP_STATE) ||
+<<<<<<< HEAD
         (pStaDs->mlmStaContext.mlmState == eLIM_MLM_WT_DEL_BSS_RSP_STATE))
+=======
+        (pStaDs->mlmStaContext.mlmState == eLIM_MLM_WT_DEL_BSS_RSP_STATE) ||
+         pStaDs->sta_deletion_in_progress)
+>>>>>>> b6571a93e5e73651328529ff6dbda6810c579b9c
     {
         /**
          * Already in the process of deleting context for the peer
@@ -314,7 +319,11 @@ limProcessDisassocFrame(tpAniSirGlobal pMac, tANI_U8 *pRxPacketInfo, tpPESession
 
         return;
     } 
+<<<<<<< HEAD
 
+=======
+    pStaDs->sta_deletion_in_progress = true;
+>>>>>>> b6571a93e5e73651328529ff6dbda6810c579b9c
     if (pStaDs->mlmStaContext.mlmState != eLIM_MLM_LINK_ESTABLISHED_STATE)
     {
         /**

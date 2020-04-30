@@ -291,7 +291,11 @@ __limHandleBeacon(tpAniSirGlobal pMac, tpSirMsgQ pMsg, tpPESession psessionEntry
      else
         limProcessBeaconFrame(pMac, pRxPacketInfo, psessionEntry);
 
+<<<<<<< HEAD
     return;
+=======
+        return;
+>>>>>>> b6571a93e5e73651328529ff6dbda6810c579b9c
 }
 
 

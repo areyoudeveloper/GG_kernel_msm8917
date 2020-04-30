@@ -1520,7 +1520,11 @@ static void hdd_conf_suspend_ind(hdd_context_t* pHddCtx,
     hddLog(VOS_TRACE_LEVEL_INFO,
       "%s: send wlan suspend indication", __func__);
 
+<<<<<<< HEAD
     if(pHddCtx->cfg_ini->nEnableSuspend == WLAN_MAP_SUSPEND_TO_MCAST_BCAST_FILTER)
+=======
+    if((pHddCtx->cfg_ini->nEnableSuspend == WLAN_MAP_SUSPEND_TO_MCAST_BCAST_FILTER))
+>>>>>>> b6571a93e5e73651328529ff6dbda6810c579b9c
     {
         //Configure supported OffLoads
         hdd_conf_hostoffload(pAdapter, TRUE);
