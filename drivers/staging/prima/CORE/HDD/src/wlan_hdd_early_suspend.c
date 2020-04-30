@@ -443,7 +443,6 @@ VOS_STATUS hdd_enter_deep_sleep(hdd_context_t *pHddCtx, hdd_adapter_t *pAdapter)
 VOS_STATUS hdd_exit_deep_sleep(hdd_context_t *pHddCtx, hdd_adapter_t *pAdapter)
 {
    VOS_STATUS vosStatus;
-   eHalStatus halStatus;
 
    VOS_TRACE( VOS_MODULE_ID_HDD, VOS_TRACE_LEVEL_INFO,
       "%s: calling hdd_set_sme_config",__func__);
@@ -480,23 +479,7 @@ VOS_STATUS hdd_exit_deep_sleep(hdd_context_t *pHddCtx, hdd_adapter_t *pAdapter)
       goto err_voss_stop;
    }
 
-
-   //Open a SME session for future operation
-   halStatus = sme_OpenSession( pHddCtx->hHal, hdd_smeRoamCallback, pHddCtx,
-                                (tANI_U8 *)&pAdapter->macAddressCurrent,
-                                &pAdapter->sessionId);
-   if ( !HAL_STATUS_SUCCESS( halStatus ) )
-   {
-      hddLog(VOS_TRACE_LEVEL_FATAL,"sme_OpenSession() failed with status code %08d [x%08x]",
-                    halStatus, halStatus );
-      goto err_voss_stop;
-
-   }
-
    pHddCtx->hdd_ps_state = eHDD_SUSPEND_NONE;
-
-   //Trigger the initial scan
-   hdd_wlan_initial_scan(pAdapter);
 
    return VOS_STATUS_SUCCESS;
 
@@ -1520,11 +1503,7 @@ static void hdd_conf_suspend_ind(hdd_context_t* pHddCtx,
     hddLog(VOS_TRACE_LEVEL_INFO,
       "%s: send wlan suspend indication", __func__);
 
-<<<<<<< HEAD
     if(pHddCtx->cfg_ini->nEnableSuspend == WLAN_MAP_SUSPEND_TO_MCAST_BCAST_FILTER)
-=======
-    if((pHddCtx->cfg_ini->nEnableSuspend == WLAN_MAP_SUSPEND_TO_MCAST_BCAST_FILTER))
->>>>>>> b6571a93e5e73651328529ff6dbda6810c579b9c
     {
         //Configure supported OffLoads
         hdd_conf_hostoffload(pAdapter, TRUE);

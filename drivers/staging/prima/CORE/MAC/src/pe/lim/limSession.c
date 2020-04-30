@@ -312,11 +312,7 @@ tpPESession pe_find_session_by_sme_session_id(tpAniSirGlobal mac_ctx,
         limLog(pMac, LOGE, FL("Invalid sessionId: %d "), sessionId);
         return(NULL);
     }
-<<<<<<< HEAD
     if(pMac->lim.gpSession[sessionId].valid == TRUE)
-=======
-    if((pMac->lim.gpSession[sessionId].valid == TRUE))
->>>>>>> b6571a93e5e73651328529ff6dbda6810c579b9c
     {
         return(&pMac->lim.gpSession[sessionId]);
     }

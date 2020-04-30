@@ -1,9 +1,5 @@
 /*
-<<<<<<< HEAD
- * Copyright (c) 2012-2017, 2019 The Linux Foundation. All rights reserved.
-=======
  * Copyright (c) 2012-2017, 2019-2020 The Linux Foundation. All rights reserved.
->>>>>>> b6571a93e5e73651328529ff6dbda6810c579b9c
  *
  * Previously licensed under the ISC license by Qualcomm Atheros, Inc.
  *
@@ -882,11 +878,7 @@ __limProcessDelTsReq(tpAniSirGlobal pMac, tANI_U8 *pRxPacketInfo,tpPESession pse
     tsinfo = delts.wmeTspecPresent ? &delts.tspec.tsinfo : &delts.tsinfo;
 
     // if no Admit Control, ignore the request
-<<<<<<< HEAD
     if (tsinfo->traffic.accessPolicy == SIR_MAC_ACCESSPOLICY_EDCA)
-=======
-    if ((tsinfo->traffic.accessPolicy == SIR_MAC_ACCESSPOLICY_EDCA))
->>>>>>> b6571a93e5e73651328529ff6dbda6810c579b9c
     {
     
         if (upToAc(tsinfo->traffic.userPrio) >= MAX_NUM_AC)
@@ -1671,11 +1663,7 @@ tANI_U8 *pBody;
     else
         frmAddBARsp.AddBAParameterSet.bufferSize =
                     VOS_MIN(val, frmAddBARsp.AddBAParameterSet.bufferSize);
-<<<<<<< HEAD
     limLog( pMac, LOG1,
-=======
-        limLog( pMac, LOG1,
->>>>>>> b6571a93e5e73651328529ff6dbda6810c579b9c
             FL( "ADDBA RSP  Buffsize = %d" ),
             frmAddBARsp.AddBAParameterSet.bufferSize);
     // Now, validate the ADDBA Rsp
@@ -2398,11 +2386,6 @@ limProcessActionFrame(tpAniSirGlobal pMac, tANI_U8 *pRxPacketInfo,tpPESession ps
 {
     tANI_U8 *pBody = WDA_GET_RX_MPDU_DATA(pRxPacketInfo);
     tpSirMacActionFrameHdr pActionHdr = (tpSirMacActionFrameHdr) pBody;
-<<<<<<< HEAD
-#ifdef WLAN_FEATURE_11W
-    tpSirMacMgmtHdr pHdr = WDA_GET_RX_MAC_HEADER(pRxPacketInfo);
-
-=======
     tANI_U8 frameLen = WDA_GET_RX_PAYLOAD_LEN(pRxPacketInfo);
     tpSirMacMgmtHdr pHdr = WDA_GET_RX_MAC_HEADER(pRxPacketInfo);
 
@@ -2414,7 +2397,6 @@ limProcessActionFrame(tpAniSirGlobal pMac, tANI_U8 *pRxPacketInfo,tpPESession ps
     }
 
 #ifdef WLAN_FEATURE_11W
->>>>>>> b6571a93e5e73651328529ff6dbda6810c579b9c
     if (lim_is_robust_mgmt_action_frame(pActionHdr->category) &&
         limDropUnprotectedActionFrame(pMac, psessionEntry, pHdr,
                                       pActionHdr->category)) {
@@ -2581,13 +2563,7 @@ limProcessActionFrame(tpAniSirGlobal pMac, tANI_U8 *pRxPacketInfo,tpPESession ps
             case SIR_MAC_WNM_NOTIF_REQUEST:
             case SIR_MAC_WNM_NOTIF_RESPONSE:
             {
-<<<<<<< HEAD
-               tpSirMacMgmtHdr     pHdr;
                tANI_S8 rssi = WDA_GET_RX_RSSI_DB(pRxPacketInfo);
-               pHdr = WDA_GET_RX_MAC_HEADER(pRxPacketInfo);
-=======
-               tANI_S8 rssi = WDA_GET_RX_RSSI_DB(pRxPacketInfo);
->>>>>>> b6571a93e5e73651328529ff6dbda6810c579b9c
                /* Forward to the SME to HDD to wpa_supplicant */
                limSendSmeMgmtFrameInd(pMac, psessionEntry->smeSessionId,
                                        pRxPacketInfo,
@@ -2635,12 +2611,6 @@ limProcessActionFrame(tpAniSirGlobal pMac, tANI_U8 *pRxPacketInfo,tpPESession ps
         case SIR_MAC_ACTION_VENDOR_SPECIFIC_CATEGORY:
             {
               tpSirMacVendorSpecificFrameHdr pVendorSpecific = (tpSirMacVendorSpecificFrameHdr) pActionHdr;
-<<<<<<< HEAD
-              tpSirMacMgmtHdr     pHdr;
-              tANI_U8 Oui[] = { 0x00, 0x00, 0xf0 };
-
-              pHdr = WDA_GET_RX_MAC_HEADER(pRxPacketInfo);
-=======
               tANI_U8 Oui[] = { 0x00, 0x00, 0xf0 };
 
 		if(frameLen < sizeof(*pVendorSpecific)) {
@@ -2648,7 +2618,6 @@ limProcessActionFrame(tpAniSirGlobal pMac, tANI_U8 *pRxPacketInfo,tpPESession ps
 			       FL("frame len %d less than Vendor Specific Hdr len"), frameLen);
 			break;
 		  }
->>>>>>> b6571a93e5e73651328529ff6dbda6810c579b9c
 
               //Check if it is a vendor specific action frame.
               if ((eLIM_STA_ROLE == psessionEntry->limSystemRole) &&
@@ -2737,21 +2706,10 @@ limProcessActionFrame(tpAniSirGlobal pMac, tANI_U8 *pRxPacketInfo,tpPESession ps
             {
               tpSirMacVendorSpecificPublicActionFrameHdr pPubAction = (tpSirMacVendorSpecificPublicActionFrameHdr) pActionHdr;
               tANI_U8 P2POui[] = { 0x50, 0x6F, 0x9A, 0x09 };
-<<<<<<< HEAD
-	      tANI_U32 frameLen;
-
-	      frameLen = WDA_GET_RX_PAYLOAD_LEN(pRxPacketInfo);
-
-	      if (frameLen < sizeof(pActionHdr)) {
-			limLog(pMac, LOG1,
-				FL("Received action frame of invalid len %d"),
-				frameLen);
-=======
 
 	      if (frameLen < sizeof(*pActionHdr)) {
 			limLog(pMac, LOG1,
 				FL("Received action frame of invalid len %d"), frameLen);
->>>>>>> b6571a93e5e73651328529ff6dbda6810c579b9c
 			break;
 	      }
 
@@ -2888,11 +2846,6 @@ limProcessActionFrameNoSession(tpAniSirGlobal pMac, tANI_U8 *pBd)
 {
    tANI_U8 *pBody = WDA_GET_RX_MPDU_DATA(pBd);
    tpSirMacVendorSpecificPublicActionFrameHdr pActionHdr = (tpSirMacVendorSpecificPublicActionFrameHdr) pBody;
-<<<<<<< HEAD
-
-   limLog( pMac, LOG1, "Received a Action frame -- no session");
-
-=======
    tANI_U32 frameLen = WDA_GET_RX_PAYLOAD_LEN(pBd);
 
    limLog( pMac, LOG1, "Received a Action frame -- no session");
@@ -2903,7 +2856,6 @@ limProcessActionFrameNoSession(tpAniSirGlobal pMac, tANI_U8 *pBd)
 	return;
    }
 
->>>>>>> b6571a93e5e73651328529ff6dbda6810c579b9c
    switch ( pActionHdr->category )
    {
       case SIR_MAC_ACTION_PUBLIC_USAGE:
@@ -2911,19 +2863,6 @@ limProcessActionFrameNoSession(tpAniSirGlobal pMac, tANI_U8 *pBd)
             case SIR_MAC_ACTION_VENDOR_SPECIFIC:
               {
                 tANI_U8 P2POui[] = { 0x50, 0x6F, 0x9A, 0x09 };
-<<<<<<< HEAD
-		tANI_U32 frameLen;
-
-		frameLen = WDA_GET_RX_PAYLOAD_LEN(pBd);
-
-		if (frameLen < sizeof(pActionHdr)) {
-			limLog(pMac, LOG1,
-				FL("Received action frame of invalid len %d"),
-				frameLen);
-			break;
-		}
-=======
->>>>>>> b6571a93e5e73651328529ff6dbda6810c579b9c
 
                 //Check if it is a P2P public action frame.
                 if (vos_mem_compare(pActionHdr->Oui, P2POui, 4))

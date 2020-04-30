@@ -1952,13 +1952,9 @@ limDeactivateAndChangeTimer(tpAniSirGlobal pMac, tANI_U32 timerId)
         {
                 limLog(pMac, LOGE, FL("Unable to change g_lim_ap_ecsa_timer timer"));
         }
-<<<<<<< HEAD
         break;
 
 #ifdef WLAN_FEATURE_LFR_MBB
-=======
-
->>>>>>> b6571a93e5e73651328529ff6dbda6810c579b9c
     case eLIM_AUTH_SAE_TIMER:
         if (tx_timer_deactivate(&pMac->lim.limTimers.sae_auth_timer)
             != TX_SUCCESS) {
@@ -1973,13 +1969,8 @@ limDeactivateAndChangeTimer(tpAniSirGlobal pMac, tANI_U32 timerId)
             return;
         }
         break;
-<<<<<<< HEAD
 #endif
 
-=======
-
-        break;
->>>>>>> b6571a93e5e73651328529ff6dbda6810c579b9c
      default:
             // Invalid timerId. Log error
             break;

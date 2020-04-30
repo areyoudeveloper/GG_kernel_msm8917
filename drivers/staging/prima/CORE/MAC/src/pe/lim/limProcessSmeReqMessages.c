@@ -191,11 +191,7 @@ __limFreshScanReqd(tpAniSirGlobal pMac, tANI_U8 returnFreshResults)
    if( (validState) && (returnFreshResults & SIR_BG_SCAN_RETURN_FRESH_RESULTS))
     return TRUE;
 
-<<<<<<< HEAD
    return FALSE;
-=======
-    return FALSE;
->>>>>>> b6571a93e5e73651328529ff6dbda6810c579b9c
 }
 
 
@@ -3897,11 +3893,7 @@ __limHandleSmeStopBssRequest(tpAniSirGlobal pMac, tANI_U32 *pMsgBuf)
        )
     {
         tSirMacAddr   bcAddr = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
-<<<<<<< HEAD
         if (stopBssReq.reasonCode == eSIR_SME_MIC_COUNTER_MEASURES)
-=======
-        if ((stopBssReq.reasonCode == eSIR_SME_MIC_COUNTER_MEASURES))
->>>>>>> b6571a93e5e73651328529ff6dbda6810c579b9c
             // Send disassoc all stations associated thru TKIP
             __limCounterMeasures(pMac,psessionEntry);
         else
@@ -5844,11 +5836,7 @@ static void lim_process_sme_channel_change_request(tpAniSirGlobal mac_ctx,
    max_tx_pwr = cfgGetRegulatoryMaxTransmitPower(mac_ctx,
                      ch_change_req->new_chan);
 
-<<<<<<< HEAD
    if (max_tx_pwr == WDA_MAX_TXPOWER_INVALID) {
-=======
-   if ((max_tx_pwr == WDA_MAX_TXPOWER_INVALID)) {
->>>>>>> b6571a93e5e73651328529ff6dbda6810c579b9c
        limLog(mac_ctx, LOGE, FL("Invalid Request/max_tx_pwr"));
        return;
    }

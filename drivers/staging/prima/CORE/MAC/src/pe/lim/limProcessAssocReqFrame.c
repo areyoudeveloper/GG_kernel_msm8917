@@ -1704,16 +1704,10 @@ void limSendMlmAssocInd(tpAniSirGlobal pMac, tpDphHashNode pStaDs, tpPESession p
                                                 eHT_CHANNEL_WIDTH_40MHZ) &&
                                   pAssocReq->HTCaps.supportedChannelWidthSet) {
                     pMlmAssocInd->chan_info.info = MODE_11AC_VHT40;
-<<<<<<< HEAD
                 } else {
                     pMlmAssocInd->chan_info.info = MODE_11AC_VHT20;
                     pMlmAssocInd->VHTCaps = pAssocReq->VHTCaps;
                 }
-=======
-                } else
-                    pMlmAssocInd->chan_info.info = MODE_11AC_VHT20;
-                    pMlmAssocInd->VHTCaps = pAssocReq->VHTCaps;
->>>>>>> b6571a93e5e73651328529ff6dbda6810c579b9c
             } else if (psessionEntry->htCapability &&
                                 pAssocReq->HTCaps.present) {
                 if ((psessionEntry->vhtTxChannelWidthSet ==
